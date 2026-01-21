@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schedules | ScoreFlow Admin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#F8FAFC] flex min-h-screen">
+    <!-- Sidebar (Same as index.html) -->
+    <!-- ... copy sidebar here or use a component ... -->
+
+    <main class="flex-1 p-6 md:p-12">
+        <div class="flex justify-between items-center mb-10">
+            <h1 class="text-3xl font-black text-slate-900">Presentation Schedules</h1>
+            <a href="add-group.html" class="bg-indigo-600 text-white px-6 py-3 rounded-2x font-bold shadow-lg">+ Add New Group</a>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="schedules-container">
+            <!-- Group Cards rendered here -->
+        </div>
+    </main>
+
+    <script src="../shared/js/data-store.js"></script>
+    <script src="admin-core.js"></script>
+</body>
+</html>

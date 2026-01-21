@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | ScoreFlow Admin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../shared/css/style.css">
+</head>
+<body class="bg-[#F8FAFC] flex min-h-screen">
+
+    <!-- Sidebar Navigation -->
+    <aside id="sidebar" class="hidden md:flex w-72 bg-white border-r border-slate-200 flex-col sticky top-0 h-screen p-8">
+        <div class="flex items-center gap-3 mb-10">
+            <div class="w-10 h-10 bg-indigo-600 rounded-2xl shadow-lg flex items-center justify-center text-white font-bold text-xl">S</div>
+            <span class="text-2xl font-black tracking-tight">ScoreFlow</span>
+        </div>
+        <nav class="space-y-2 flex-1">
+            <a href="index.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl font-bold text-indigo-600 bg-indigo-50 border-r-4 border-indigo-600">Dashboard</a>
+            <a href="users.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl font-semibold text-slate-400 hover:bg-slate-50 transition">Users</a>
+            <a href="schedules.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl font-semibold text-slate-400 hover:bg-slate-50 transition">Schedules</a>
+            <a href="performance.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl font-semibold text-slate-400 hover:bg-slate-50 transition">Performance</a>
+        </nav>
+        <button onclick="location.href='../index.html'" class="text-slate-400 hover:text-red-500 font-bold text-sm text-left">Sign Out</button>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-6 md:p-12">
+        <header class="mb-10">
+            <h1 class="text-3xl font-black text-slate-900">Dashboard Overview</h1>
+            <p class="text-slate-500">Welcome back, Administrator.</p>
+        </header>
+
+        <!-- Stats Bento Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
+            <div class="bg-white p-8 rounded-2x shadow-sm border border-slate-100">
+                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Total Groups</p>
+                <p id="total-groups" class="text-4xl font-black text-slate-900 mt-2">0</p>
+            </div>
+            <div class="bg-white p-8 rounded-2x shadow-sm border border-slate-100">
+                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Global Average</p>
+                <p id="global-avg" class="text-4xl font-black text-indigo-600 mt-2">0.0</p>
+            </div>
+            <div class="bg-red-600 p-8 rounded-2x shadow-xl shadow-indigo-200 text-white">
+                <p class="text-[10px] font-bold text-indigo-200 uppercase tracking-widest">Upcoming</p>
+                <p class="text-xl font-bold mt-2">Next: Group 3</p>
+                <p class="text-sm opacity-80">Monday, 09:00 AM</p>
+            </div>
+        </div>
+
+        <!-- Performance Chart Placeholder -->
+        <div class="bg-white p-8 rounded-2x border border-slate-100 shadow-sm">
+            <h3 class="font-bold text-lg mb-8">Quick Performance Chart</h3>
+            <div id="dashboard-chart" class="h-64 flex items-end gap-4 md:gap-8">
+                <!-- Bars injected by JS -->
+            </div>
+        </div>
+    </main>
+
+    <script src="../shared/js/data-store.js"></script>
+    <script src="admin-core.js"></script>
+</body>
+</html>
