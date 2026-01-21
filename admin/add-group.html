@@ -10,7 +10,7 @@
 </head>
 <body class="bg-slate-50 min-h-full">
 
-    <!-- Mobile Header -->
+    <!-- Mobile Header (Same as before) -->
     <div class="sticky top-0 inset-x-0 z-20 bg-white border-y px-4 sm:px-6 md:px-8 lg:hidden">
         <div class="flex justify-between items-center py-2">
             <a class="flex-none font-bold text-xl" href="#">ScoreFlow</a>
@@ -21,33 +21,17 @@
         </div>
     </div>
 
-    <!-- Sidebar -->
+    <!-- Sidebar (Consistent with other pages) -->
     <div id="hs-sidebar-footer" class="hs-overlay [--auto-close:lg] lg:block lg:translate-x-0 lg:end-auto lg:bottom-0 w-64 hs-overlay-open:translate-x-0 -translate-x-full transition-all duration-300 transform h-full hidden fixed top-0 start-0 bottom-0 z-[60] bg-white border-e border-gray-200" role="dialog" tabindex="-1">
         <div class="relative flex flex-col h-full max-h-full">
             <header class="p-4 flex justify-between items-center">
                 <a class="flex-none font-black text-2xl text-indigo-600" href="dashboard.html">ScoreFlow</a>
             </header>
-
             <nav class="h-full overflow-y-auto p-3">
                 <ul class="space-y-1.5">
-                    <li>
-                        <a class="flex items-center gap-x-3 py-2 px-2.5 text-sm text-gray-700 rounded-lg hover:bg-gray-100" href="dashboard.html">
-                            <svg class="size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-                            Dashboard
-                        </a>
-                    </li>
-                    <li>
-                        <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-700 rounded-lg hover:bg-gray-100" href="users.html">
-                            <svg class="size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
-                            Users
-                        </a>
-                    </li>
-                    <li>
-                        <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-800 bg-gray-100 font-medium rounded-lg" href="#">
-                            <svg class="size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
-                            Groups
-                        </a>
-                    </li>
+                    <li><a class="flex items-center gap-x-3 py-2 px-2.5 text-sm text-gray-700 rounded-lg hover:bg-gray-100" href="dashboard.html">Dashboard</a></li>
+                    <li><a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-700 rounded-lg hover:bg-gray-100" href="users.html">Users</a></li>
+                    <li><a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-800 bg-gray-100 font-medium rounded-lg" href="groups.html">Groups</a></li>
                 </ul>
             </nav>
         </div>
@@ -57,120 +41,115 @@
     <main class="lg:ps-64">
         <div class="p-4 sm:p-6 md:p-10 lg:p-12 max-w-[85rem] mx-auto">
             
-            <!-- Page Header -->
             <div class="flex flex-col md:flex-row md:items-center justify-between gap-y-4 mb-8">
                 <div>
                     <h1 class="text-3xl font-black text-slate-900">Groups</h1>
-                    <p class="text-slate-500">Organize users into teams and track collective performance.</p>
+                    <p class="text-slate-500">Manage teams and assign members.</p>
                 </div>
                 <button type="button" class="py-2 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg bg-indigo-600 text-white hover:bg-indigo-700">
-                    <svg class="size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
                     Create New Group
                 </button>
-            </div>
-
-            <!-- Filters -->
-            <div class="flex flex-col sm:flex-row gap-4 mb-8">
-                <div class="relative max-w-sm w-full">
-                    <input type="text" class="py-2 px-4 ps-11 block w-full border-gray-200 rounded-lg text-sm bg-white border shadow-sm" placeholder="Find a group...">
-                    <div class="absolute inset-y-0 start-0 flex items-center pointer-events-none ps-4">
-                        <svg class="size-4 text-gray-400" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-                    </div>
-                </div>
-                <select class="py-2 px-3 block border-gray-200 rounded-lg text-sm bg-white border shadow-sm">
-                    <option>Sort by: Newest</option>
-                    <option>Sort by: High Score</option>
-                    <option>Sort by: Most Members</option>
-                </select>
             </div>
 
             <!-- Groups Grid -->
             <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 
                 <!-- Group Card 1 -->
-                <div class="group flex flex-col bg-white border border-slate-200 shadow-sm rounded-xl hover:shadow-md transition">
+                <div class="flex flex-col bg-white border border-slate-200 shadow-sm rounded-xl">
                     <div class="p-5">
                         <div class="flex justify-between items-start mb-4">
-                            <div class="size-10 flex items-center justify-center bg-indigo-100 text-indigo-600 rounded-lg font-bold">
-                                G1
-                            </div>
-                            <button class="text-gray-400 hover:text-gray-600">
-                                <svg class="size-5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>
-                            </button>
+                            <div class="size-10 flex items-center justify-center bg-indigo-100 text-indigo-600 rounded-lg font-bold">A</div>
+                            <span class="text-xs font-medium px-2 py-1 bg-green-100 text-green-700 rounded-full">Active</span>
                         </div>
                         <h3 class="text-lg font-bold text-slate-800">Alpha Strategy Team</h3>
-                        <p class="text-sm text-slate-500 mt-1 line-clamp-2">Focusing on Q4 market expansion and competitive analysis.</p>
+                        <p class="text-sm text-slate-500 mt-1">6 Members assigned</p>
                         
-                        <div class="mt-6">
-                            <div class="flex justify-between text-xs font-medium text-slate-600 mb-1">
-                                <span>Overall Progress</span>
-                                <span>82%</span>
-                            </div>
-                            <div class="flex w-full h-1.5 bg-gray-100 rounded-full overflow-hidden">
-                                <div class="bg-indigo-600 h-full" style="width: 82%"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="px-5 py-4 border-t border-slate-100 mt-auto flex justify-between items-center">
-                        <div class="flex -space-x-2">
-                            <img class="inline-block size-7 rounded-full ring-2 ring-white" src="https://images.unsplash.com/photo-1531927557220-a9e23c1e4794?w=100&h=100&auto=format&fit=crop" alt="User">
-                            <img class="inline-block size-7 rounded-full ring-2 ring-white" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&h=100&auto=format&fit=crop" alt="User">
-                            <div class="inline-flex items-center justify-center size-7 rounded-full bg-slate-100 ring-2 ring-white text-[10px] font-medium text-slate-600">
-                                +4
-                            </div>
-                        </div>
-                        <span class="text-xs font-bold text-slate-400 uppercase tracking-tight">Avg: 8.4</span>
+                        <!-- Action to Open Member Section -->
+                        <button type="button" 
+                                data-hs-overlay="#hs-manage-members-drawer"
+                                class="mt-4 w-full py-2 px-3 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50">
+                            <svg class="size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" x2="19" y1="8" y2="14"/><line x1="22" x2="16" y1="11" y2="11"/></svg>
+                            Manage Members
+                        </button>
                     </div>
                 </div>
 
-                <!-- Group Card 2 -->
-                <div class="group flex flex-col bg-white border border-slate-200 shadow-sm rounded-xl hover:shadow-md transition">
-                    <div class="p-5">
-                        <div class="flex justify-between items-start mb-4">
-                            <div class="size-10 flex items-center justify-center bg-teal-100 text-teal-600 rounded-lg font-bold">
-                                D2
-                            </div>
-                            <button class="text-gray-400 hover:text-gray-600">
-                                <svg class="size-5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>
-                            </button>
-                        </div>
-                        <h3 class="text-lg font-bold text-slate-800">Design Systems</h3>
-                        <p class="text-sm text-slate-500 mt-1 line-clamp-2">Maintaining internal component libraries and UX documentation.</p>
-                        
-                        <div class="mt-6">
-                            <div class="flex justify-between text-xs font-medium text-slate-600 mb-1">
-                                <span>Overall Progress</span>
-                                <span>45%</span>
-                            </div>
-                            <div class="flex w-full h-1.5 bg-gray-100 rounded-full overflow-hidden">
-                                <div class="bg-teal-500 h-full" style="width: 45%"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="px-5 py-4 border-t border-slate-100 mt-auto flex justify-between items-center">
-                        <div class="flex -space-x-2">
-                            <img class="inline-block size-7 rounded-full ring-2 ring-white" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&auto=format&fit=crop" alt="User">
-                            <div class="inline-flex items-center justify-center size-7 rounded-full bg-slate-100 ring-2 ring-white text-[10px] font-medium text-slate-600">
-                                +1
-                            </div>
-                        </div>
-                        <span class="text-xs font-bold text-slate-400 uppercase tracking-tight">Avg: 9.1</span>
-                    </div>
-                </div>
-
-                <!-- Create Placeholder -->
-                <button class="flex flex-col items-center justify-center p-8 border-2 border-dashed border-slate-300 rounded-xl hover:border-indigo-400 hover:bg-indigo-50/50 transition group">
-                    <div class="size-12 rounded-full bg-slate-100 flex items-center justify-center text-slate-400 group-hover:bg-indigo-100 group-hover:text-indigo-600 transition">
-                        <svg class="size-6" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
-                    </div>
-                    <span class="mt-3 font-semibold text-slate-600 group-hover:text-indigo-600">Add New Group</span>
-                </button>
+                <!-- Repeatable Group Cards... -->
 
             </div>
-
         </div>
     </main>
 
+    <!-- MANAGE MEMBERS SECTION (Slide-over Drawer) -->
+    <div id="hs-manage-members-drawer" class="hs-overlay hs-overlay-open:translate-x-0 translate-x-full fixed top-0 end-0 transition-all duration-300 transform h-full max-w-sm w-full z-[80] bg-white border-s hidden" tabindex="-1">
+        <div class="flex flex-col h-full">
+            <!-- Header -->
+            <div class="flex justify-between items-center py-3 px-4 border-b">
+                <h3 class="font-bold text-gray-800">Manage Members</h3>
+                <button type="button" class="inline-flex justify-center items-center size-8 rounded-full border border-transparent bg-gray-100 text-gray-800 hover:bg-gray-200 focus:outline-none focus:bg-gray-200" data-hs-overlay="#hs-manage-members-drawer">
+                    <span class="sr-only">Close modal</span>
+                    <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                </button>
+            </div>
+
+            <!-- Body -->
+            <div class="p-4 overflow-y-auto">
+                <!-- Search Section -->
+                <div class="mb-6">
+                    <label class="block text-sm font-medium mb-2">Add New Member</label>
+                    <div class="relative">
+                        <input type="text" class="py-2 px-3 ps-10 block w-full border-gray-200 rounded-lg text-sm border focus:ring-indigo-500" placeholder="Search by name or email...">
+                        <div class="absolute inset-y-0 start-0 flex items-center pointer-events-none ps-3">
+                            <svg class="size-4 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Current Members List -->
+                <div>
+                    <h4 class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">Currently in Group</h4>
+                    <ul class="space-y-3">
+                        <!-- Member Item -->
+                        <li class="flex items-center justify-between bg-slate-50 p-2 rounded-lg">
+                            <div class="flex items-center gap-x-3">
+                                <img class="size-8 rounded-full" src="https://images.unsplash.com/photo-1531927557220-a9e23c1e4794?w=100&h=100&auto=format&fit=crop" alt="">
+                                <div>
+                                    <p class="text-sm font-medium text-gray-800">John Doe</p>
+                                    <p class="text-xs text-gray-500">Admin Role</p>
+                                </div>
+                            </div>
+                            <button class="text-gray-400 hover:text-red-600 transition">
+                                <svg class="size-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+                            </button>
+                        </li>
+
+                        <!-- Member Item -->
+                        <li class="flex items-center justify-between bg-slate-50 p-2 rounded-lg">
+                            <div class="flex items-center gap-x-3">
+                                <div class="size-8 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 text-xs font-bold">SM</div>
+                                <div>
+                                    <p class="text-sm font-medium text-gray-800">Sarah Meyer</p>
+                                    <p class="text-xs text-gray-500">Member</p>
+                                </div>
+                            </div>
+                            <button class="text-gray-400 hover:text-red-600 transition">
+                                <svg class="size-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Footer Action -->
+            <div class="mt-auto p-4 border-t bg-slate-50">
+                <button type="button" class="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg bg-indigo-600 text-white hover:bg-indigo-700" data-hs-overlay="#hs-manage-members-drawer">
+                    Save Changes
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Preline JS -->
     <script src="https://preline.co/assets/vendor/preline/dist/preline.js"></script>
 </body>
 </html>
