@@ -69,7 +69,7 @@
                 localStorage.setItem('token', data.token);
                 localStorage.setItem('user', JSON.stringify(data.user));
                 
-                window.location.href = 'dashboard.html';
+                window.location.href = '/';
             } catch (err) {
                 errorBox.innerText = err.message;
                 errorBox.classList.remove('hidden');
