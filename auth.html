@@ -124,7 +124,7 @@
                     localStorage.setItem('user', JSON.stringify(data.user));
                     
                     // Redirect to Dashboard
-                    window.location.href = 'dashboard.html';
+                    window.location.href = '/leader';
                 } else {
                     // SUCCESSFUL REGISTRATION
                     alert("Account created! Now please log in.");
@@ -143,7 +143,7 @@
 
         // Redirect if already logged in
         if (localStorage.getItem('token')) {
-            window.location.href = 'dashboard.html';
+            window.location.href = '/leader';
         }
     </script>
 </body>
