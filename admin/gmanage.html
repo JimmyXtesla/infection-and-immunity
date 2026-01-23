@@ -116,21 +116,50 @@
                 pool.innerHTML += `
                     <div class="flex items-center justify-between p-3 bg-slate-50 rounded-xl border border-slate-100">
                         <span class="text-sm font-bold text-slate-700">${u.name}</span>
-                        <button onclick="assignToGroup(${u.id})" class="text-[10px] font-black uppercase bg-indigo-600 text-white px-3 py-1.5 rounded-lg hover:bg-indigo-700 transition">Add to Team</button>
+                        <button onclick="addUserToGroup(${u.id})" class="text-[10px] font-black uppercase bg-indigo-600 text-white px-3 py-1.5 rounded-lg hover:bg-indigo-700 transition">Add to Team</button>
                     </div>
                 `;
             });
         }
 
-        async function assignToGroup(userId) {
-            const response = await fetch(`${API_URL}/groups/members`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
-                body: JSON.stringify({ group_id: selectedGroupId, user_id: userId })
-            });
-            if (response.ok) alert("Presenter assigned successfully!");
-            else alert("User is already in this group or error occurred.");
+       async function addUserToGroup(userId, btn) {
+    // 1. Visual feedback
+    const originalContent = btn.innerHTML;
+    btn.disabled = true;
+    btn.innerHTML = '...';
+
+    try {
+        const res = await fetch(`${API_URL}/groups/members`, {
+            method: 'POST',
+            headers: { 
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}` 
+            },
+            body: JSON.stringify({ 
+                group_id: activeGroupId, 
+                user_id: userId          
+            })
+        });
+
+        const data = await res.json();
+
+        if (res.ok) {
+            // Success: Change button to a green checkmark
+            btn.className = "size-8 flex items-center justify-center bg-green-500 text-white rounded-lg";
+            btn.innerHTML = '✓';
+        } else {
+            // Show the specific error (like "User already in group")
+            alert(data.error);
+            btn.disabled = false;
+            btn.innerHTML = originalContent;
         }
+    } catch (err) {
+        console.error("Assignment failed:", err);
+        alert("Check your internet connection or API URL");
+        btn.disabled = false;
+        btn.innerHTML = originalContent;
+    }
+}
 
         document.getElementById('new-group-form').addEventListener('submit', async (e) => {
             e.preventDefault();
