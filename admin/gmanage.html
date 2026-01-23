@@ -141,26 +141,43 @@
         }
 
         // 3. Fetch Users and identify their current group
-        async function fetchUsersWithStatus() {
-            const pool = document.getElementById('user-pool');
-            pool.innerHTML = '<div class="col-span-full py-10 text-center text-slate-400 animate-pulse">Syncing user database...</div>';
-            
-            try {
-                const res = await fetch(`${API_URL}/users`, {
-                    headers: { 'Authorization': `Bearer ${token}` }
-                });
-                allUsers = await res.json();
-                
-                // We also need to know who is in the current group to mark them as "Already Here"
-                const memRes = await fetch(`${API_URL}/groups/${activeGroupId}/members`, {
-                    headers: { 'Authorization': `Bearer ${token}` }
-                });
-                const currentMembers = await memRes.json();
-                const memberIds = currentMembers.map(m => m.id);
+       async function fetchUsersWithStatus() {
+    const pool = document.getElementById('user-pool');
+    pool.innerHTML = '<div class="col-span-full py-10 text-center text-slate-400 animate-pulse">Syncing user database...</div>';
+    
+    try {
+        // 1. Fetch ALL users
+        const res = await fetch(`${API_URL}/users`, {
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
+        
+        if (!res.ok) throw new Error(`Users API returned ${res.status}`);
+        allUsers = await res.json();
+        
+        // 2. Fetch members of the CURRENT group
+        // Note: Make sure this endpoint exists in your index.js!
+        const memRes = await fetch(`${API_URL}/groups/${activeGroupId}/members`, {
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
 
-                renderUserPool(memberIds);
-            } catch (err) { console.error(err); }
-        }
+        if (!memRes.ok) throw new Error(`Members API returned ${memRes.status}`);
+        const currentMembers = await memRes.json();
+        
+        // Create an array of IDs who are already in this group
+        const memberIds = Array.isArray(currentMembers) ? currentMembers.map(m => m.id) : [];
+
+        renderUserPool(memberIds);
+
+    } catch (err) {
+        console.error("SYNC ERROR:", err);
+        pool.innerHTML = `
+            <div class="col-span-full py-10 text-center">
+                <p class="text-red-500 font-bold">Failed to sync database</p>
+                <p class="text-xs text-slate-400">${err.message}</p>
+                <button onclick="fetchUsersWithStatus()" class="mt-2 text-indigo-600 text-xs font-bold underline">Try Again</button>
+            </div>`;
+    }
+}
 
         function renderUserPool(memberIds) {
             const pool = document.getElementById('user-pool');
