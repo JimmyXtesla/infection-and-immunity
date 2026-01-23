@@ -3,34 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Groups | ScoreFlow Admin</title>
+    <title>Add Group | I and I ScoreFlow</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://preline.co/assets/css/main.min.css">
-    <link rel="stylesheet" href="../shared/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>body { font-family: 'Inter', sans-serif; }</style>
 </head>
 <body class="bg-slate-50 min-h-full">
 
-    <div class="sticky top-0 inset-x-0 z-20 bg-white border-y px-4 sm:px-6 md:px-8 lg:hidden">
-        <div class="flex justify-between items-center py-2">
-            <a class="flex-none font-bold text-xl" href="#">ScoreFlow</a>
-            <button type="button" class="py-2 px-3 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm" data-hs-overlay="#hs-sidebar-footer">
-                <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" x2="21" y1="6" y2="6"/><line x1="3" x2="21" y1="12" y2="12"/><line x1="3" x2="21" y1="18" y2="18"/></svg>
-                Menu
+    <!-- Mobile Header -->
+    <div class="sticky top-0 inset-x-0 z-20 bg-white border-y px-4 py-2 lg:hidden">
+        <div class="flex justify-between items-center">
+            <a class="font-bold text-xl text-indigo-600" href="#">I and I</a>
+            <button type="button" class="p-2 border rounded-lg" data-hs-overlay="#hs-sidebar-footer">
+                <svg class="size-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="3" x2="21" y1="6" y2="6"/><line x1="3" x2="21" y1="12" y2="12"/><line x1="3" x2="21" y1="18" y2="18"/></svg>
             </button>
         </div>
     </div>
 
-    <!-- Sidebar (Consistent with other pages) -->
+    <!-- Sidebar -->
     <div id="hs-sidebar-footer" class="hs-overlay [--auto-close:lg] lg:block lg:translate-x-0 lg:end-auto lg:bottom-0 w-64 hs-overlay-open:translate-x-0 -translate-x-full transition-all duration-300 transform h-full hidden fixed top-0 start-0 bottom-0 z-[60] bg-white border-e border-gray-200" role="dialog" tabindex="-1">
-        <div class="relative flex flex-col h-full max-h-full">
-            <header class="p-4 flex justify-between items-center">
-                <a class="flex-none font-black text-2xl text-indigo-600" href="dashboard.html">ScoreFlow</a>
-            </header>
+        <div class="relative flex flex-col h-full">
+            <header class="p-4"><a class="font-black text-2xl text-indigo-600" href="dashboard.html">I and I</a></header>
             <nav class="h-full overflow-y-auto p-3">
-                <ul class="space-y-1.5">
-                    <li><a class="flex items-center gap-x-3 py-2 px-2.5 text-sm text-gray-700 rounded-lg hover:bg-gray-100" href="dashboard.html">Dashboard</a></li>
-                    <li><a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-700 rounded-lg hover:bg-gray-100" href="users.html">Users</a></li>
-                    <li><a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-800 bg-gray-100 font-medium rounded-lg" href="groups.html">Groups</a></li>
+                <ul class="space-y-1.5 text-sm">
+                    <li><a class="flex items-center gap-x-3 py-2 px-2.5 text-gray-700 rounded-lg hover:bg-gray-100" href="dashboard.html">Dashboard</a></li>
+                    <li><a class="flex items-center gap-x-3 py-2 px-2.5 text-gray-700 rounded-lg hover:bg-gray-100" href="users.html">Users</a></li>
+                    <li><a class="flex items-center gap-x-3 py-2 px-2.5 bg-indigo-50 text-indigo-600 font-bold rounded-lg" href="groups.html">Groups</a></li>
+                    <li><a class="flex items-center gap-x-3 py-2 px-2.5 text-gray-700 rounded-lg hover:bg-gray-100" href="score.html">Scoring Mode</a></li>
                 </ul>
             </nav>
         </div>
@@ -38,117 +38,97 @@
 
     <!-- Main Content -->
     <main class="lg:ps-64">
-        <div class="p-4 sm:p-6 md:p-10 lg:p-12 max-w-[85rem] mx-auto">
+        <div class="p-4 sm:p-6 md:p-10 lg:p-12 max-w-2xl mx-auto">
             
-            <div class="flex flex-col md:flex-row md:items-center justify-between gap-y-4 mb-8">
-                <div>
-                    <h1 class="text-3xl font-black text-slate-900">Groups</h1>
-                    <p class="text-slate-500">Manage teams and assign members.</p>
-                </div>
-                <button type="button" class="py-2 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg bg-indigo-600 text-white hover:bg-indigo-700">
-                    Create New Group
-                </button>
-            </div>
+            <!-- Breadcrumbs -->
+            <nav class="flex items-center gap-x-3 mb-6 text-sm text-slate-500">
+                <a href="groups.html" class="hover:text-indigo-600 transition">Groups</a>
+                <svg class="size-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>
+                <span class="font-bold text-indigo-600">New Group</span>
+            </nav>
 
-            <!-- Groups Grid -->
-            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                
-                <!-- Group Card 1 -->
-                <div class="flex flex-col bg-white border border-slate-200 shadow-sm rounded-xl">
-                    <div class="p-5">
-                        <div class="flex justify-between items-start mb-4">
-                            <div class="size-10 flex items-center justify-center bg-indigo-100 text-indigo-600 rounded-lg font-bold">A</div>
-                            <span class="text-xs font-medium px-2 py-1 bg-green-100 text-green-700 rounded-full">Active</span>
-                        </div>
-                        <h3 class="text-lg font-bold text-slate-800">Alpha Strategy Team</h3>
-                        <p class="text-sm text-slate-500 mt-1">6 Members assigned</p>
-                        
-                        <!-- Action to Open Member Section -->
-                        <button type="button" 
-                                data-hs-overlay="#hs-manage-members-drawer"
-                                class="mt-4 w-full py-2 px-3 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50">
-                            <svg class="size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" x2="19" y1="8" y2="14"/><line x1="22" x2="16" y1="11" y2="11"/></svg>
-                            Manage Members
-                        </button>
+            <header class="mb-8">
+                <h1 class="text-3xl font-black text-slate-900">Create New Group</h1>
+                <p class="text-slate-500">Define a new cohort or team for performance tracking.</p>
+            </header>
+
+            <!-- Form Card -->
+            <div class="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
+                <form id="add-group-form" class="p-8 space-y-6">
+                    <div>
+                        <label class="block text-xs font-black text-slate-400 uppercase tracking-widest mb-2">Group Name</label>
+                        <input type="text" id="g-name" required 
+                            class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-4 focus:ring-indigo-50 focus:border-indigo-500 outline-none transition-all placeholder:text-slate-300" 
+                            placeholder="e.g. Q1 Presentation Cohort">
                     </div>
-                </div>
 
-                <!-- Repeatable Group Cards... -->
+                    <div>
+                        <label class="block text-xs font-black text-slate-400 uppercase tracking-widest mb-2">Description</label>
+                        <textarea id="g-desc" rows="4" 
+                            class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-4 focus:ring-indigo-50 focus:border-indigo-500 outline-none transition-all placeholder:text-slate-300" 
+                            placeholder="What is the purpose of this group?"></textarea>
+                    </div>
 
+                    <div id="error-box" class="hidden p-3 rounded-xl bg-red-50 border border-red-100 text-red-600 text-xs font-bold text-center"></div>
+
+                    <div class="flex gap-3 pt-4">
+                        <button type="submit" id="submit-btn" class="flex-1 bg-indigo-600 text-white font-bold py-3.5 rounded-xl hover:bg-indigo-700 active:scale-[0.98] transition-all shadow-xl shadow-indigo-100">
+                            Create Group
+                        </button>
+                        <a href="groups.html" class="px-6 py-3.5 text-sm font-bold text-slate-500 hover:text-slate-700 transition">
+                            Cancel
+                        </a>
+                    </div>
+                </form>
             </div>
         </div>
     </main>
 
-    <!-- MANAGE MEMBERS SECTION (Slide-over Drawer) -->
-    <div id="hs-manage-members-drawer" class="hs-overlay hs-overlay-open:translate-x-0 translate-x-full fixed top-0 end-0 transition-all duration-300 transform h-full max-w-sm w-full z-[80] bg-white border-s hidden" tabindex="-1">
-        <div class="flex flex-col h-full">
-            <!-- Header -->
-            <div class="flex justify-between items-center py-3 px-4 border-b">
-                <h3 class="font-bold text-gray-800">Manage Members</h3>
-                <button type="button" class="inline-flex justify-center items-center size-8 rounded-full border border-transparent bg-gray-100 text-gray-800 hover:bg-gray-200 focus:outline-none focus:bg-gray-200" data-hs-overlay="#hs-manage-members-drawer">
-                    <span class="sr-only">Close modal</span>
-                    <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-                </button>
-            </div>
-
-            <!-- Body -->
-            <div class="p-4 overflow-y-auto">
-                <!-- Search Section -->
-                <div class="mb-6">
-                    <label class="block text-sm font-medium mb-2">Add New Member</label>
-                    <div class="relative">
-                        <input type="text" class="py-2 px-3 ps-10 block w-full border-gray-200 rounded-lg text-sm border focus:ring-indigo-500" placeholder="Search by name or email...">
-                        <div class="absolute inset-y-0 start-0 flex items-center pointer-events-none ps-3">
-                            <svg class="size-4 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Current Members List -->
-                <div>
-                    <h4 class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">Currently in Group</h4>
-                    <ul class="space-y-3">
-                        <!-- Member Item -->
-                        <li class="flex items-center justify-between bg-slate-50 p-2 rounded-lg">
-                            <div class="flex items-center gap-x-3">
-                                <img class="size-8 rounded-full" src="https://images.unsplash.com/photo-1531927557220-a9e23c1e4794?w=100&h=100&auto=format&fit=crop" alt="">
-                                <div>
-                                    <p class="text-sm font-medium text-gray-800">John Doe</p>
-                                    <p class="text-xs text-gray-500">Admin Role</p>
-                                </div>
-                            </div>
-                            <button class="text-gray-400 hover:text-red-600 transition">
-                                <svg class="size-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
-                            </button>
-                        </li>
-
-                        <!-- Member Item -->
-                        <li class="flex items-center justify-between bg-slate-50 p-2 rounded-lg">
-                            <div class="flex items-center gap-x-3">
-                                <div class="size-8 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 text-xs font-bold">SM</div>
-                                <div>
-                                    <p class="text-sm font-medium text-gray-800">Sarah Meyer</p>
-                                    <p class="text-xs text-gray-500">Member</p>
-                                </div>
-                            </div>
-                            <button class="text-gray-400 hover:text-red-600 transition">
-                                <svg class="size-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
-                            </button>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- Footer Action -->
-            <div class="mt-auto p-4 border-t bg-slate-50">
-                <button type="button" class="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg bg-indigo-600 text-white hover:bg-indigo-700" data-hs-overlay="#hs-manage-members-drawer">
-                    Save Changes
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Preline JS -->
     <script src="https://preline.co/assets/vendor/preline/dist/preline.js"></script>
+    <script>
+        const API_URL = "https://scorer-api.vercel.app/api"; 
+        const token = localStorage.getItem('token');
+
+        if (!token) window.location.href = 'login.html';
+
+        document.getElementById('add-group-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('submit-btn');
+            const errorBox = document.getElementById('error-box');
+            
+            errorBox.classList.add('hidden');
+            btn.disabled = true;
+            btn.innerText = "Saving Group...";
+
+            const payload = {
+                name: document.getElementById('g-name').value,
+                description: document.getElementById('g-desc').value
+            };
+
+            try {
+                const response = await fetch(`${API_URL}/groups`, {
+                    method: 'POST',
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}` 
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) throw new Error(data.error || "Failed to create group");
+
+                // Success
+                window.location.href = 'groups.html';
+
+            } catch (err) {
+                errorBox.innerText = err.message;
+                errorBox.classList.remove('hidden');
+                btn.disabled = false;
+                btn.innerText = "Create Group";
+            }
+        });
+    </script>
 </body>
 </html>
