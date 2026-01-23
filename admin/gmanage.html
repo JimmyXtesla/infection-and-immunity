@@ -50,7 +50,7 @@
                 <!-- Left: Group Selection List -->
                 <div class="lg:col-span-1 space-y-4">
                     <h3 class="text-xs font-black text-slate-400 uppercase tracking-widest">1. Select Target Group</h3>
-                    <div id="group-list" class="bg-white border border-slate-200 rounded-2xl shadow-sm divide-y overflow-hidden">
+                    <div id="group-list" class="bg-white border border-slate-200  shadow-sm divide-y overflow-hidden">
                         <!-- Groups injected here -->
                     </div>
                 </div>
@@ -58,7 +58,7 @@
                 <!-- Right: Assignment Interface -->
                 <div class="lg:col-span-2">
                     <!-- Empty State -->
-                    <div id="no-selection-state" class="bg-white border border-slate-200 rounded-3xl h-96 flex flex-col items-center justify-center text-slate-400 shadow-sm">
+                    <div id="no-selection-state" class="bg-white border border-slate-200  h-96 flex flex-col items-center justify-center text-slate-400 shadow-sm">
                         <div class="size-16 bg-slate-50 rounded-full flex items-center justify-center mb-4">
                             <svg class="size-8 text-slate-200" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 18.72a9.094 9.094 0 0 0 3.741-3.418M11.25 15l3 3 6-6"/></svg>
                         </div>
@@ -67,12 +67,12 @@
 
                     <!-- Active Panel -->
                     <div id="manage-panel" class="hidden space-y-6">
-                        <div class="bg-indigo-600 rounded-3xl p-6 text-white shadow-xl shadow-indigo-100">
+                        <div class="bg-indigo-600 l p-6 text-white shadow-xl shadow-indigo-100">
                             <span class="text-[10px] font-black uppercase tracking-widest text-indigo-200">Active Target</span>
                             <h2 id="active-group-name" class="text-3xl font-black">Group Name</h2>
                         </div>
 
-                        <div class="bg-white border border-slate-200 rounded-3xl shadow-sm overflow-hidden">
+                        <div class="bg-white border border-slate-200  shadow-sm overflow-hidden">
                             <div class="p-4 border-b bg-slate-50/50 flex flex-col sm:flex-row justify-between items-center gap-4">
                                 <h4 class="font-black text-slate-700 uppercase text-[10px] tracking-widest">2. Assign Presenters to this Team</h4>
                                 <input type="text" id="user-search" onkeyup="filterUsers()" class="w-full sm:w-64 px-4 py-2 bg-white border border-slate-200 rounded-xl text-xs outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Search presenters...">
