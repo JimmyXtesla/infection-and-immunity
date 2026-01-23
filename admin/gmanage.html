@@ -42,49 +42,43 @@
             
             <header class="mb-8">
                 <h1 class="text-3xl font-black text-slate-900">Team Assignments</h1>
-                <p class="text-slate-500">Assign presenters to specific groups for the current rotation.</p>
+                <p class="text-slate-500">Users can only belong to one group at a time. Assigning them here will remove them from any previous team.</p>
             </header>
 
             <div class="grid lg:grid-cols-3 gap-8">
                 
                 <!-- Left: Group Selection List -->
                 <div class="lg:col-span-1 space-y-4">
-                    <h3 class="text-xs font-black text-slate-400 uppercase tracking-widest">Select a Group</h3>
+                    <h3 class="text-xs font-black text-slate-400 uppercase tracking-widest">1. Select Target Group</h3>
                     <div id="group-list" class="bg-white border border-slate-200 rounded-2xl shadow-sm divide-y overflow-hidden">
                         <!-- Groups injected here -->
-                        <div class="p-10 text-center animate-pulse text-slate-300">Loading Groups...</div>
                     </div>
                 </div>
 
                 <!-- Right: Assignment Interface -->
                 <div class="lg:col-span-2">
-                    <div id="no-selection-state" class="bg-slate-100 border-2 border-dashed border-slate-200 rounded-3xl h-96 flex flex-col items-center justify-center text-slate-400">
-                        <svg class="size-12 mb-4 opacity-20" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M18 18.72a9.094 9.094 0 0 0 3.741-3.418M11.25 15l3 3 6-6M9 4.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm3 0a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm0 0a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/></svg>
-                        <p class="font-bold uppercase tracking-widest text-xs">Select a group on the left to manage members</p>
+                    <!-- Empty State -->
+                    <div id="no-selection-state" class="bg-white border border-slate-200 rounded-3xl h-96 flex flex-col items-center justify-center text-slate-400 shadow-sm">
+                        <div class="size-16 bg-slate-50 rounded-full flex items-center justify-center mb-4">
+                            <svg class="size-8 text-slate-200" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 18.72a9.094 9.094 0 0 0 3.741-3.418M11.25 15l3 3 6-6"/></svg>
+                        </div>
+                        <p class="font-bold text-sm">Select a group to manage members</p>
                     </div>
 
+                    <!-- Active Panel -->
                     <div id="manage-panel" class="hidden space-y-6">
-                        <!-- Active Group Header -->
-                        <div class="bg-indigo-600 rounded-3xl p-8 text-white shadow-xl shadow-indigo-100 relative overflow-hidden">
-                            <div class="relative z-10">
-                                <span class="text-[10px] font-black uppercase tracking-[0.2em] text-indigo-200">Currently Managing</span>
-                                <h2 id="active-group-name" class="text-3xl font-black mt-1">Group Name</h2>
-                                <p id="active-group-desc" class="text-indigo-100 text-sm mt-2 opacity-80"></p>
-                            </div>
-                            <div class="absolute -right-10 -bottom-10 size-40 bg-white/10 rounded-full blur-3xl"></div>
+                        <div class="bg-indigo-600 rounded-3xl p-6 text-white shadow-xl shadow-indigo-100">
+                            <span class="text-[10px] font-black uppercase tracking-widest text-indigo-200">Active Target</span>
+                            <h2 id="active-group-name" class="text-3xl font-black">Group Name</h2>
                         </div>
 
-                        <!-- User Pool (Searchable) -->
                         <div class="bg-white border border-slate-200 rounded-3xl shadow-sm overflow-hidden">
-                            <div class="p-6 border-b flex flex-col sm:flex-row justify-between items-center gap-4">
-                                <h4 class="font-black text-slate-800 uppercase text-xs tracking-widest">Assign Presenters</h4>
-                                <div class="relative w-full sm:w-64">
-                                    <input type="text" id="user-search" onkeyup="filterUsers()" class="w-full pl-10 pr-4 py-2 bg-slate-50 border-none rounded-xl text-sm outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Search users...">
-                                    <svg class="size-4 absolute left-3 top-2.5 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-                                </div>
+                            <div class="p-4 border-b bg-slate-50/50 flex flex-col sm:flex-row justify-between items-center gap-4">
+                                <h4 class="font-black text-slate-700 uppercase text-[10px] tracking-widest">2. Assign Presenters to this Team</h4>
+                                <input type="text" id="user-search" onkeyup="filterUsers()" class="w-full sm:w-64 px-4 py-2 bg-white border border-slate-200 rounded-xl text-xs outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Search presenters...">
                             </div>
                             
-                            <div id="user-pool" class="grid sm:grid-cols-2 gap-3 p-6 max-h-[500px] overflow-y-auto">
+                            <div id="user-pool" class="grid sm:grid-cols-2 gap-3 p-4 max-h-[500px] overflow-y-auto">
                                 <!-- Users injected here -->
                             </div>
                         </div>
@@ -95,87 +89,109 @@
         </div>
     </main>
 
+    <script src="https://preline.co/assets/vendor/preline/dist/preline.js"></script>
     <script>
-        const API_URL = "https://scorer-api.vercel.app/api";
+        const API_URL = "https://scorer-api.vercel.app/api"; 
         const token = localStorage.getItem('token');
+        
         let activeGroupId = null;
         let allUsers = [];
+        let allGroups = [];
 
         if (!token) window.location.href = 'login.html';
 
-        // 1. Fetch Groups for the left sidebar
-        async function fetchGroups() {
+        // 1. Initial Load: Fetch Groups
+        async function init() {
             try {
                 const res = await fetch(`${API_URL}/groups`, {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
-                const groups = await res.json();
-                const list = document.getElementById('group-list');
-                list.innerHTML = '';
-
-                groups.forEach(g => {
-                    list.innerHTML += `
-                        <button onclick="selectGroup(${g.id}, '${g.name}', '${g.description || ''}')" 
-                                class="w-full text-left p-5 hover:bg-indigo-50 transition-all flex items-center justify-between group">
-                            <div>
-                                <div class="font-black text-slate-800 text-sm group-hover:text-indigo-600">${g.name}</div>
-                                <div class="text-[10px] font-bold text-slate-400 uppercase mt-1">ID: ${g.id}</div>
-                            </div>
-                            <svg class="size-4 text-slate-300 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="m8.25 4.5 7.5 7.5-7.5 7.5"/></svg>
-                        </button>
-                    `;
-                });
+                allGroups = await res.json();
+                renderGroups();
             } catch (err) { console.error(err); }
         }
 
-        // 2. Select Group and Load Pool
-        function selectGroup(id, name, desc) {
+        function renderGroups() {
+            const list = document.getElementById('group-list');
+            list.innerHTML = '';
+            allGroups.forEach(g => {
+                const isActive = activeGroupId === g.id;
+                list.innerHTML += `
+                    <button onclick="selectGroup(${g.id}, '${g.name}')" 
+                            class="w-full text-left p-5 transition-all flex items-center justify-between group ${isActive ? 'bg-indigo-50' : 'hover:bg-slate-50'}">
+                        <div>
+                            <div class="font-black ${isActive ? 'text-indigo-600' : 'text-slate-800'} text-sm">${g.name}</div>
+                            <div class="text-[10px] font-bold text-slate-400 uppercase mt-1">Group ID: ${g.id}</div>
+                        </div>
+                        <svg class="size-4 ${isActive ? 'text-indigo-600' : 'text-slate-300'}" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="m8.25 4.5 7.5 7.5-7.5 7.5"/></svg>
+                    </button>
+                `;
+            });
+        }
+
+        // 2. Select Group & Load Users
+        function selectGroup(id, name) {
             activeGroupId = id;
             document.getElementById('no-selection-state').classList.add('hidden');
             document.getElementById('manage-panel').classList.remove('hidden');
             document.getElementById('active-group-name').innerText = name;
-            document.getElementById('active-group-desc').innerText = desc;
             
-            fetchUsers();
+            renderGroups(); // Refresh left list highlight
+            fetchUsersWithStatus();
         }
 
-        // 3. Fetch all users to populate the pool
-        async function fetchUsers() {
+        // 3. Fetch Users and identify their current group
+        async function fetchUsersWithStatus() {
             const pool = document.getElementById('user-pool');
-            pool.innerHTML = '<div class="col-span-full py-10 text-center text-slate-400">Loading user pool...</div>';
+            pool.innerHTML = '<div class="col-span-full py-10 text-center text-slate-400 animate-pulse">Syncing user database...</div>';
             
             try {
                 const res = await fetch(`${API_URL}/users`, {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
                 allUsers = await res.json();
-                renderUserPool(allUsers);
+                
+                // We also need to know who is in the current group to mark them as "Already Here"
+                const memRes = await fetch(`${API_URL}/groups/${activeGroupId}/members`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const currentMembers = await memRes.json();
+                const memberIds = currentMembers.map(m => m.id);
+
+                renderUserPool(memberIds);
             } catch (err) { console.error(err); }
         }
 
-        function renderUserPool(users) {
+        function renderUserPool(memberIds) {
             const pool = document.getElementById('user-pool');
             pool.innerHTML = '';
 
-            users.forEach(u => {
+            allUsers.forEach(u => {
+                const isAlreadyInThisGroup = memberIds.includes(u.id);
+                
                 pool.innerHTML += `
-                    <div class="flex items-center justify-between p-4 border border-slate-100 bg-slate-50 rounded-2xl hover:border-indigo-200 transition">
+                    <div class="flex items-center justify-between p-4 border ${isAlreadyInThisGroup ? 'border-indigo-100 bg-indigo-50/30' : 'border-slate-100 bg-slate-50'} rounded-2xl transition">
                         <div class="truncate mr-2">
                             <p class="text-sm font-black text-slate-800 truncate">${u.name}</p>
-                            <p class="text-[10px] font-bold text-slate-400 uppercase">${u.role}</p>
+                            <span class="text-[9px] font-black uppercase px-1.5 py-0.5 rounded bg-white border border-slate-200 text-slate-400">
+                                ${u.role}
+                            </span>
                         </div>
-                        <button onclick="assignMember(${u.id}, this)" 
-                                class="shrink-0 size-8 bg-white border border-slate-200 text-indigo-600 rounded-xl flex items-center justify-center font-black hover:bg-indigo-600 hover:text-white transition shadow-sm">
-                            +
-                        </button>
+                        
+                        ${isAlreadyInThisGroup ? 
+                            `<span class="text-indigo-600 font-black text-xs pr-2">Member</span>` : 
+                            `<button onclick="assignMember(${u.id}, this)" 
+                                    class="shrink-0 size-8 bg-white border border-slate-200 text-indigo-600 rounded-xl flex items-center justify-center font-black hover:bg-indigo-600 hover:text-white transition shadow-sm">
+                                +
+                            </button>`
+                        }
                     </div>
                 `;
             });
         }
 
-        // 4. Assign Member logic
+        // 4. The Reassignment Action
         async function assignMember(userId, btn) {
-            const originalBtn = btn.innerHTML;
             btn.disabled = true;
             btn.innerHTML = `<span class="animate-spin size-3 border-2 border-indigo-500 border-t-transparent rounded-full"></span>`;
 
@@ -195,32 +211,32 @@
                 if (res.ok) {
                     btn.className = "shrink-0 size-8 bg-green-500 text-white rounded-xl flex items-center justify-center font-black shadow-lg";
                     btn.innerHTML = "✓";
+                    // Refresh pool to update visual states for other groups
+                    setTimeout(() => fetchUsersWithStatus(), 800);
                 } else {
                     const data = await res.json();
-                    alert(data.error || "User already assigned");
+                    alert(data.error);
                     btn.disabled = false;
-                    btn.innerHTML = originalBtn;
+                    btn.innerHTML = "+";
                 }
             } catch (err) {
                 alert("Failed to connect to API");
                 btn.disabled = false;
-                btn.innerHTML = originalBtn;
+                btn.innerHTML = "+";
             }
         }
 
         function filterUsers() {
             const query = document.getElementById('user-search').value.toLowerCase();
-            const filtered = allUsers.filter(u => u.name.toLowerCase().includes(query));
-            renderUserPool(filtered);
+            // This is a simple visual filter
+            const cards = document.getElementById('user-pool').children;
+            for (let card of cards) {
+                const name = card.querySelector('p').innerText.toLowerCase();
+                card.style.display = name.includes(query) ? 'flex' : 'none';
+            }
         }
 
-        function logout() {
-            localStorage.clear();
-            window.location.href = 'login.html';
-        }
-
-        // Initialize
-        fetchGroups();
+        init();
     </script>
 </body>
 </html>
