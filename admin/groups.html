@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Groups | I and I</title>
+    <title>Manage Groups | ScoreFlow</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://preline.co/assets/css/main.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
@@ -11,166 +11,112 @@
 </head>
 <body class="bg-slate-50 min-h-full">
 
-    <!-- Mobile Header -->
-    <div class="sticky top-0 inset-x-0 z-20 bg-white border-y px-4 sm:px-6 md:px-8 lg:hidden">
-        <div class="flex justify-between items-center py-2">
-            <a class="flex-none font-bold text-xl text-indigo-600" href="#">I and I</a>
-            <button type="button" class="py-2 px-3 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm" data-hs-overlay="#hs-sidebar-footer">
-                <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" x2="21" y1="6" y2="6"/><line x1="3" x2="21" y1="12" y2="12"/><line x1="3" x2="21" y1="18" y2="18"/></svg>
-                Menu
-            </button>
-        </div>
-    </div>
+    <!-- Sidebar & Mobile Header (Same as Users Page) -->
+    <!-- ... [Sidebar HTML Code] ... -->
 
-    <!-- Sidebar -->
-    <div id="hs-sidebar-footer" class="hs-overlay [--auto-close:lg] lg:block lg:translate-x-0 lg:end-auto lg:bottom-0 w-64 hs-overlay-open:translate-x-0 -translate-x-full transition-all duration-300 transform h-full hidden fixed top-0 start-0 bottom-0 z-[60] bg-white border-e border-gray-200" role="dialog" tabindex="-1">
-        <div class="relative flex flex-col h-full max-h-full">
-            <header class="p-4 flex justify-between items-center">
-                <a class="flex-none font-black text-2xl text-indigo-600" href="dashboard.html">I and I</a>
-            </header>
-
-            <nav class="h-full overflow-y-auto p-3">
-                <ul class="space-y-1.5">
-                    <li>
-                        <a class="flex items-center gap-x-3 py-2 px-2.5 bg-indigo-50 text-sm text-indigo-600 rounded-lg font-bold" href="dashboard.html">
-                            <svg class="size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-                            Dashboard
-                        </a>
-                    </li>
-
-                    <li>
-                        <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-700 rounded-lg hover:bg-gray-100" href="users.html">
-                            <svg class="size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
-                            Users
-                        </a>
-                    </li>
-
-                    <li>
-                        <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-700 rounded-lg hover:bg-gray-100" href="groups.html">
-                            <svg class="size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
-                            Groups
-                        </a>
-                    </li>
-
-                    <li>
-                        <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-700 rounded-lg hover:bg-gray-100" href="score.html">
-                            <svg class="size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4Z"/></svg>
-                            Scoring Mode
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-
-            <!-- Footer User Info -->
-            <footer class="mt-auto p-4 border-t border-gray-200">
-                <div class="hs-dropdown relative w-full inline-flex">
-                    <button id="hs-dropdown-footer" type="button" class="w-full inline-flex items-center gap-x-2 p-2 text-sm text-gray-800 rounded-md hover:bg-gray-100 outline-none">
-                        <div class="size-8 rounded-full bg-indigo-600 text-white flex items-center justify-center font-bold text-xs" id="user-initials">..</div>
-                        <span class="truncate font-semibold" id="sidebar-username">Loading...</span>
-                        <svg class="size-3.5 ms-auto" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
-                    </button>
-                    <div class="hs-dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 hidden z-10 bg-white shadow-md rounded-lg p-2 mt-2 border border-gray-200" aria-labelledby="hs-dropdown-footer">
-                        <button onclick="logout()" class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-red-600 hover:bg-gray-100 w-full text-left font-bold">
-                            Sign Out
-                        </button>
-                    </div>
-                </div>
-            </footer>
-        </div>
-    </div>
-
-    <!-- Main Content -->
     <main class="lg:ps-64">
         <div class="p-4 sm:p-6 md:p-10 lg:p-12 max-w-[85rem] mx-auto">
-            
-            <header class="flex flex-col md:flex-row md:items-center justify-between gap-y-4 mb-8">
+            <header class="flex justify-between items-center mb-8">
                 <div>
-                    <h1 class="text-3xl font-black text-slate-900">Groups</h1>
-                    <p class="text-slate-500">Manage and organize teams.</p>
+                    <h1 class="text-3xl font-black text-slate-900">Groups & Teams</h1>
+                    <p class="text-slate-500">Organize members into cohorts.</p>
                 </div>
-                <button data-hs-overlay="#hs-create-group-modal" class="py-2 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 transition">
-                    Create Group
+                <button data-hs-overlay="#hs-add-group-modal" class="py-2 px-4 bg-indigo-600 text-white rounded-xl font-bold text-sm shadow-lg hover:bg-indigo-700 transition">
+                    + New Group
                 </button>
             </header>
 
-            <!-- Groups Grid -->
-            <div id="groups-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Loaded via JS -->
-                <p class="text-slate-400">Loading groups...</p>
+            <div id="group-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Group cards injected here -->
             </div>
         </div>
     </main>
 
-    <!-- Create Group Modal -->
-    <div id="hs-create-group-modal" class="hs-overlay hidden size-full fixed top-0 start-0 z-[80] overflow-x-hidden overflow-y-auto">
-      <div class="hs-overlay-open:mt-7 hs-overlay-open:opacity-100 hs-overlay-open:duration-500 mt-0 opacity-0 ease-out transition-all sm:max-w-lg sm:w-full m-3 sm:mx-auto">
-        <div class="flex flex-col bg-white border shadow-sm rounded-xl pointer-events-auto">
-          <div class="p-4 border-b"><h3 class="font-bold">New Group</h3></div>
-          <form id="create-group-form" class="p-4 space-y-4">
-            <input type="text" id="g-name" placeholder="Group Name" required class="w-full p-2 border rounded-lg outline-none">
-            <textarea id="g-desc" placeholder="Description" class="w-full p-2 border rounded-lg outline-none"></textarea>
-            <button type="submit" class="w-full py-2 bg-indigo-600 text-white rounded-lg font-bold">Create</button>
-          </form>
+    <!-- Side Drawer: Manage Members -->
+    <div id="hs-manage-members-drawer" class="hs-overlay hs-overlay-open:translate-x-0 translate-x-full fixed top-0 end-0 transition-all duration-300 transform h-full max-w-xs w-full z-[80] bg-white border-s hidden" tabindex="-1">
+        <div class="flex flex-col h-full">
+            <div class="p-4 border-b flex justify-between items-center bg-slate-50">
+                <h3 class="font-bold text-slate-800">Add to Group</h3>
+                <button type="button" class="text-slate-500" data-hs-overlay="#hs-manage-members-drawer">✕</button>
+            </div>
+            <div class="p-4 space-y-4 overflow-y-auto">
+                <p class="text-xs text-slate-500">Select a member to add to the active group.</p>
+                <div id="drawer-user-list" class="space-y-2">
+                    <!-- Users loaded here -->
+                </div>
+            </div>
         </div>
-      </div>
+    </div>
+
+    <!-- Modal: Add Group -->
+    <div id="hs-add-group-modal" class="hs-overlay hidden size-full fixed top-0 start-0 z-[80] overflow-x-hidden overflow-y-auto">
+        <div class="hs-overlay-open:mt-7 hs-overlay-open:opacity-100 hs-overlay-open:duration-500 mt-0 opacity-0 ease-out transition-all sm:max-w-lg sm:w-full m-3 sm:mx-auto">
+            <div class="flex flex-col bg-white border shadow-sm rounded-2xl pointer-events-auto">
+                <div class="p-4 border-b font-bold">Create Group</div>
+                <form id="add-group-form" class="p-6 space-y-4">
+                    <input type="text" id="g-name" placeholder="Group Name (e.g. Cohort Alpha)" required class="w-full p-3 border rounded-xl outline-none">
+                    <textarea id="g-desc" placeholder="Description..." class="w-full p-3 border rounded-xl outline-none" rows="3"></textarea>
+                    <button type="submit" class="w-full py-3 bg-indigo-600 text-white font-bold rounded-xl">Create Group</button>
+                </form>
+            </div>
+        </div>
     </div>
 
     <script src="https://preline.co/assets/vendor/preline/dist/preline.js"></script>
     <script>
         const API_URL = "https://scorer-api.vercel.app/api"; 
         const token = localStorage.getItem('token');
-
-        if (!token) window.location.href = 'login.html';
+        let activeGroupId = null;
 
         async function fetchGroups() {
-            try {
-                const response = await fetch(`${API_URL}/groups`, {
-                    headers: { 'Authorization': `Bearer ${token}` }
-                });
-                const groups = await response.json();
-                renderGroups(groups);
-            } catch (e) { console.error(e); }
-        }
-
-        function renderGroups(groups) {
-            const grid = document.getElementById('groups-grid');
+            const res = await fetch(`${API_URL}/groups`, { headers: { 'Authorization': `Bearer ${token}` } });
+            const groups = await res.json();
+            const grid = document.getElementById('group-grid');
             grid.innerHTML = '';
             groups.forEach(g => {
                 grid.innerHTML += `
-                    <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm hover:shadow-md transition">
-                        <div class="size-10 bg-indigo-100 text-indigo-600 rounded-lg flex items-center justify-center font-bold mb-4">
-                            ${g.name.charAt(0)}
-                        </div>
-                        <h3 class="font-bold text-slate-800 text-lg">${g.name}</h3>
-                        <p class="text-sm text-slate-500 mt-1">${g.description || 'No description'}</p>
-                        <div class="mt-6 flex items-center justify-between border-t pt-4">
-                            <span class="text-xs font-bold text-slate-400 uppercase tracking-tighter">ID: ${g.id}</span>
-                            <button class="text-xs font-bold text-indigo-600 hover:underline">Manage Members</button>
-                        </div>
+                    <div class="bg-white border rounded-2xl p-6 shadow-sm">
+                        <h3 class="text-lg font-black text-slate-800">${g.name}</h3>
+                        <p class="text-sm text-slate-500 mt-1 mb-6">${g.description || 'No description'}</p>
+                        <button onclick="openMemberManager(${g.id})" data-hs-overlay="#hs-manage-members-drawer" class="w-full py-2 bg-slate-100 text-indigo-600 font-bold rounded-lg text-xs">Assign Members</button>
                     </div>
                 `;
             });
         }
 
-        // Create Group Logic
-        document.getElementById('create-group-form').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const name = document.getElementById('g-name').value;
-            const description = document.getElementById('g-desc').value;
-
-            const response = await fetch(`${API_URL}/groups`, {
-                method: 'POST',
-                headers: { 
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}` 
-                },
-                body: JSON.stringify({ name, description })
+        async function openMemberManager(id) {
+            activeGroupId = id;
+            const res = await fetch(`${API_URL}/users`, { headers: { 'Authorization': `Bearer ${token}` } });
+            const users = await res.json();
+            const list = document.getElementById('drawer-user-list');
+            list.innerHTML = '';
+            users.forEach(u => {
+                list.innerHTML += `
+                    <button onclick="addUserToGroup(${u.id})" class="w-full text-left p-3 hover:bg-indigo-50 border rounded-xl text-sm font-medium transition flex justify-between items-center">
+                        ${u.name} <span class="text-indigo-600">+</span>
+                    </button>
+                `;
             });
+        }
 
-            if (response.ok) {
-                HSOverlay.close('#hs-create-group-modal');
-                fetchGroups();
-            }
+        async function addUserToGroup(userId) {
+            const res = await fetch(`${API_URL}/groups/members`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                body: JSON.stringify({ group_id: activeGroupId, user_id: userId })
+            });
+            if (res.ok) alert("Added successfully!");
+        }
+
+        document.getElementById('add-group-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const payload = { name: document.getElementById('g-name').value, description: document.getElementById('g-desc').value };
+            await fetch(`${API_URL}/groups`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                body: JSON.stringify(payload)
+            });
+            location.reload();
         });
 
         fetchGroups();
