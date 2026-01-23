@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manage Group Members | I and I</title>
+    <title>Manage Teams | I and I ScoreFlow</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://preline.co/assets/css/main.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
@@ -11,172 +11,216 @@
 </head>
 <body class="bg-slate-50 min-h-full">
 
+    <!-- Mobile Header -->
+    <div class="sticky top-0 inset-x-0 z-20 bg-white border-y px-4 py-2 lg:hidden">
+        <div class="flex justify-between items-center">
+            <a class="font-bold text-xl text-indigo-600" href="#">I and I</a>
+            <button type="button" class="p-2 border rounded-lg" data-hs-overlay="#hs-sidebar-footer">
+                <svg class="size-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="3" x2="21" y1="6" y2="6"/><line x1="3" x2="21" y1="12" y2="12"/><line x1="3" x2="21" y1="18" y2="18"/></svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- Sidebar -->
     <div id="hs-sidebar-footer" class="hs-overlay [--auto-close:lg] lg:block lg:translate-x-0 lg:end-auto lg:bottom-0 w-64 hs-overlay-open:translate-x-0 -translate-x-full transition-all duration-300 transform h-full hidden fixed top-0 start-0 bottom-0 z-[60] bg-white border-e border-gray-200" role="dialog" tabindex="-1">
-        <div class="relative flex flex-col h-full">
-            <header class="p-4"><a class="font-black text-2xl text-indigo-600" href="./">I and I</a></header>
+        <div class="relative flex flex-col h-full max-h-full">
+            <header class="p-4"><a class="font-black text-2xl text-indigo-600" href="dashboard.html">I and I</a></header>
             <nav class="h-full overflow-y-auto p-3">
-                <ul class="space-y-1.5">
-                    <li><a class="flex items-center gap-x-3 py-2 px-2.5 text-sm text-gray-700 rounded-lg hover:bg-gray-100" href="dashboard.html">Dashboard</a></li>
-                    <li><a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-700 rounded-lg hover:bg-gray-100" href="groups.html">Back to Groups</a></li>
+                <ul class="space-y-1.5 text-sm">
+                    <li><a class="flex items-center gap-x-3 py-2 px-2.5 text-gray-700 rounded-lg hover:bg-gray-100" href="dashboard.html">Dashboard</a></li>
+                    <li><a class="flex items-center gap-x-3 py-2 px-2.5 text-gray-700 rounded-lg hover:bg-gray-100" href="users.html">Users</a></li>
+                    <li><a class="flex items-center gap-x-3 py-2 px-2.5 bg-indigo-50 text-indigo-600 font-bold rounded-lg" href="groups.html">Groups</a></li>
+                    <li class="pt-4 border-t mt-4"><a class="flex items-center gap-x-3 py-2 px-2.5 text-gray-700 rounded-lg hover:bg-gray-100 font-semibold" href="score.html">Scoring Mode</a></li>
                 </ul>
             </nav>
         </div>
     </div>
 
+    <!-- Main Content -->
     <main class="lg:ps-64">
         <div class="p-4 sm:p-6 md:p-10 lg:p-12 max-w-[85rem] mx-auto">
             
-            <header class="flex justify-between items-center mb-10">
-                <div>
-                    <h1 class="text-3xl font-black text-slate-900">Manage Teams</h1>
-                    <p class="text-slate-500">Create groups and assign presenters.</p>
-                </div>
-                <button data-hs-overlay="#hs-new-group-modal" class="py-2 px-4 bg-indigo-600 text-white font-bold rounded-xl text-sm shadow-lg hover:bg-indigo-700 transition">+ New Group</button>
+            <header class="mb-8">
+                <h1 class="text-3xl font-black text-slate-900">Team Assignments</h1>
+                <p class="text-slate-500">Assign presenters to specific groups for the current rotation.</p>
             </header>
 
-            <div class="grid lg:grid-cols-2 gap-8">
-                <!-- Left: List of Groups -->
-                <div class="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
-                    <div class="p-4 border-b bg-slate-50 font-bold text-slate-700">Select Group to Manage</div>
-                    <div id="group-selector-list" class="divide-y divide-slate-100">
+            <div class="grid lg:grid-cols-3 gap-8">
+                
+                <!-- Left: Group Selection List -->
+                <div class="lg:col-span-1 space-y-4">
+                    <h3 class="text-xs font-black text-slate-400 uppercase tracking-widest">Select a Group</h3>
+                    <div id="group-list" class="bg-white border border-slate-200 rounded-2xl shadow-sm divide-y overflow-hidden">
                         <!-- Groups injected here -->
+                        <div class="p-10 text-center animate-pulse text-slate-300">Loading Groups...</div>
                     </div>
                 </div>
 
-                <!-- Right: Assign Presenters (Hidden until group is selected) -->
-                <div id="assignment-panel" class="hidden space-y-6">
-                    <div class="bg-indigo-600 rounded-2xl p-6 text-white shadow-xl shadow-indigo-100">
-                        <h3 class="text-xs font-bold uppercase tracking-widest text-indigo-200 mb-2">Managing Members for:</h3>
-                        <p id="active-group-display" class="text-2xl font-black">Group Name</p>
+                <!-- Right: Assignment Interface -->
+                <div class="lg:col-span-2">
+                    <div id="no-selection-state" class="bg-slate-100 border-2 border-dashed border-slate-200 rounded-3xl h-96 flex flex-col items-center justify-center text-slate-400">
+                        <svg class="size-12 mb-4 opacity-20" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M18 18.72a9.094 9.094 0 0 0 3.741-3.418M11.25 15l3 3 6-6M9 4.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm3 0a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm0 0a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/></svg>
+                        <p class="font-bold uppercase tracking-widest text-xs">Select a group on the left to manage members</p>
                     </div>
 
-                    <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
-                        <h4 class="font-bold text-slate-800 mb-4">Assign a Presenter</h4>
-                        <div class="space-y-3" id="presenter-pool">
-                            <!-- Presenters (Users) injected here -->
+                    <div id="manage-panel" class="hidden space-y-6">
+                        <!-- Active Group Header -->
+                        <div class="bg-indigo-600 rounded-3xl p-8 text-white shadow-xl shadow-indigo-100 relative overflow-hidden">
+                            <div class="relative z-10">
+                                <span class="text-[10px] font-black uppercase tracking-[0.2em] text-indigo-200">Currently Managing</span>
+                                <h2 id="active-group-name" class="text-3xl font-black mt-1">Group Name</h2>
+                                <p id="active-group-desc" class="text-indigo-100 text-sm mt-2 opacity-80"></p>
+                            </div>
+                            <div class="absolute -right-10 -bottom-10 size-40 bg-white/10 rounded-full blur-3xl"></div>
+                        </div>
+
+                        <!-- User Pool (Searchable) -->
+                        <div class="bg-white border border-slate-200 rounded-3xl shadow-sm overflow-hidden">
+                            <div class="p-6 border-b flex flex-col sm:flex-row justify-between items-center gap-4">
+                                <h4 class="font-black text-slate-800 uppercase text-xs tracking-widest">Assign Presenters</h4>
+                                <div class="relative w-full sm:w-64">
+                                    <input type="text" id="user-search" onkeyup="filterUsers()" class="w-full pl-10 pr-4 py-2 bg-slate-50 border-none rounded-xl text-sm outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Search users...">
+                                    <svg class="size-4 absolute left-3 top-2.5 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                                </div>
+                            </div>
+                            
+                            <div id="user-pool" class="grid sm:grid-cols-2 gap-3 p-6 max-h-[500px] overflow-y-auto">
+                                <!-- Users injected here -->
+                            </div>
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </main>
 
-    <!-- Modal: New Group -->
-    <div id="hs-new-group-modal" class="hs-overlay hidden size-full fixed top-0 start-0 z-[80] overflow-x-hidden overflow-y-auto">
-        <div class="hs-overlay-open:mt-7 hs-overlay-open:opacity-100 hs-overlay-open:duration-500 mt-0 opacity-0 ease-out transition-all sm:max-w-lg sm:w-full m-3 sm:mx-auto">
-            <div class="flex flex-col bg-white border shadow-sm rounded-2xl pointer-events-auto">
-                <div class="p-4 border-b font-bold">Create New Group</div>
-                <form id="new-group-form" class="p-6 space-y-4">
-                    <input type="text" id="g-name" placeholder="Group Name" required class="w-full p-3 border rounded-xl outline-none focus:ring-2 focus:ring-indigo-500">
-                    <textarea id="g-desc" placeholder="Brief Description" class="w-full p-3 border rounded-xl outline-none focus:ring-2 focus:ring-indigo-500" rows="3"></textarea>
-<a href="add-group.html" class="py-2 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 transition">
-    <svg class="size-4" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
-    Create New Group
-</a>                </form>
-            </div>
-        </div>
-    </div>
-
-    <script src="https://preline.co/assets/vendor/preline/dist/preline.js"></script>
     <script>
-        const API_URL = "https://scorer-api.vercel.app/api"; 
+        const API_URL = "https://scorer-api.vercel.app/api";
         const token = localStorage.getItem('token');
-        let selectedGroupId = null;
+        let activeGroupId = null;
+        let allUsers = [];
 
-        async function loadGroups() {
-            const res = await fetch(`${API_URL}/groups`, { headers: { 'Authorization': `Bearer ${token}` } });
-            const groups = await res.json();
-            const list = document.getElementById('group-selector-list');
-            list.innerHTML = '';
-            groups.forEach(g => {
-                list.innerHTML += `
-                    <button onclick="selectGroup(${g.id}, '${g.name}')" class="w-full text-left p-4 hover:bg-slate-50 transition flex justify-between items-center group">
-                        <span class="font-bold text-slate-700">${g.name}</span>
-                        <svg class="size-4 text-slate-300 group-hover:text-indigo-600" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="m8.25 4.5 7.5 7.5-7.5 7.5"/></svg>
-                    </button>
-                `;
-            });
+        if (!token) window.location.href = 'login.html';
+
+        // 1. Fetch Groups for the left sidebar
+        async function fetchGroups() {
+            try {
+                const res = await fetch(`${API_URL}/groups`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const groups = await res.json();
+                const list = document.getElementById('group-list');
+                list.innerHTML = '';
+
+                groups.forEach(g => {
+                    list.innerHTML += `
+                        <button onclick="selectGroup(${g.id}, '${g.name}', '${g.description || ''}')" 
+                                class="w-full text-left p-5 hover:bg-indigo-50 transition-all flex items-center justify-between group">
+                            <div>
+                                <div class="font-black text-slate-800 text-sm group-hover:text-indigo-600">${g.name}</div>
+                                <div class="text-[10px] font-bold text-slate-400 uppercase mt-1">ID: ${g.id}</div>
+                            </div>
+                            <svg class="size-4 text-slate-300 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="m8.25 4.5 7.5 7.5-7.5 7.5"/></svg>
+                        </button>
+                    `;
+                });
+            } catch (err) { console.error(err); }
         }
 
-        async function selectGroup(id, name) {
-            selectedGroupId = id;
-            document.getElementById('active-group-display').innerText = name;
-            document.getElementById('assignment-panel').classList.remove('hidden');
-            loadPresenters();
-        }
-
-        async function loadPresenters() {
-            const res = await fetch(`${API_URL}/users`, { headers: { 'Authorization': `Bearer ${token}` } });
-            const users = await res.json();
-            const pool = document.getElementById('presenter-pool');
-            pool.innerHTML = '';
+        // 2. Select Group and Load Pool
+        function selectGroup(id, name, desc) {
+            activeGroupId = id;
+            document.getElementById('no-selection-state').classList.add('hidden');
+            document.getElementById('manage-panel').classList.remove('hidden');
+            document.getElementById('active-group-name').innerText = name;
+            document.getElementById('active-group-desc').innerText = desc;
             
-            // Only show members who could be presenters
+            fetchUsers();
+        }
+
+        // 3. Fetch all users to populate the pool
+        async function fetchUsers() {
+            const pool = document.getElementById('user-pool');
+            pool.innerHTML = '<div class="col-span-full py-10 text-center text-slate-400">Loading user pool...</div>';
+            
+            try {
+                const res = await fetch(`${API_URL}/users`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                allUsers = await res.json();
+                renderUserPool(allUsers);
+            } catch (err) { console.error(err); }
+        }
+
+        function renderUserPool(users) {
+            const pool = document.getElementById('user-pool');
+            pool.innerHTML = '';
+
             users.forEach(u => {
                 pool.innerHTML += `
-                    <div class="flex items-center justify-between p-3 bg-slate-50 rounded-xl border border-slate-100">
-                        <span class="text-sm font-bold text-slate-700">${u.name}</span>
-                        <button onclick="addUserToGroup(${u.id})" class="text-[10px] font-black uppercase bg-indigo-600 text-white px-3 py-1.5 rounded-lg hover:bg-indigo-700 transition">Add to Team</button>
+                    <div class="flex items-center justify-between p-4 border border-slate-100 bg-slate-50 rounded-2xl hover:border-indigo-200 transition">
+                        <div class="truncate mr-2">
+                            <p class="text-sm font-black text-slate-800 truncate">${u.name}</p>
+                            <p class="text-[10px] font-bold text-slate-400 uppercase">${u.role}</p>
+                        </div>
+                        <button onclick="assignMember(${u.id}, this)" 
+                                class="shrink-0 size-8 bg-white border border-slate-200 text-indigo-600 rounded-xl flex items-center justify-center font-black hover:bg-indigo-600 hover:text-white transition shadow-sm">
+                            +
+                        </button>
                     </div>
                 `;
             });
         }
 
-       async function addUserToGroup(userId, btn) {
-    // 1. Visual feedback
-    const originalContent = btn.innerHTML;
-    btn.disabled = true;
-    btn.innerHTML = '...';
+        // 4. Assign Member logic
+        async function assignMember(userId, btn) {
+            const originalBtn = btn.innerHTML;
+            btn.disabled = true;
+            btn.innerHTML = `<span class="animate-spin size-3 border-2 border-indigo-500 border-t-transparent rounded-full"></span>`;
 
-    try {
-        const res = await fetch(`${API_URL}/groups/members`, {
-            method: 'POST',
-            headers: { 
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}` 
-            },
-            body: JSON.stringify({ 
-                group_id: activeGroupId, 
-                user_id: userId          
-            })
-        });
+            try {
+                const res = await fetch(`${API_URL}/groups/members`, {
+                    method: 'POST',
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({ 
+                        group_id: activeGroupId, 
+                        user_id: userId 
+                    })
+                });
 
-        const data = await res.json();
-
-        if (res.ok) {
-            // Success: Change button to a green checkmark
-            btn.className = "size-8 flex items-center justify-center bg-green-500 text-white rounded-lg";
-            btn.innerHTML = '✓';
-        } else {
-            // Show the specific error (like "User already in group")
-            alert(data.error);
-            btn.disabled = false;
-            btn.innerHTML = originalContent;
-        }
-    } catch (err) {
-        console.error("Assignment failed:", err);
-        alert("Check your internet connection or API URL");
-        btn.disabled = false;
-        btn.innerHTML = originalContent;
-    }
-}
-
-        document.getElementById('new-group-form').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const name = document.getElementById('g-name').value;
-            const description = document.getElementById('g-desc').value;
-            const res = await fetch(`${API_URL}/groups`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
-                body: JSON.stringify({ name, description })
-            });
-            if (res.ok) {
-                HSOverlay.close('#hs-new-group-modal');
-                loadGroups();
+                if (res.ok) {
+                    btn.className = "shrink-0 size-8 bg-green-500 text-white rounded-xl flex items-center justify-center font-black shadow-lg";
+                    btn.innerHTML = "✓";
+                } else {
+                    const data = await res.json();
+                    alert(data.error || "User already assigned");
+                    btn.disabled = false;
+                    btn.innerHTML = originalBtn;
+                }
+            } catch (err) {
+                alert("Failed to connect to API");
+                btn.disabled = false;
+                btn.innerHTML = originalBtn;
             }
-        });
+        }
 
-        loadGroups();
+        function filterUsers() {
+            const query = document.getElementById('user-search').value.toLowerCase();
+            const filtered = allUsers.filter(u => u.name.toLowerCase().includes(query));
+            renderUserPool(filtered);
+        }
+
+        function logout() {
+            localStorage.clear();
+            window.location.href = 'login.html';
+        }
+
+        // Initialize
+        fetchGroups();
     </script>
 </body>
 </html>
