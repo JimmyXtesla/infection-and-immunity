@@ -1,84 +1,97 @@
 <!DOCTYPE html>
 <html lang="en" class="h-full">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manage Teams | I and I ScoreFlow</title>
+    <title>Team Assignments | ScoreFlow</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://preline.co/assets/css/main.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-    <style>body { font-family: 'Inter', sans-serif; }</style>
+    <link rel="stylesheet" href="../css/style.css">
 </head>
-<body class="bg-slate-50 min-h-full">
 
-    <!-- Mobile Header -->
-    <div class="sticky top-0 inset-x-0 z-20 bg-white border-y px-4 py-2 lg:hidden">
-        <div class="flex justify-between items-center">
-            <a class="font-bold text-xl text-indigo-600" href="#">I and I</a>
-            <button type="button" class="p-2 border rounded-lg" data-hs-overlay="#hs-sidebar-footer">
-                <svg class="size-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="3" x2="21" y1="6" y2="6"/><line x1="3" x2="21" y1="12" y2="12"/><line x1="3" x2="21" y1="18" y2="18"/></svg>
-            </button>
-        </div>
-    </div>
+<body class="bg-slate-50 min-h-full font-sans">
 
-    <!-- Sidebar -->
-    <div id="hs-sidebar-footer" class="hs-overlay [--auto-close:lg] lg:block lg:translate-x-0 lg:end-auto lg:bottom-0 w-64 hs-overlay-open:translate-x-0 -translate-x-full transition-all duration-300 transform h-full hidden fixed top-0 start-0 bottom-0 z-[60] bg-white border-e border-gray-200" role="dialog" tabindex="-1">
-        <div class="relative flex flex-col h-full max-h-full">
-            <header class="p-4"><a class="font-black text-2xl text-indigo-600" href="dashboard.html">I and I</a></header>
-            <nav class="h-full overflow-y-auto p-3">
-                <ul class="space-y-1.5 text-sm">
-                    <li><a class="flex items-center gap-x-3 py-2 px-2.5 text-gray-700 rounded-lg hover:bg-gray-100" href="dashboard.html">Dashboard</a></li>
-                    <li><a class="flex items-center gap-x-3 py-2 px-2.5 text-gray-700 rounded-lg hover:bg-gray-100" href="users.html">Users</a></li>
-                    <li><a class="flex items-center gap-x-3 py-2 px-2.5 bg-indigo-50 text-indigo-600 font-bold rounded-lg" href="groups.html">Groups</a></li>
-                    <li class="pt-4 border-t mt-4"><a class="flex items-center gap-x-3 py-2 px-2.5 text-gray-700 rounded-lg hover:bg-gray-100 font-semibold" href="score.html">Scoring Mode</a></li>
-                </ul>
-            </nav>
-        </div>
-    </div>
+    <div id="mobile-header-container"></div>
+    <div id="sidebar-container"></div>
 
     <!-- Main Content -->
     <main class="lg:ps-64">
-        <div class="p-4 sm:p-6 md:p-10 lg:p-12 max-w-[85rem] mx-auto">
-            
-            <header class="mb-8">
-                <h1 class="text-3xl font-black text-slate-900">Team Assignments</h1>
-                <p class="text-slate-500">Users can only belong to one group at a time. Assigning them here will remove them from any previous team.</p>
+        <div class="p-4 sm:p-6 md:p-10 lg:p-12 max-w-[85rem] mx-auto animate-fade-in">
+
+            <header class="mb-12">
+                <h1 class="text-4xl font-black text-slate-900 tracking-tight">Team Assignments</h1>
+                <p class="text-slate-500 font-medium">Re-orient research personnel within active cohorts.</p>
             </header>
 
-            <div class="grid lg:grid-cols-3 gap-8">
-                
+            <div class="grid lg:grid-cols-3 gap-10">
+
                 <!-- Left: Group Selection List -->
                 <div class="lg:col-span-1 space-y-4">
-                    <h3 class="text-xs font-black text-slate-400 uppercase tracking-widest">1. Select Target Group</h3>
-                    <div id="group-list" class="bg-white border border-slate-200  shadow-sm divide-y overflow-hidden">
-                        <!-- Groups injected here -->
+                    <h3 class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] ml-2">1. Target Cohort
+                    </h3>
+                    <div id="group-list"
+                        class="glass-card rounded-[2.5rem] border-slate-200/50 shadow-2xl shadow-slate-200/40 divide-y divide-slate-100 overflow-hidden">
+                        <div class="p-8 text-center text-slate-400 animate-pulse font-bold italic">Loading cohorts...
+                        </div>
                     </div>
                 </div>
 
                 <!-- Right: Assignment Interface -->
                 <div class="lg:col-span-2">
                     <!-- Empty State -->
-                    <div id="no-selection-state" class="bg-white border border-slate-200  h-96 flex flex-col items-center justify-center text-slate-400 shadow-sm">
-                        <div class="size-16 bg-slate-50 rounded-full flex items-center justify-center mb-4">
-                            <svg class="size-8 text-slate-200" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 18.72a9.094 9.094 0 0 0 3.741-3.418M11.25 15l3 3 6-6"/></svg>
+                    <div id="no-selection-state"
+                        class="glass-card rounded-[3rem] border-slate-200/50 border-dashed h-[600px] flex flex-col items-center justify-center text-slate-300 shadow-sm transition-all duration-500">
+                        <div class="w-24 h-24 bg-slate-50 rounded-[2rem] flex items-center justify-center mb-6">
+                            <svg class="w-10 h-10 text-slate-200" fill="none" stroke="currentColor" stroke-width="2.5"
+                                viewBox="0 0 24 24">
+                                <path d="M18 18.72a9.094 9.094 0 0 0 3.741-3.418M11.25 15l3 3 6-6" />
+                            </svg>
                         </div>
-                        <p class="font-bold text-sm">Select a group to manage members</p>
+                        <p class="font-black text-xs uppercase tracking-widest">Select a research cohort to proceed</p>
                     </div>
 
                     <!-- Active Panel -->
-                    <div id="manage-panel" class="hidden space-y-6">
-                        <div class="bg-indigo-600 l p-6 text-white shadow-xl shadow-indigo-100">
-                            <span class="text-[10px] font-black uppercase tracking-widest text-indigo-200">Active Target</span>
-                            <h2 id="active-group-name" class="text-3xl font-black">Group Name</h2>
+                    <div id="manage-panel" class="hidden space-y-8 animate-slide-up">
+                        <div
+                            class="bg-rose-600 rounded-[3rem] p-10 text-white shadow-2xl shadow-rose-100 flex flex-col md:flex-row md:items-center justify-between gap-6">
+                            <div>
+                                <span
+                                    class="text-[10px] font-black uppercase tracking-[0.2em] text-rose-300">Operational
+                                    Target</span>
+                                <h2 id="active-group-name" class="text-3xl font-black tracking-tight mt-1">Group Name
+                                </h2>
+                            </div>
+                            <div
+                                class="px-5 py-2 bg-white/10 rounded-2xl backdrop-blur-md border border-white/10 text-[10px] font-black uppercase tracking-widest">
+                                Clearance LVL: Admin
+                            </div>
                         </div>
 
-                        <div class="bg-white border border-slate-200  shadow-sm overflow-hidden">
-                            <div class="p-4 border-b bg-slate-50/50 flex flex-col sm:flex-row justify-between items-center gap-4">
-                                <h4 class="font-black text-slate-700 uppercase text-[10px] tracking-widest">2. Assign Presenters to this Team</h4>
-                                <input type="text" id="user-search" onkeyup="filterUsers()" class="w-full sm:w-64 px-4 py-2 bg-white border border-slate-200 rounded-xl text-xs outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Search presenters...">
+                        <div
+                            class="glass-card rounded-[3rem] border-slate-200/50 shadow-2xl shadow-slate-200/40 overflow-hidden">
+                            <div
+                                class="p-8 border-b border-slate-100 bg-slate-50/50 flex flex-col sm:flex-row justify-between items-center gap-6">
+                                <div>
+                                    <h4 class="font-black text-slate-900 text-sm">Personnel Routing</h4>
+                                    <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mt-1">2.
+                                        Assign members to this team</p>
+                                </div>
+                                <div class="relative w-full sm:w-72">
+                                    <input type="text" id="user-search" onkeyup="filterUsers()"
+                                        class="w-full px-6 py-3.5 bg-white border border-slate-200 rounded-2xl text-[11px] font-bold outline-none focus:ring-4 focus:ring-rose-50 focus:border-rose-500 transition-all"
+                                        placeholder="Search PERSONNEL...">
+                                    <div class="absolute inset-y-0 right-4 flex items-center pointer-events-none">
+                                        <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor"
+                                            stroke-width="2.5" viewBox="0 0 24 24">
+                                            <circle cx="11" cy="11" r="8" />
+                                            <path d="m21 21-4.3-4.3" />
+                                        </svg>
+                                    </div>
+                                </div>
                             </div>
-                            
-                            <div id="user-pool" class="grid sm:grid-cols-2 gap-3 p-4 max-h-[500px] overflow-y-auto">
+
+                            <div id="user-pool"
+                                class="grid sm:grid-cols-2 gap-4 p-8 max-h-[500px] overflow-y-auto custom-scrollbar">
                                 <!-- Users injected here -->
                             </div>
                         </div>
@@ -90,17 +103,17 @@
     </main>
 
     <script src="https://preline.co/assets/vendor/preline/dist/preline.js"></script>
+    <script src="../js/layout.js"></script>
     <script>
-        const API_URL = "https://scorer-api.vercel.app/api"; 
+        const API_URL = "https://scorer-api.vercel.app/api";
         const token = localStorage.getItem('token');
-        
+
         let activeGroupId = null;
         let allUsers = [];
         let allGroups = [];
 
         if (!token) window.location.href = 'login.html';
 
-        // 1. Initial Load: Fetch Groups
         async function init() {
             try {
                 const res = await fetch(`${API_URL}/groups`, {
@@ -118,64 +131,49 @@
                 const isActive = activeGroupId === g.id;
                 list.innerHTML += `
                     <button onclick="selectGroup(${g.id}, '${g.name}')" 
-                            class="w-full text-left p-5 transition-all flex items-center justify-between group ${isActive ? 'bg-indigo-50' : 'hover:bg-slate-50'}">
+                            class="w-full text-left p-8 transition-all flex items-center justify-between group ${isActive ? 'bg-rose-50 shadow-inner' : 'hover:bg-slate-50/50'}">
                         <div>
-                            <div class="font-black ${isActive ? 'text-indigo-600' : 'text-slate-800'} text-sm">${g.name}</div>
-                            <div class="text-[10px] font-bold text-slate-400 uppercase mt-1">Group ID: ${g.id}</div>
+                            <div class="font-black ${isActive ? 'text-rose-600' : 'text-slate-800'} text-sm uppercase tracking-tight">${g.name}</div>
+                            <div class="text-[9px] font-black text-slate-400 uppercase tracking-widest mt-1">ID: REF-0${g.id}</div>
                         </div>
-                        <svg class="size-4 ${isActive ? 'text-indigo-600' : 'text-slate-300'}" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="m8.25 4.5 7.5 7.5-7.5 7.5"/></svg>
+                        <div class="w-8 h-8 rounded-lg ${isActive ? 'bg-rose-600 text-white' : 'bg-slate-50 text-slate-300 group-hover:bg-slate-100 group-hover:text-slate-400'} flex items-center justify-center transition-all">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="m8.25 4.5 7.5 7.5-7.5 7.5"/></svg>
+                        </div>
                     </button>
                 `;
             });
         }
 
-        // 2. Select Group & Load Users
         function selectGroup(id, name) {
             activeGroupId = id;
             document.getElementById('no-selection-state').classList.add('hidden');
-            document.getElementById('manage-panel').classList.remove('hidden');
+            const panel = document.getElementById('manage-panel');
+            panel.classList.remove('hidden');
             document.getElementById('active-group-name').innerText = name;
-            
-            renderGroups(); // Refresh left list highlight
+
+            renderGroups();
             fetchUsersWithStatus();
         }
 
-        // 3. Fetch Users and identify their current group
-       async function fetchUsersWithStatus() {
-    const pool = document.getElementById('user-pool');
-    pool.innerHTML = '<div class="col-span-full py-10 text-center text-slate-400 animate-pulse">Syncing user database...</div>';
-    
-    try {
-        // 1. Fetch ALL users
-        const res = await fetch(`${API_URL}/users`, {
-            headers: { 'Authorization': `Bearer ${token}` }
-        });
-        
-        if (!res.ok) throw new Error(`Users API returned ${res.status}`);
-        allUsers = await res.json();
-        
-        const memRes = await fetch(`${API_URL}/groups/${activeGroupId}/members`, {
-            headers: { 'Authorization': `Bearer ${token}` }
-        });
+        async function fetchUsersWithStatus() {
+            const pool = document.getElementById('user-pool');
+            pool.innerHTML = '<div class="col-span-full py-20 text-center text-slate-400 animate-pulse font-bold italic">Scanning clinical personnel status...</div>';
 
-        if (!memRes.ok) throw new Error(`Members API returned ${memRes.status}`);
-        const currentMembers = await memRes.json();
-        
-        // Create an array of IDs who are already in this group
-        const memberIds = Array.isArray(currentMembers) ? currentMembers.map(m => m.id) : [];
+            try {
+                const res = await fetch(`${API_URL}/users`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                allUsers = await res.json();
 
-        renderUserPool(memberIds);
+                const memRes = await fetch(`${API_URL}/groups/${activeGroupId}/members`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const currentMembers = await memRes.json();
+                const memberIds = Array.isArray(currentMembers) ? currentMembers.map(m => m.id) : [];
 
-    } catch (err) {
-        console.error("SYNC ERROR:", err);
-        pool.innerHTML = `
-            <div class="col-span-full py-10 text-center">
-                <p class="text-red-500 font-bold">Failed to sync database</p>
-                <p class="text-xs text-slate-400">${err.message}</p>
-                <button onclick="fetchUsersWithStatus()" class="mt-2 text-indigo-600 text-xs font-bold underline">Try Again</button>
-            </div>`;
-    }
-}
+                renderUserPool(memberIds);
+            } catch (err) { console.error(err); }
+        }
 
         function renderUserPool(memberIds) {
             const pool = document.getElementById('user-pool');
@@ -183,67 +181,60 @@
 
             allUsers.forEach(u => {
                 const isAlreadyInThisGroup = memberIds.includes(u.id);
-                
+
                 pool.innerHTML += `
-                    <div class="flex items-center justify-between p-4 border ${isAlreadyInThisGroup ? 'border-indigo-100 bg-indigo-50/30' : 'border-slate-100 bg-slate-50'} rounded-2xl transition">
-                        <div class="truncate mr-2">
-                            <p class="text-sm font-black text-slate-800 truncate">${u.name}</p>
-                            <span class="text-[9px] font-black uppercase px-1.5 py-0.5 rounded bg-white border border-slate-200 text-slate-400">
-                                ${u.role}
-                            </span>
+                    <div class="flex items-center justify-between p-6 border shadow-sm ${isAlreadyInThisGroup ? 'border-rose-100 bg-rose-50/20' : 'border-slate-100 bg-white hover:border-slate-300'} rounded-3xl transition-all group">
+                        <div class="flex items-center gap-4 truncate">
+                            <div class="w-8 h-8 rounded-full ${isAlreadyInThisGroup ? 'bg-rose-600 text-white' : 'bg-slate-100 text-slate-400'} flex items-center justify-center font-black text-[10px]">
+                                ${u.name.charAt(0)}
+                            </div>
+                            <div class="truncate">
+                                <p class="text-xs font-black text-slate-900 truncate">${u.name}</p>
+                                <span class="text-[8px] font-black uppercase tracking-widest text-slate-400">
+                                    ${u.role}
+                                </span>
+                            </div>
                         </div>
                         
-                        ${isAlreadyInThisGroup ? 
-                            `<span class="text-indigo-600 font-black text-xs pr-2">Member</span>` : 
-                            `<button onclick="assignMember(${u.id}, this)" 
-                                    class="shrink-0 size-8 bg-white border border-slate-200 text-indigo-600 rounded-xl flex items-center justify-center font-black hover:bg-indigo-600 hover:text-white transition shadow-sm">
-                                +
+                        ${isAlreadyInThisGroup ?
+                        `<span class="text-rose-600 font-black text-[10px] uppercase tracking-widest pr-2">Linked</span>` :
+                        `<button onclick="assignMember(${u.id}, this)" 
+                                    class="h-8 px-4 bg-slate-900 text-white rounded-xl flex items-center justify-center text-[10px] font-black uppercase tracking-widest hover:bg-rose-600 transition-all shadow-lg active:scale-95">
+                                Link
                             </button>`
-                        }
+                    }
                     </div>
                 `;
             });
         }
 
-        // 4. The Reassignment Action
         async function assignMember(userId, btn) {
             btn.disabled = true;
-            btn.innerHTML = `<span class="animate-spin size-3 border-2 border-indigo-500 border-t-transparent rounded-full"></span>`;
+            btn.innerHTML = `<span class="animate-spin size-3 border-2 border-white border-t-transparent rounded-full font-black"></span>`;
 
             try {
                 const res = await fetch(`${API_URL}/groups/members`, {
                     method: 'POST',
-                    headers: { 
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}`
-                    },
-                    body: JSON.stringify({ 
-                        group_id: activeGroupId, 
-                        user_id: userId 
-                    })
+                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                    body: JSON.stringify({ group_id: activeGroupId, user_id: userId })
                 });
 
                 if (res.ok) {
-                    btn.className = "shrink-0 size-8 bg-green-500 text-white rounded-xl flex items-center justify-center font-black shadow-lg";
-                    btn.innerHTML = "✓";
-                    // Refresh pool to update visual states for other groups
-                    setTimeout(() => fetchUsersWithStatus(), 800);
+                    btn.className = "h-8 px-4 bg-emerald-500 text-white rounded-xl flex items-center justify-center text-[10px] font-black shadow-lg";
+                    btn.innerHTML = "✓ Linked";
+                    setTimeout(() => fetchUsersWithStatus(), 600);
                 } else {
-                    const data = await res.json();
-                    alert(data.error);
                     btn.disabled = false;
-                    btn.innerHTML = "+";
+                    btn.innerHTML = "Link";
                 }
             } catch (err) {
-                alert("Failed to connect to API");
                 btn.disabled = false;
-                btn.innerHTML = "+";
+                btn.innerHTML = "Link";
             }
         }
 
         function filterUsers() {
             const query = document.getElementById('user-search').value.toLowerCase();
-            // This is a simple visual filter
             const cards = document.getElementById('user-pool').children;
             for (let card of cards) {
                 const name = card.querySelector('p').innerText.toLowerCase();
@@ -254,4 +245,5 @@
         init();
     </script>
 </body>
+
 </html>

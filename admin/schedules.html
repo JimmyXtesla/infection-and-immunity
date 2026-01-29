@@ -1,27 +1,282 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-full">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Schedules | ScoreFlow Admin</title>
+    <title>Manage Schedules | ScoreFlow</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .glass-modal {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+    </style>
 </head>
-<body class="bg-[#F8FAFC] flex min-h-screen">
-    <!-- Sidebar (Same as index.html) -->
-    <!-- ... copy sidebar here or use a component ... -->
 
-    <main class="flex-1 p-6 md:p-12">
-        <div class="flex justify-between items-center mb-10">
-            <h1 class="text-3xl font-black text-slate-900">Presentation Schedules</h1>
-            <a href="add-group.html" class="bg-indigo-600 text-white px-6 py-3 rounded-2x font-bold shadow-lg">+ Add New Group</a>
-        </div>
+<body class="bg-[#f9fafb] min-h-full font-sans">
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="schedules-container">
-            <!-- Group Cards rendered here -->
+    <div id="top-header-pill"></div>
+    <div id="mobile-header-container"></div>
+    <div id="sidebar-container"></div>
+
+    <main class="lg:ps-64">
+        <div class="p-6 md:p-8 lg:p-10 max-w-[1600px] mx-auto animate-fade">
+
+            <!-- Breadcrumbs & Actions -->
+            <div class="flex flex-col md:flex-row md:items-center justify-between mb-8">
+                <nav class="flex items-center gap-2 text-sm font-medium">
+                    <span class="text-gray-400">Records</span>
+                    <span class="text-gray-400">/</span>
+                    <span class="text-[#00A78E]">Schedules</span>
+                </nav>
+                <div class="flex items-center gap-3 mt-4 md:mt-0">
+                    <button class="btn-outline flex items-center gap-2 text-sm">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path
+                                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                        Calendar View
+                    </button>
+                    <button data-hs-overlay="#hs-add-schedule-modal" class="btn-teal flex items-center gap-2 text-sm">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                            <path d="M12 4.5v15m7.5-7.5h-15" />
+                        </svg>
+                        New Session
+                    </button>
+                </div>
+            </div>
+
+            <!-- Header Stats -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+                <div class="dribbble-card p-6 flex items-center justify-between">
+                    <div>
+                        <p class="text-xs font-bold text-gray-400 uppercase tracking-widest">Next Presentation</p>
+                        <h3 class="text-2xl font-black text-gray-900 mt-1" id="stat-next-date">...</h3>
+                    </div>
+                    <div class="w-10 h-10 rounded-full bg-[#e6f6f4] flex items-center justify-center text-[#00A78E]">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                            <path d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="dribbble-card p-6 flex items-center justify-between">
+                    <div>
+                        <p class="text-xs font-bold text-gray-400 uppercase tracking-widest">Active Rounds</p>
+                        <h3 class="text-2xl font-black text-gray-900 mt-1" id="stat-active-rounds">...</h3>
+                    </div>
+                    <div class="w-10 h-10 rounded-full bg-orange-50 flex items-center justify-center text-orange-400">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                            <path
+                                d="M4 4v5h.582m15.356 2A8.001 8.001 0 0 0 4.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 0 1-15.357-2m15.357 2H15" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="dribbble-card p-6 flex items-center justify-between">
+                    <div>
+                        <p class="text-xs font-bold text-gray-400 uppercase tracking-widest">Total Sessions</p>
+                        <h3 class="text-2xl font-black text-gray-900 mt-1" id="stat-total-sessions">...</h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Schedules Table -->
+            <div class="dribbble-card overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="dribbble-table min-w-full">
+                        <thead>
+                            <tr>
+                                <th class="text-left w-32">Cycle / Round</th>
+                                <th class="text-left">Date</th>
+                                <th class="text-left">Topic / Theme</th>
+                                <th class="text-left">Status</th>
+                                <th class="text-right">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="schedule-list-body">
+                            <tr>
+                                <td colspan="5"
+                                    class="px-8 py-20 text-center text-gray-400 font-bold italic animate-pulse">
+                                    Loading schedule data...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
         </div>
     </main>
 
-    <script src="../shared/js/data-store.js"></script>
-    <script src="admin-core.js"></script>
+    <!-- Modal: Add Schedule -->
+    <div id="hs-add-schedule-modal"
+        class="hs-overlay hidden w-full h-full fixed top-0 left-0 z-[60] overflow-x-hidden overflow-y-auto bg-black/5 backdrop-blur-sm">
+        <div
+            class="hs-overlay-open:mt-7 hs-overlay-open:opacity-100 hs-overlay-open:duration-500 mt-0 opacity-0 ease-out transition-all sm:max-w-lg sm:w-full m-3 sm:mx-auto min-h-[calc(100%-3.5rem)] flex items-center justify-center">
+            <div class="glass-modal flex flex-col shadow-2xl rounded-2xl w-full">
+                <div class="flex justify-between items-center py-5 px-8 border-b border-gray-100">
+                    <h3 class="font-black text-gray-800 text-lg tracking-tight">
+                        Schedule Session
+                    </h3>
+                    <button type="button"
+                        class="hs-dropdown-toggle inline-flex flex-shrink-0 justify-center items-center h-8 w-8 rounded-lg text-gray-500 hover:text-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 focus:ring-offset-white transition-all text-sm"
+                        data-hs-overlay="#hs-add-schedule-modal">
+                        <span class="sr-only">Close</span>
+                        <svg class="w-3.5 h-3.5" width="8" height="8" viewBox="0 0 8 8" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M0.258206 1.00652C0.351976 0.912791 0.479126 0.860131 0.611706 0.860131C0.744296 0.860131 0.871447 0.912791 0.965207 1.00652L3.61171 3.65302L6.25822 1.00652C6.30432 0.958771 6.35952 0.920671 6.42052 0.894471C6.48152 0.868271 6.54712 0.854471 6.61352 0.853901C6.67992 0.853321 6.74572 0.865971 6.80722 0.891111C6.86862 0.916251 6.92442 0.953381 6.97142 1.00032C7.01832 1.04727 7.05552 1.1031 7.08062 1.16454C7.10572 1.22599 7.11842 1.29183 7.11782 1.35822C7.11722 1.42461 7.10342 1.49022 7.07722 1.55122C7.05102 1.61222 7.01292 1.6674 6.96522 1.71352L4.31871 4.36002L6.96522 7.00648C7.05632 7.10009 7.10662 7.22569 7.10512 7.35639C7.10362 7.48709 7.05042 7.61169 6.95722 7.70279C6.86392 7.79389 6.73822 7.84369 6.60752 7.84369C6.47682 7.84369 6.35112 7.79389 6.25792 7.70279L3.61171 5.05602L0.965207 7.70279C0.871907 7.79389 0.746207 7.84369 0.615506 7.84369C0.484806 7.84369 0.359106 7.79389 0.265906 7.70279C0.172706 7.61169 0.119506 7.48709 0.118006 7.35639C0.116506 7.22569 0.166806 7.10009 0.257906 7.00648L2.90471 4.36002L0.257906 1.71352C0.164306 1.61967 0.111706 1.49252 0.111706 1.36002C0.111706 1.22752 0.164306 1.10037 0.257906 1.00652H0.258206Z"
+                                fill="currentColor" opacity="0.8" />
+                        </svg>
+                    </button>
+                </div>
+                <div class="p-8 overflow-y-auto">
+                    <form id="add-session-form" class="space-y-5">
+                        <!-- Round Select -->
+                        <div>
+                            <label for="s-round"
+                                class="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Round /
+                                Cycle</label>
+                            <select id="s-round"
+                                class="w-full bg-gray-50 border border-gray-100 text-gray-900 text-sm rounded-xl focus:ring-[#00A78E] focus:border-[#00A78E] block w-full p-3 font-bold outline-none transition-all">
+                                <option>Loading rounds...</option>
+                            </select>
+                        </div>
+
+                        <!-- Date -->
+                        <div>
+                            <label for="s-date"
+                                class="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Session
+                                Date</label>
+                            <input type="date" id="s-date"
+                                class="bg-gray-50 border border-gray-100 text-gray-900 text-sm rounded-xl focus:ring-[#00A78E] focus:border-[#00A78E] block w-full p-3 font-bold outline-none transition-all"
+                                required>
+                        </div>
+
+                        <!-- Topic -->
+                        <div>
+                            <label for="s-topic"
+                                class="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Focus Topic
+                                (Optional)</label>
+                            <input type="text" id="s-topic" placeholder="e.g. Immunology Basics"
+                                class="bg-gray-50 border border-gray-100 text-gray-900 text-sm rounded-xl focus:ring-[#00A78E] focus:border-[#00A78E] block w-full p-3 font-bold outline-none transition-all">
+                        </div>
+                    </form>
+                </div>
+                <div class="flex justify-end items-center gap-x-2 py-5 px-8 border-t border-gray-100">
+                    <button type="button"
+                        class="py-2.5 px-4 inline-flex justify-center items-center gap-2 rounded-xl border border-transparent font-bold text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-0 transition-all text-xs uppercase tracking-widest"
+                        data-hs-overlay="#hs-add-schedule-modal">
+                        Cancel
+                    </button>
+                    <button type="submit" form="add-session-form"
+                        class="py-2.5 px-6 inline-flex justify-center items-center gap-2 rounded-xl border border-transparent font-black bg-[#00A78E] text-white hover:bg-[#008f7a] focus:outline-none focus:ring-2 focus:ring-[#00A78E] focus:ring-offset-2 transition-all text-sm shadow-lg shadow-[#00A78E]/30">
+                        Create Schedule
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://preline.co/assets/vendor/preline/dist/preline.js"></script>
+    <script src="../js/layout.js"></script>
+    <script>
+        const API_URL = "https://scorer-api.vercel.app/api";
+        const token = localStorage.getItem('token');
+        if (!token) window.location.href = '../auth.html';
+
+        async function initPage() {
+            await loadRounds(); // For select dropdown
+            loadSchedules();
+        }
+
+        async function loadRounds() {
+            try {
+                const res = await fetch(`${API_URL}/rounds`, { headers: { 'Authorization': `Bearer ${token}` } });
+                const rounds = await res.json();
+                const select = document.getElementById('s-round');
+                select.innerHTML = rounds.map(r => `<option value="${r.id}">${r.name} ${r.is_active ? '(Active)' : ''}</option>`).join('');
+            } catch (e) { console.error(e); }
+        }
+
+        async function loadSchedules() {
+            try {
+                const res = await fetch(`${API_URL}/sessions`, { headers: { 'Authorization': `Bearer ${token}` } });
+                const sessions = await res.json();
+                const tbody = document.getElementById('schedule-list-body');
+                tbody.innerHTML = '';
+
+                if (sessions.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="5" class="px-8 py-20 text-center text-gray-400 font-bold italic">No sessions scheduled yet.</td></tr>';
+                    return;
+                }
+
+                // Stats
+                document.getElementById('stat-total-sessions').innerText = sessions.length;
+                document.getElementById('stat-active-rounds').innerText = [...new Set(sessions.map(s => s.round_id))].length;
+                const nextSession = sessions.filter(s => new Date(s.session_date) >= new Date()).sort((a, b) => new Date(a.session_date) - new Date(b.session_date))[0];
+                document.getElementById('stat-next-date').innerText = nextSession ? new Date(nextSession.session_date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : "N/A";
+
+                sessions.forEach(s => {
+                    tbody.innerHTML += `
+                        <tr class="hover:bg-gray-50 transition-colors group">
+                            <td class="px-6 py-5 align-top">
+                                <span class="text-sm font-bold text-gray-600">Round #${s.round_id}</span>
+                            </td>
+                            <td class="px-6 py-5 align-top">
+                                <div class="flex items-center gap-2">
+                                    <div class="w-8 h-8 rounded-lg bg-gray-100 flex items-center justify-center font-black text-xs text-gray-500">
+                                        ${new Date(s.session_date).getDate()}
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <span class="text-sm font-bold text-gray-900">${new Date(s.session_date).toLocaleDateString(undefined, { weekday: 'short', month: 'short', year: 'numeric' })}</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-5 align-top">
+                                <span class="text-sm font-bold text-gray-800">${s.topic || 'General Session'}</span>
+                            </td>
+                            <td class="px-6 py-5 align-top">
+                                <span class="inline-flex items-center gap-1.5 py-0.5 px-2 rounded-full text-[10px] font-black uppercase tracking-widest ${new Date(s.session_date) < new Date() ? 'bg-gray-100 text-gray-400' : 'bg-[#e6f6f4] text-[#00A78E]'}">
+                                    <span class="w-1.5 h-1.5 rounded-full ${new Date(s.session_date) < new Date() ? 'bg-gray-400' : 'bg-[#00A78E]'}"></span>
+                                    ${new Date(s.session_date) < new Date() ? 'Completed' : 'Upcoming'}
+                                </span>
+                            </td>
+                            <td class="px-6 py-5 align-top text-right">
+                                <button class="text-gray-300 hover:text-red-500 font-bold text-xs">Delete</button>
+                            </td>
+                        </tr>
+                    `;
+                });
+
+            } catch (e) { console.error(e); }
+        }
+
+        document.getElementById('add-session-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const roundId = document.getElementById('s-round').value;
+            const date = document.getElementById('s-date').value;
+            const topic = document.getElementById('s-topic').value;
+
+            try {
+                const res = await fetch(`${API_URL}/sessions`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                    body: JSON.stringify({ round_id: roundId, session_date: date, topic: topic })
+                });
+                if (res.ok) {
+                    HSOverlay.close('#hs-add-schedule-modal');
+                    loadSchedules();
+                } else {
+                    alert('Failed to create session');
+                }
+            } catch (err) { console.error(err); }
+        });
+
+        initPage();
+    </script>
 </body>
+
 </html>

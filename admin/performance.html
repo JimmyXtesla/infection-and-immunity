@@ -1,29 +1,305 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-full">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Performance | ScoreFlow Admin</title>
+    <title>I&I Performance Rankings | ScoreFlow</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 </head>
-<body class="bg-slate-50 flex min-h-screen">
-    <!-- Sidebar -->
-    <!-- ... -->
 
-    <main class="flex-1 p-6 md:p-12">
-        <h1 class="text-3xl font-black text-slate-900 mb-10">Rankings</h1>
-        <div class="grid lg:grid-cols-3 gap-8">
-            <div class="lg:col-span-2 space-y-4" id="rank-list">
-                <!-- Ranked Groups appear here -->
+<body class="bg-[#f9fafb] min-h-full font-sans">
+
+    <div id="top-header-pill"></div>
+    <div id="mobile-header-container"></div>
+    <div id="sidebar-container"></div>
+
+    <!-- Main Content -->
+    <main class="lg:ps-64">
+        <div class="p-6 md:p-8 lg:p-10 max-w-[1600px] mx-auto animate-fade">
+
+            <!-- Breadcrumbs -->
+            <div class="flex flex-col md:flex-row md:items-center justify-between mb-8">
+                <nav class="flex items-center gap-2 text-sm font-medium">
+                    <span class="text-gray-400">Reporting</span>
+                    <span class="text-gray-400">/</span>
+                    <span class="text-[#00A78E]">I&I Monday Rankings</span>
+                </nav>
+                <div class="flex items-center gap-3 mt-4 md:mt-0">
+                    <button onclick="window.location.href='live-rankings.html'"
+                        class="btn-teal flex items-center gap-2 text-xs font-black uppercase tracking-widest bg-gray-900 shadow-2xl">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                            <path
+                                d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                        </svg>
+                        Monday Live Mode
+                    </button>
+                </div>
             </div>
-            <div class="bg-white p-8 rounded-[2.5rem] border border-slate-100">
-                <h3 class="font-bold mb-4">Top Individual</h3>
-                <div id="top-member"></div>
+
+            <!-- Group Rankings (Determined by Lowest Member Score) -->
+            <div class="grid lg:grid-cols-12 gap-8 mb-10">
+                <div class="lg:col-span-8 space-y-8">
+                    <div class="dribbble-card overflow-hidden">
+                        <div class="p-8 border-b border-gray-100 flex justify-between items-center bg-white">
+                            <div>
+                                <h3 class="text-xl font-black text-gray-900 tracking-tight">Group Baselines (Monday)
+                                </h3>
+                                <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest mt-1">Ranked by
+                                    lowest member total from the Monday session</p>
+                            </div>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="dribbble-table min-w-full">
+                                <thead>
+                                    <tr>
+                                        <th class="w-20">Rank</th>
+                                        <th class="text-left">Presentation Cohort</th>
+                                        <th class="text-left">Lowest Member Total</th>
+                                        <th class="text-left">Gap Progress</th>
+                                        <th class="text-right">Group Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="group-rank-body">
+                                    <tr>
+                                        <td colspan="4"
+                                            class="px-8 py-20 text-center text-gray-400 font-bold italic animate-pulse">
+                                            Analyzing presentation metrics...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Member Rankings (Pure Totals) -->
+                    <div class="dribbble-card overflow-hidden">
+                        <div class="p-8 border-b border-gray-100 flex justify-between items-center bg-white">
+                            <div>
+                                <h3 class="text-xl font-black text-gray-900 tracking-tight">Individual Totals</h3>
+                                <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest mt-1">Direct
+                                    sum of all scoring criteria (Max: 40)</p>
+                            </div>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="dribbble-table min-w-full">
+                                <thead>
+                                    <tr>
+                                        <th class="text-left px-8 py-4">Personnel</th>
+                                        <th class="text-left py-4">Cumulative Total Points</th>
+                                        <th class="text-right px-8 py-4">Badge</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="member-rank-body"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Side Panel Insights -->
+                <div class="lg:col-span-4 space-y-8">
+                    <div class="dribbble-card p-8 bg-gray-900 text-white">
+                        <h4 class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-6">Monday Scoring
+                            Protocol</h4>
+                        <div class="space-y-6">
+                            <p class="text-xs font-bold text-gray-400 leading-relaxed">
+                                Groups are ranked not by their strongest member, but by their <span
+                                    class="text-[#00A78E]">lowest individual total</span>. This ensures collective
+                                mastery and peer support during I&I presentations.
+                            </p>
+                            <div class="h-px bg-gray-800"></div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-xs font-black">Group Leadership</span>
+                                <span class="text-[10px] bg-[#00A78E] px-2 py-0.5 rounded text-white font-black">+10
+                                    PTS</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dribbble-card p-8 bg-white border-2 border-gray-100">
+                        <h4 class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-6">Gap Analysis
+                        </h4>
+                        <div class="space-y-6">
+                            <p class="text-xs font-bold text-gray-400 leading-relaxed">
+                                The <span class="text-orange-500">gap</span> represents the difference between the
+                                highest and lowest scoring members within a cohort. A smaller gap indicates more
+                                consistent team performance.
+                            </p>
+                            <div class="h-px bg-gray-100"></div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-xs font-black">Most Improved</span>
+                                <span class="text-[10px] bg-emerald-500 px-2 py-0.5 rounded text-white font-black">▲
+                                    PTS</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dribbble-card p-10 bg-white border-2 border-[#00A78E]/10">
+                        <h3 class="text-[10px] font-black text-[#00A78E] uppercase tracking-widest mb-6 text-center">Top
+                            Individual Mastery</h3>
+                        <div id="radar-chart"></div>
+                    </div>
+                </div>
             </div>
         </div>
     </main>
 
-    <script src="../shared/js/data-store.js"></script>
-    <script src="admin-core.js"></script>
+    <script src="https://preline.co/assets/vendor/preline/dist/preline.js"></script>
+    <script src="../js/layout.js"></script>
+    <script>
+        const API_URL = "https://scorer-api.vercel.app/api";
+        const token = localStorage.getItem('token');
+        if (!token) window.location.href = '../auth.html';
+
+        async function loadPerformance() {
+            try {
+                // FETCH OPTIMIZED RANKINGS FROM BACKEND
+                const groupRankRes = await fetch(`${API_URL}/rankings/groups`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const groupData = await groupRankRes.json();
+
+                const memberRankRes = await fetch(`${API_URL}/rankings/members`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const memberData = await memberRankRes.json();
+
+                renderGroupRankings(groupData);
+                renderMemberRankings(memberData);
+                initRadarChart();
+            } catch (err) { console.error(err); }
+        }
+
+        function renderGroupRankings(groups) {
+            const tbody = document.getElementById('group-rank-body');
+            tbody.innerHTML = '';
+
+            groups.forEach((g, idx) => {
+                const rank = idx + 1;
+                const minScore = parseFloat(g.minScore || 0).toFixed(1);
+                const gName = g.groupName || g.name || 'I&I Team';
+                const gap = parseFloat(g.performanceGap || 0).toFixed(1);
+
+                let badge = 'Compliant';
+                let badgeClass = 'bg-[#e6f6f4] text-[#00A78E] border-[#00A78E]/10';
+
+                if (minScore < 20) {
+                    badge = 'Needs Support';
+                    badgeClass = 'bg-orange-50 text-orange-600 border-orange-600/10';
+                } else if (minScore >= 35) {
+                    badge = 'Mastery';
+                    badgeClass = 'bg-blue-50 text-blue-600 border-blue-600/10';
+                }
+
+                tbody.innerHTML += `
+                    <tr class="hover:bg-gray-50/50 transition-all">
+                        <td class="px-8 py-6 font-black text-gray-900"># ${rank}</td>
+                        <td class="px-8 py-6">
+                            <div class="text-sm font-black text-gray-900">${gName}</div>
+                            <div class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mt-0.5">Automated Baseline</div>
+                        </td>
+                        <td class="px-8 py-6">
+                            <div class="flex items-center gap-4">
+                                <span class="text-lg font-black text-[#00A78E]">${minScore}</span>
+                                <div class="h-1.5 w-24 bg-gray-100 rounded-lg overflow-hidden">
+                                    <div class="h-full bg-[#00A78E]" style="width: ${(minScore / 40) * 100}%"></div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="px-8 py-6">
+                            <div class="flex items-center gap-2">
+                                <span class="text-[10px] font-black text-emerald-600 bg-emerald-50 px-2 py-1 rounded">▲ IMPROVING</span>
+                                <span class="text-[9px] font-bold text-gray-400">Gap: ${gap}</span>
+                            </div>
+                        </td>
+                        <td class="px-8 py-6 text-right">
+                             <span class="px-3 py-1 rounded-lg text-[9px] font-black uppercase tracking-widest ${badgeClass}">${badge}</span>
+                        </td>
+                    </tr>
+                `;
+            });
+        }
+
+        function renderMemberRankings(users) {
+            const tbody = document.getElementById('member-rank-body');
+            tbody.innerHTML = '';
+
+            users.forEach((u, idx) => {
+                const rank = idx + 1;
+                const score = parseFloat(u.cumulativeScore || 0);
+                const count = parseInt(u.sessionsCount || 1);
+                const avgScore = score / count;
+                const width = (avgScore / 5) * 100; // Average per criterion out of 5, or (avgScore/40)*100
+                // Since our total is 40, let's stick to (avgScore / 40) * 100 for proficiency
+                const profWidth = (avgScore / 40) * 100;
+
+                const uName = u.name || 'Member Identity';
+
+                let badge = 'Active';
+                let badgeClass = 'bg-gray-50 text-gray-500 border-gray-200';
+
+                if (avgScore >= 35) {
+                    badge = 'Top Performer';
+                    badgeClass = 'bg-emerald-50 text-emerald-600 border-emerald-100';
+                }
+
+                tbody.innerHTML += `
+                    <tr class="group hover:bg-gray-50/50 transition-colors cursor-pointer" onclick="window.location.href='profile.html?id=${u.id}'">
+                        <td class="px-8 py-6">
+                            <div class="flex items-center gap-4">
+                                <img src="https://ui-avatars.com/api/?name=${encodeURIComponent(uName)}&background=f3f4f6&color=111827&bold=true" class="w-10 h-10 rounded-full border-2 border-white shadow-sm" alt="">
+                                <div>
+                                    <div class="text-sm font-black text-gray-900 group-hover:text-[#00A78E]">${uName}</div>
+                                    <div class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">${count} Sessions Tracked</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="px-8 py-6">
+                            <div class="flex items-center gap-6 grow">
+                                <div class="h-1.5 grow max-w-[200px] bg-gray-100 rounded-full overflow-hidden">
+                                    <div class="h-full bg-[#00A78E] rounded-full transition-all duration-1000" style="width: ${profWidth}%"></div>
+                                </div>
+                                <div class="flex flex-col">
+                                    <span class="text-[10px] font-black text-gray-900">${score.toFixed(1)} Total</span>
+                                    <span class="text-[8px] font-bold text-gray-400 uppercase">Avg: ${avgScore.toFixed(1)}/40</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="px-8 py-6 text-right">
+                             <span class="px-3 py-1 rounded-lg text-[9px] font-black uppercase tracking-widest ${badgeClass}">${badge}</span>
+                        </td>
+                    </tr>
+                `;
+            });
+        }
+
+        function initRadarChart() {
+            const options = {
+                series: [{
+                    name: 'Core Proficiency',
+                    data: [80, 50, 30, 40, 100, 20],
+                }, {
+                    name: 'Critical Analysis',
+                    data: [20, 30, 40, 80, 20, 80],
+                }],
+                chart: { height: 400, type: 'radar', toolbar: { show: false }, fontFamily: 'Plus Jakarta Sans' },
+                colors: ['#00A78E', '#f59e0b'],
+                xaxis: {
+                    categories: ['Synthesis', 'Accuracy', 'Clarity', 'Temporal', 'Depth', 'Engagement'],
+                    labels: { style: { colors: '#9ca3af', fontWeight: 700 } }
+                },
+                markers: { size: 0 },
+                fill: { opacity: 0.2 },
+                stroke: { width: 4 },
+                legend: { show: true, position: 'bottom', fontWeight: 800, textTransform: 'uppercase', fontSize: '10px' }
+            };
+
+            new ApexCharts(document.querySelector("#radar-chart"), options).render();
+        }
+
+        loadPerformance();
+    </script>
 </body>
+
 </html>

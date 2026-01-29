@@ -1,101 +1,120 @@
 <!DOCTYPE html>
 <html lang="en" class="h-full">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile | I and I ScoreFlow</title>
+    <title>Personnel Profile | ScoreFlow</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://preline.co/assets/css/main.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-    <style>body { font-family: 'Inter', sans-serif; }</style>
+    <link rel="stylesheet" href="../css/style.css">
 </head>
-<body class="bg-slate-50 min-h-full">
 
-    <!-- Mobile Header (Consistent with other pages) -->
-    <div class="sticky top-0 inset-x-0 z-20 bg-white border-y px-4 py-2 lg:hidden">
-        <div class="flex justify-between items-center">
-            <a class="font-bold text-xl text-indigo-600" href="#">I and I</a>
-            <button type="button" class="p-2 border rounded-lg" data-hs-overlay="#hs-sidebar-footer">
-                <svg class="size-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="3" x2="21" y1="6" y2="6"/><line x1="3" x2="21" y1="12" y2="12"/><line x1="3" x2="21" y1="18" y2="18"/></svg>
-            </button>
-        </div>
-    </div>
+<body class="bg-slate-50 min-h-full font-sans">
 
-    <!-- Sidebar (Consistent with other pages) -->
-    <div id="hs-sidebar-footer" class="hs-overlay [--auto-close:lg] lg:block lg:translate-x-0 lg:end-auto lg:bottom-0 w-64 hs-overlay-open:translate-x-0 -translate-x-full transition-all duration-300 transform h-full hidden fixed top-0 start-0 bottom-0 z-[60] bg-white border-e border-gray-200" role="dialog" tabindex="-1">
-        <div class="relative flex flex-col h-full">
-            <header class="p-4"><a class="font-black text-2xl text-indigo-600" href="dashboard.html">I and I</a></header>
-            <nav class="h-full overflow-y-auto p-3">
-                <ul class="space-y-1.5 text-sm">
-                    <li><a class="flex items-center gap-x-3 py-2 px-2.5 text-gray-700 rounded-lg hover:bg-gray-100" href="dashboard.html">Dashboard</a></li>
-                    <li><a class="flex items-center gap-x-3 py-2 px-2.5 bg-indigo-50 text-indigo-600 font-bold rounded-lg" href="users.html">Users</a></li>
-                    <li><a class="flex items-center gap-x-3 py-2 px-2.5 text-gray-700 rounded-lg hover:bg-gray-100" href="groups.html">Groups</a></li>
-                    <li><a class="flex items-center gap-x-3 py-2 px-2.5 text-gray-700 rounded-lg hover:bg-gray-100" href="score.html">Scoring Mode</a></li>
-                </ul>
-            </nav>
-            <footer class="mt-auto p-4 border-t border-gray-200">
-                <button onclick="logout()" class="text-sm text-red-600 font-bold p-2">Sign Out</button>
-            </footer>
-        </div>
-    </div>
+    <div id="mobile-header-container"></div>
+    <div id="sidebar-container"></div>
 
     <!-- Main Content -->
     <main class="lg:ps-64">
-        <div class="p-4 sm:p-6 md:p-10 lg:p-12 max-w-[85rem] mx-auto">
-            
+        <div class="p-4 sm:p-6 md:p-10 lg:p-12 max-w-[85rem] mx-auto animate-fade-in">
+
             <!-- Breadcrumbs -->
-            <nav class="flex items-center gap-x-3 mb-6 text-sm text-slate-500">
-                <a href="users.html" class="hover:text-indigo-600">Users</a>
-                <svg class="size-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>
-                <span id="breadcrumb-name" class="font-bold text-indigo-600">User Performance</span>
+            <nav
+                class="flex items-center gap-x-3 mb-10 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">
+                <a href="users.html" class="hover:text-rose-600 transition-colors">Personnel</a>
+                <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
+                    <path d="m9 18 6-6-6-6" />
+                </svg>
+                <span id="breadcrumb-name" class="text-rose-600">Member Data</span>
             </nav>
 
             <!-- Profile Header -->
-            <div class="bg-white border border-slate-200 rounded-2xl p-6 mb-8 shadow-sm">
-                <div class="flex flex-col md:flex-row items-center gap-6">
-                    <div class="size-24 rounded-full bg-indigo-600 flex items-center justify-center text-white text-3xl font-black" id="profile-initials">..</div>
+            <div
+                class="glass-card rounded-[3rem] p-10 mb-12 border-slate-200/50 shadow-2xl shadow-slate-200/40 relative overflow-hidden">
+                <div class="absolute top-0 right-0 p-10 opacity-5">
+                    <svg class="w-48 h-48 text-rose-600" fill="currentColor" viewBox="0 0 24 24">
+                        <path
+                            d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z" />
+                    </svg>
+                </div>
+
+                <div class="flex flex-col md:flex-row items-center gap-10 relative z-10">
+                    <div class="w-32 h-32 rounded-[2.5rem] bg-rose-600 flex items-center justify-center text-white text-5xl font-black shadow-2xl shadow-rose-200"
+                        id="profile-initials">..</div>
                     <div class="text-center md:text-left grow">
-                        <h1 class="text-3xl font-black text-slate-900" id="profile-name">Loading...</h1>
-                        <p class="text-slate-500" id="profile-role">User Details</p>
+                        <div
+                            class="inline-flex items-center gap-2 px-3 py-1 bg-emerald-50 text-emerald-600 text-[9px] font-black uppercase tracking-widest rounded-full border border-emerald-100 mb-4">
+                            Verification Active</div>
+                        <h1 class="text-5xl font-black text-slate-900 tracking-tight" id="profile-name">Scanning...</h1>
+                        <p class="text-slate-400 font-bold mt-2" id="profile-role">Terminal ID: Loading Personnel Data
+                        </p>
                     </div>
-                    <div class="flex gap-3">
-                        <button onclick="window.print()" class="py-2 px-4 text-sm font-bold rounded-xl border border-slate-200 bg-white text-slate-700 hover:bg-slate-50">Print Report</button>
+                    <div class="flex gap-4">
+                        <button onclick="window.print()"
+                            class="h-14 px-8 text-xs font-black uppercase tracking-widest rounded-2xl border border-slate-100 bg-white text-slate-900 hover:bg-slate-50 transition-all shadow-xl shadow-slate-200/50 flex items-center gap-3">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5"
+                                viewBox="0 0 24 24">
+                                <path
+                                    d="M6 9V2h12v7M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2m-2 0H8m10-4h.01" />
+                            </svg>
+                            Export Performance Report
+                        </button>
                     </div>
                 </div>
             </div>
 
             <!-- Stats Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
-                    <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Global Average</p>
-                    <p class="text-4xl font-black text-indigo-600 mt-1" id="stat-avg">0.00</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+                <div class="glass-card p-10 rounded-[3rem] border-rose-100 shadow-2xl shadow-rose-100/50">
+                    <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Overall Score</p>
+                    <div class="flex items-end gap-2">
+                        <span id="stat-avg" class="text-6xl font-black text-rose-600 leading-none">0.0</span>
+                        <span class="text-rose-200 text-sm font-bold mb-2">/ 40</span>
+                    </div>
                 </div>
-                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
-                    <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Total Sessions</p>
-                    <p class="text-4xl font-black text-slate-900 mt-1" id="stat-count">0</p>
+                <div class="glass-card p-10 rounded-[3rem] border-slate-100 shadow-2xl shadow-slate-200/40">
+                    <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Presentation
+                        History</p>
+                    <span id="stat-count" class="text-6xl font-black text-slate-900 leading-none">0</span>
+                    <span class="text-slate-300 text-xs font-bold ml-2">CYCLES</span>
                 </div>
-                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
-                    <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Latest Score</p>
-                    <p class="text-4xl font-black text-slate-900 mt-1" id="stat-latest">0.0</p>
+                <div class="glass-card p-10 rounded-[3rem] border-slate-100 shadow-2xl shadow-slate-200/40">
+                    <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Last Assessment</p>
+                    <span id="stat-latest" class="text-6xl font-black text-slate-900 leading-none">0.0</span>
+                    <span class="text-emerald-500 text-xs font-bold ml-2">↑ LATEST</span>
                 </div>
             </div>
 
-            <div class="grid lg:grid-cols-3 gap-8">
+            <div class="grid lg:grid-cols-3 gap-12">
                 <!-- Left: Matrix -->
-                <div class="lg:col-span-1 bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
-                    <h3 class="font-bold text-slate-800 mb-6">Skill Matrix (Avg)</h3>
-                    <div class="space-y-5" id="skill-matrix">
-                        <p class="text-slate-400 text-sm">Loading skills data...</p>
+                <div
+                    class="lg:col-span-1 glass-card rounded-[3.5rem] p-10 border-slate-100 shadow-2xl shadow-slate-200/40">
+                    <div class="mb-10">
+                        <h3 class="font-black text-2xl text-slate-900 tracking-tight">Competency Matrix</h3>
+                        <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mt-1">Weighted Skill
+                            Distibution</p>
+                    </div>
+                    <div class="space-y-8" id="skill-matrix">
+                        <p class="text-slate-400 text-xs font-bold animate-pulse uppercase tracking-[0.22em]">Syncing
+                            Matrix Data...</p>
                     </div>
                 </div>
 
                 <!-- Right: History -->
-                <div class="lg:col-span-2 space-y-6">
-                    <div class="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
-                        <div class="p-6 border-b border-slate-100">
-                            <h3 class="font-bold text-slate-800">Evaluation History</h3>
+                <div class="lg:col-span-2 space-y-8">
+                    <div
+                        class="glass-card rounded-[3.5rem] border-slate-100 shadow-2xl shadow-slate-200/40 overflow-hidden">
+                        <div class="p-10 border-b border-slate-50 bg-slate-50/30 flex justify-between items-center">
+                            <div>
+                                <h3 class="font-black text-2xl text-slate-900 tracking-tight">Presentation Records</h3>
+                                <p class="text-[10px] font-black text-rose-500 uppercase tracking-widest mt-1">
+                                    Historical session data</p>
+                            </div>
+                            <div
+                                class="px-4 py-2 bg-white border border-slate-100 rounded-xl text-[10px] font-black text-slate-400">
+                                CHRONOLOGICAL</div>
                         </div>
-                        <div class="divide-y divide-slate-100" id="history-list">
+                        <div class="divide-y divide-slate-50" id="history-list">
                             <!-- Injected by JS -->
                         </div>
                     </div>
@@ -105,15 +124,15 @@
         </div>
     </main>
 
+    <script src="https://preline.co/assets/vendor/preline/dist/preline.js"></script>
+    <script src="../js/layout.js"></script>
     <script>
         const API_URL = "https://scorer-api.vercel.app/api";
         const token = localStorage.getItem('token');
-        
-        // Get User ID from URL (?id=X)
         const urlParams = new URLSearchParams(window.location.search);
         const userId = urlParams.get('id');
 
-        if (!token) window.location.href = 'login.html';
+        if (!token) window.location.href = '../auth.html';
         if (!userId) window.location.href = 'users.html';
 
         async function loadProfile() {
@@ -122,66 +141,76 @@
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
                 const data = await response.json();
-                
                 renderProfile(data);
-            } catch (err) {
-                console.error(err);
-            }
+            } catch (err) { console.error(err); }
         }
 
         function renderProfile(data) {
             const { user, evaluations } = data;
-            
-            // Header
             document.getElementById('profile-name').innerText = user.name;
             document.getElementById('breadcrumb-name').innerText = user.name;
             document.getElementById('profile-initials').innerText = user.name.charAt(0).toUpperCase();
-            document.getElementById('profile-role').innerText = `${user.role} • ${user.email}`;
+            document.getElementById('profile-role').innerText = `ID: Personnel-00${user.id} • ${user.role} • ${user.email}`;
 
-            // Basic Stats
             document.getElementById('stat-count').innerText = evaluations.length;
-            
+
             if (evaluations.length > 0) {
-                const totalAvg = evaluations.reduce((acc, curr) => acc + parseFloat(curr.average_score), 0) / evaluations.length;
-                document.getElementById('stat-avg').innerText = totalAvg.toFixed(2);
-                document.getElementById('stat-latest').innerText = parseFloat(evaluations[0].average_score).toFixed(1);
-                
+                // Calculate average total points per evaluation (out of 40)
+                const totalAvgPoints = evaluations.reduce((acc, curr) => {
+                    // Sum up the 8 criteria for this evaluation
+                    const totalForThisEval = parseFloat(curr.score_slide_style || 0) +
+                        parseFloat(curr.score_content || 0) +
+                        parseFloat(curr.score_leadership || 0) +
+                        parseFloat(curr.score_timing || 0) +
+                        parseFloat(curr.score_wow_factor || 0) +
+                        parseFloat(curr.score_clear_response || 0) +
+                        parseFloat(curr.score_accurate_response || 0) +
+                        parseFloat(curr.score_conciseness || 0);
+                    return acc + totalForThisEval;
+                }, 0) / evaluations.length;
+
+                document.getElementById('stat-avg').innerText = totalAvgPoints.toFixed(1);
+
+                // Latest total
+                const latest = evaluations[0];
+                const latestTotal = parseFloat(latest.score_slide_style || 0) + parseFloat(latest.score_content || 0) +
+                    parseFloat(latest.score_leadership || 0) + parseFloat(latest.score_timing || 0) +
+                    parseFloat(latest.score_wow_factor || 0) + parseFloat(latest.score_clear_response || 0) +
+                    parseFloat(latest.score_accurate_response || 0) + parseFloat(latest.score_conciseness || 0);
+                document.getElementById('stat-latest').innerText = latestTotal.toFixed(1);
+
                 renderMatrix(evaluations);
                 renderHistory(evaluations);
             } else {
-                document.getElementById('history-list').innerHTML = '<p class="p-10 text-center text-slate-400">No evaluations found for this user.</p>';
+                document.getElementById('history-list').innerHTML = '<div class="p-20 text-center text-slate-300 font-bold italic uppercase tracking-widest text-xs">No performance logs identified.</div>';
             }
         }
 
         function renderMatrix(evals) {
             const matrix = document.getElementById('skill-matrix');
-            
-            // Criteria to calculate
             const criteria = [
-                { key: 'score_slide_style', label: 'Style' },
-                { key: 'score_content', label: 'Content' },
-                { key: 'score_clarity', label: 'Clarity' },
-                { key: 'score_timing', label: 'Timing' },
-                { key: 'score_wow_factor', label: 'Wow Factor' },
-                { key: 'score_clear_response', label: 'Response Clarity' },
-                { key: 'score_accurate_response', label: 'Accuracy' },
-                { key: 'score_conciseness', label: 'Conciseness' }
+                { key: 'score_slide_style', label: 'Slide Synthesis' },
+                { key: 'score_content', label: 'Depth of Research' },
+                { key: 'score_clarity', label: 'Delivery Vector' },
+                { key: 'score_timing', label: 'Temporal Precision' },
+                { key: 'score_wow_factor', label: 'Engagement Index' },
+                { key: 'score_clear_response', label: 'Response Fluidity' },
+                { key: 'score_accurate_response', label: 'Scientific Accuracy' },
+                { key: 'score_conciseness', label: 'Synthesis' }
             ];
 
             matrix.innerHTML = '';
-            
             criteria.forEach(c => {
-                const avg = evals.reduce((acc, curr) => acc + parseFloat(curr[c.key]), 0) / evals.length;
-                const percentage = (avg * 10); // 0-10 scale to 0-100%
-
+                const avg = evals.reduce((acc, curr) => acc + parseFloat(curr[c.key] || 0), 0) / evals.length;
+                const percentage = (avg * 20); // 5 * 20 = 100%
                 matrix.innerHTML += `
-                    <div>
-                        <div class="flex justify-between text-xs mb-2">
-                            <span class="font-bold text-slate-600 uppercase">${c.label}</span>
-                            <span class="text-indigo-600 font-bold">${avg.toFixed(1)}</span>
+                    <div class="group">
+                        <div class="flex justify-between text-[10px] mb-3">
+                            <span class="font-black text-slate-500 uppercase tracking-widest group-hover:text-rose-600 transition-colors">${c.label}</span>
+                            <span class="text-rose-600 font-black tracking-tighter text-sm">${avg.toFixed(1)} / 5</span>
                         </div>
-                        <div class="h-1.5 w-full bg-slate-100 rounded-full">
-                            <div class="h-1.5 bg-indigo-500 rounded-full transition-all duration-1000" style="width: ${percentage}%"></div>
+                        <div class="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
+                            <div class="h-1.5 bg-rose-600 rounded-full transition-all duration-[1.5s] ease-out shadow-sm" style="width: ${percentage}%"></div>
                         </div>
                     </div>
                 `;
@@ -193,37 +222,43 @@
             list.innerHTML = '';
 
             evals.forEach(e => {
-                const date = new Date(e.created_at).toLocaleDateString();
+                const date = new Date(e.created_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
                 list.innerHTML += `
-                    <div class="p-6 hover:bg-slate-50 transition flex items-center justify-between">
-                        <div>
-                            <p class="text-sm font-bold text-slate-800">Evaluated in ${e.group_name}</p>
-                            <p class="text-xs text-slate-500">${date}</p>
+                    <div class="p-10 hover:bg-slate-50 transition-all duration-500 group">
+                        <div class="flex items-center justify-between mb-8">
+                            <div>
+                                <p class="text-[10px] font-black text-rose-500 uppercase tracking-[0.2em] mb-1">Session Data</p>
+                                <h4 class="text-xl font-black text-slate-900 tracking-tight">Cycle Entry: ${e.group_name}</h4>
+                                <p class="text-[10px] font-bold text-slate-400 mt-1">DATE: ${date}</p>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-4xl font-black text-slate-900 group-hover:text-rose-600 transition-colors tracking-tighter">${parseFloat(e.average_score).toFixed(2)}</div>
+                                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Aggregate</p>
+                            </div>
                         </div>
-                        <div class="text-right">
-                            <p class="text-xl font-black text-indigo-600">${parseFloat(e.average_score).toFixed(2)}</p>
+                        <div class="grid md:grid-cols-2 gap-6">
+                             <div class="glass-card bg-emerald-50/40 p-6 rounded-3xl border-emerald-100/50">
+                                <div class="flex items-center gap-2 mb-3">
+                                    <div class="w-1.5 h-1.5 rounded-full bg-emerald-500"></div>
+                                    <span class="text-[10px] font-black text-emerald-700 uppercase tracking-widest">Key Strengths</span>
+                                </div>
+                                <p class="text-xs font-bold text-slate-600 leading-relaxed italic">"${e.strengths || 'No exceptional traits identified in this cycle.'}"</p>
+                             </div>
+                             <div class="glass-card bg-rose-50/40 p-6 rounded-3xl border-rose-100/50">
+                                <div class="flex items-center gap-2 mb-3">
+                                    <div class="w-1.5 h-1.5 rounded-full bg-rose-500"></div>
+                                    <span class="text-[10px] font-black text-rose-700 uppercase tracking-widest">Growth Areas</span>
+                                </div>
+                                <p class="text-xs font-bold text-slate-600 leading-relaxed italic">"${e.improvements || 'Personnel maintained stable performance profiles.'}"</p>
+                             </div>
                         </div>
-                    </div>
-                    <div class="px-6 pb-6 grid grid-cols-2 gap-4">
-                         <div class="bg-green-50 p-3 rounded-lg text-[11px]">
-                            <span class="font-bold text-green-700 uppercase block mb-1">Strengths</span>
-                            <span class="text-slate-600">${e.strengths || 'None recorded'}</span>
-                         </div>
-                         <div class="bg-orange-50 p-3 rounded-lg text-[11px]">
-                            <span class="font-bold text-orange-700 uppercase block mb-1">Improvements</span>
-                            <span class="text-slate-600">${e.improvements || 'None recorded'}</span>
-                         </div>
                     </div>
                 `;
             });
         }
 
-        function logout() {
-            localStorage.clear();
-            window.location.href = 'login.html';
-        }
-
         loadProfile();
     </script>
 </body>
+
 </html>

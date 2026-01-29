@@ -1,259 +1,318 @@
 <!DOCTYPE html>
 <html lang="en" class="h-full">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Submit Score | ScoreFlow Admin</title>
+    <title>Monday Presentation Scoring | Infection & Immunity</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://preline.co/assets/css/main.min.css">
+    <link rel="stylesheet" href="../css/style.css">
 </head>
-<body class="bg-slate-50 min-h-full font-sans">
 
-    <!-- Mobile Header -->
-    <div class="sticky top-0 inset-x-0 z-20 bg-white border-y px-4 py-2 lg:hidden">
-        <div class="flex justify-between items-center">
-            <a class="font-bold text-xl text-indigo-600" href="#">ScoreFlow</a>
-            <button type="button" class="p-2 border rounded-lg" data-hs-overlay="#hs-sidebar-footer">
-                <svg class="size-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="3" x2="21" y1="6" y2="6"/><line x1="3" x2="21" y1="12" y2="12"/><line x1="3" x2="21" y1="18" y2="18"/></svg>
-            </button>
-        </div>
-    </div>
+<body class="bg-[#f9fafb] min-h-full font-sans">
 
-    <!-- Sidebar -->
-    <div id="hs-sidebar-footer" class="hs-overlay [--auto-close:lg] lg:block lg:translate-x-0 lg:end-auto lg:bottom-0 w-64 hs-overlay-open:translate-x-0 -translate-x-full transition-all duration-300 transform h-full hidden fixed top-0 start-0 bottom-0 z-[60] bg-white border-e border-gray-200" role="dialog" tabindex="-1">
-        <div class="relative flex flex-col h-full">
-            <header class="p-4"><a class="font-black text-2xl text-indigo-600" href="dashboard.html">ScoreFlow</a></header>
-            <nav class="h-full overflow-y-auto p-3">
-                <ul class="space-y-1.5 text-sm">
-                    <li><a class="flex items-center gap-x-3 py-2 px-2.5 text-gray-700 rounded-lg hover:bg-gray-100" href="dashboard.html">Dashboard</a></li>
-                    <li><a class="flex items-center gap-x-3 py-2 px-2.5 text-gray-700 rounded-lg hover:bg-gray-100" href="users.html">Users</a></li>
-                    <li><a class="flex items-center gap-x-3 py-2 px-2.5 text-gray-700 rounded-lg hover:bg-gray-100" href="groups.html">Groups</a></li>
-                    <li><a class="flex items-center gap-x-3 py-2 px-2.5 text-gray-800 bg-gray-100 font-bold rounded-lg" href="#">Evaluation Mode</a></li>
-                </ul>
-            </nav>
-        </div>
-    </div>
+    <div id="top-header-pill"></div>
+    <div id="mobile-header-container"></div>
 
-    <!-- Main Content -->
-    <main class="lg:ps-64">
-        <div class="p-4 sm:p-6 md:p-10 lg:p-12 max-w-[85rem] mx-auto">
-            
-            <header class="mb-8">
-                <h1 class="text-3xl font-black text-slate-900">New Evaluation</h1>
-                <p class="text-slate-500">Provide feedback based on the 8 core criteria.</p>
+    <!-- Main Content (No Sidebar for Leaders) -->
+    <main class="">
+        <div class="p-6 md:p-8 lg:p-10 max-w-[1000px] mx-auto animate-fade">
+
+            <header class="mb-10 text-center">
+                <p class="text-[10px] font-black text-[#00A78E] uppercase tracking-[0.2em] mb-2">Monday Presentation
+                    Protocol
+                </p>
+                <h1 class="text-4xl font-black text-gray-900 tracking-tight">I&I Monday Presentation</h1>
+                <p class="text-gray-400 font-medium mt-1">Weekly evaluation portal. Group scores are calculated based on
+                    Monday totals and the member baseline.</p>
             </header>
 
-            <div class="grid lg:grid-cols-3 gap-8">
-                
-                <div class="lg:col-span-2 space-y-6">
-                    
-                    <!-- 1. Selection Card -->
-                    <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
-                        <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Step 1: Identity</h3>
-                        <div class="grid sm:grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-sm font-medium mb-2">Target Group</label>
-                                <select id="group-select" class="py-2.5 px-3 block w-full border-gray-200 rounded-lg text-sm border focus:ring-indigo-500 outline-none">
-                                    <option value="">Loading Groups...</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium mb-2">Member to Score</label>
-                                <select id="member-select" class="py-2.5 px-3 block w-full border-gray-200 rounded-lg text-sm border focus:ring-indigo-500 outline-none">
-                                    <option value="">Select a Group First</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
+            <form id="eval-form" class="space-y-10">
+                <!-- Step 1: Identification -->
+                <div class="dribbble-card p-6 lg:p-10 mb-8 relative">
+                    <div
+                        class="absolute -top-4 -left-4 w-10 h-10 bg-[#00A78E] text-white rounded-lg flex items-center justify-center font-black shadow-xl">
+                        01</div>
+                    <h3 class="text-lg font-black text-gray-900 mb-8 border-b border-gray-50 pb-6">Personnel
+                        Identification</h3>
 
-                    <!-- 2. Metrics Sliders (All 8 Criteria) -->
-                    <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
-                        <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-6">Step 2: Rubric (0-10)</h3>
-                        
-                        <div id="slider-container" class="space-y-6">
-                            <!-- JS will inject sliders here for cleaner code, or define them manually -->
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div class="space-y-1.5">
+                            <label
+                                class="block text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Target
+                                Research Cohort</label>
+                            <select id="group-id" required onchange="fetchMembers(this.value); checkProgress()"
+                                class="w-full px-4 py-3 rounded-lg border border-gray-200 bg-gray-50 focus:bg-white focus:ring-4 focus:ring-[#e6f6f4] focus:border-[#00A78E] outline-none transition-all appearance-none cursor-pointer font-bold text-gray-600">
+                                <option value="">Select Cohort...</option>
+                            </select>
                         </div>
-                    </div>
-
-                    <!-- 3. Feedback -->
-                    <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
-                        <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Step 3: Narrative</h3>
-                        <div class="space-y-4">
-                            <div>
-                                <label class="block text-sm font-medium mb-2">Key Strengths</label>
-                                <textarea id="strengths" class="py-3 px-4 block w-full border border-gray-200 rounded-lg text-sm outline-none focus:ring-indigo-500" rows="3"></textarea>
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium mb-2">Areas for Improvement</label>
-                                <textarea id="improvements" class="py-3 px-4 block w-full border border-gray-200 rounded-lg text-sm outline-none focus:ring-indigo-500" rows="3"></textarea>
-                            </div>
+                        <div class="space-y-1.5">
+                            <label
+                                class="block text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Presenting
+                                Personnel</label>
+                            <select id="member-id" required onchange="checkProgress()"
+                                class="w-full px-4 py-3 rounded-lg border border-gray-200 bg-gray-50 focus:bg-white focus:ring-4 focus:ring-[#e6f6f4] focus:border-[#00A78E] outline-none transition-all appearance-none cursor-pointer font-bold text-gray-600"
+                                disabled>
+                                <option value="">Select Personnel...</option>
+                            </select>
                         </div>
                     </div>
                 </div>
 
-                <!-- Right Sidebar -->
-                <div class="lg:col-span-1">
-                    <div class="sticky top-6 space-y-4">
-                        <div class="bg-indigo-600 rounded-2xl p-6 text-white shadow-xl shadow-indigo-100">
-                            <h4 class="text-xs font-bold uppercase tracking-widest text-indigo-200 mb-6">Evaluation Summary</h4>
-                            
-                            <div class="flex items-center justify-between mb-2">
-                                <span class="text-sm opacity-80">Calculated Avg</span>
-                                <span id="display-avg" class="text-3xl font-black">0.00</span>
-                            </div>
-                            <div class="w-full bg-white/20 h-1.5 rounded-full mb-6">
-                                <div id="progress-bar" class="bg-white h-1.5 rounded-full transition-all duration-500" style="width: 0%"></div>
+                <!-- Step 2: Metrics -->
+                <div id="step-metrics"
+                    class="space-y-8 opacity-40 grayscale pointer-events-none transition-all duration-500">
+                    <div class="dribbble-card p-6 lg:p-10 relative">
+                        <div class="absolute -top-4 -left-4 w-10 h-10 bg-gray-400 text-white rounded-lg flex items-center justify-center font-black transition-colors"
+                            id="step-two-badge">02</div>
+                        <h3 class="text-lg font-black text-gray-900 mb-10 border-b border-gray-50 pb-6">Quantitative
+                            Proficiency Vectors</h3>
+
+                        <div class="grid md:grid-cols-2 gap-x-12 gap-y-10">
+                            <!-- Sliders -->
+                            <div class="space-y-6">
+                                <div>
+                                    <div
+                                        class="flex justify-between text-[10px] font-black text-gray-400 uppercase tracking-widest mb-4">
+                                        <span>Presentation Slides</span>
+                                        <span class="text-[#00A78E]" id="val-slide">3</span>
+                                    </div>
+                                    <input type="range" min="1" max="5" value="3" id="score_slide_style"
+                                        oninput="updateVal('val-slide', this.value)"
+                                        class="w-full h-1.5 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-[#00A78E]">
+                                </div>
+                                <div>
+                                    <div
+                                        class="flex justify-between text-[10px] font-black text-gray-400 uppercase tracking-widest mb-4">
+                                        <span> Mastery</span>
+                                        <span class="text-[#00A78E]" id="val-content">3</span>
+                                    </div>
+                                    <input type="range" min="1" max="5" value="3" id="score_content"
+                                        oninput="updateVal('val-content', this.value)"
+                                        class="w-full h-1.5 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-[#00A78E]">
+                                </div>
+                                <div>
+                                    <div
+                                        class="flex justify-between text-[10px] font-black text-gray-400 uppercase tracking-widest mb-4">
+                                        <span>Group Leadership</span>
+                                        <span class="text-[#00A78E]" id="val-leadership">3</span>
+                                    </div>
+                                    <input type="range" min="1" max="5" value="3" id="score_leadership"
+                                        oninput="updateVal('val-leadership', this.value)"
+                                        class="w-full h-1.5 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-[#00A78E]">
+                                </div>
+                                <div>
+                                    <div
+                                        class="flex justify-between text-[10px] font-black text-gray-400 uppercase tracking-widest mb-4">
+                                        <span>Temporal Control</span>
+                                        <span class="text-[#00A78E]" id="val-timing">3</span>
+                                    </div>
+                                    <input type="range" min="1" max="5" value="3" id="score_timing"
+                                        oninput="updateVal('val-timing', this.value)"
+                                        class="w-full h-1.5 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-[#00A78E]">
+                                </div>
                             </div>
 
-                            <div class="space-y-3 mb-8">
-                                <div class="flex justify-between text-xs border-b border-white/10 pb-2">
-                                    <span class="opacity-80">Evaluator</span>
-                                    <span id="eval-name" class="font-bold">...</span>
+                            <div class="space-y-6">
+                                <div>
+                                    <div
+                                        class="flex justify-between text-[10px] font-black text-gray-400 uppercase tracking-widest mb-4">
+                                        <span>Engagement Index</span>
+                                        <span class="text-[#00A78E]" id="val-wow">3</span>
+                                    </div>
+                                    <input type="range" min="1" max="5" value="3" id="score_wow_factor"
+                                        oninput="updateVal('val-wow', this.value)"
+                                        class="w-full h-1.5 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-[#00A78E]">
                                 </div>
-                                <div class="flex justify-between text-xs border-b border-white/10 pb-2">
-                                    <span class="opacity-80">Date</span>
-                                    <span id="eval-date" class="font-bold">...</span>
+                                <div>
+                                    <div
+                                        class="flex justify-between text-[10px] font-black text-gray-400 uppercase tracking-widest mb-4">
+                                        <span>Response Fluidity</span>
+                                        <span class="text-[#00A78E]" id="val-resp-c">3</span>
+                                    </div>
+                                    <input type="range" min="1" max="5" value="3" id="score_clear_response"
+                                        oninput="updateVal('val-resp-c', this.value)"
+                                        class="w-full h-1.5 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-[#00A78E]">
+                                </div>
+                                <div>
+                                    <div
+                                        class="flex justify-between text-[10px] font-black text-gray-400 uppercase tracking-widest mb-4">
+                                        <span>Scientific Accuracy</span>
+                                        <span class="text-[#00A78E]" id="val-resp-a">3</span>
+                                    </div>
+                                    <input type="range" min="1" max="5" value="3" id="score_accurate_response"
+                                        oninput="updateVal('val-resp-a', this.value)"
+                                        class="w-full h-1.5 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-[#00A78E]">
+                                </div>
+                                <div>
+                                    <div
+                                        class="flex justify-between text-[10px] font-black text-gray-400 uppercase tracking-widest mb-4">
+                                        <span>Data Synthesis</span>
+                                        <span class="text-[#00A78E]" id="val-concise">3</span>
+                                    </div>
+                                    <input type="range" min="1" max="5" value="3" id="score_conciseness"
+                                        oninput="updateVal('val-concise', this.value)"
+                                        class="w-full h-1.5 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-[#00A78E]">
                                 </div>
                             </div>
+                        </div>
+                    </div>
 
-                            <button onclick="submitEvaluation()" type="button" class="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-bold rounded-xl bg-white text-indigo-600 hover:bg-indigo-50 transition shadow-lg">
-                                Submit Score
+                    <!-- Step 3: Qualitative -->
+                    <div class="dribbble-card p-6 lg:p-10 relative">
+                        <div class="absolute -top-4 -left-4 w-10 h-10 bg-gray-400 text-white rounded-lg flex items-center justify-center font-black transition-colors"
+                            id="step-three-badge">03</div>
+                        <h3 class="text-lg font-black text-gray-900 mb-8 border-b border-gray-50 pb-6">Qualitative
+                            Analysis</h3>
+
+                        <div class="space-y-8">
+                            <div class="space-y-1.5">
+                                <label
+                                    class="block text-[10px] font-black text-emerald-600 uppercase tracking-widest ml-1">Key
+                                    Strengths & Anomalies</label>
+                                <textarea id="strengths" required onkeyup="calculateIntegrity(); checkProgress()"
+                                    rows="3"
+                                    class="w-full px-4 py-3 rounded-lg border border-gray-200 bg-gray-50 focus:bg-white focus:ring-4 focus:ring-[#e6f6f4] focus:border-[#00A78E] outline-none transition-all placeholder:text-gray-300 font-medium"
+                                    placeholder="Describe exceptional scientific traits..."></textarea>
+                            </div>
+                            <div class="space-y-1.5">
+                                <label
+                                    class="block text-[10px] font-black text-rose-500 uppercase tracking-widest ml-1">Improvements</label>
+                                <textarea id="improvements" required onkeyup="calculateIntegrity(); checkProgress()"
+                                    rows="3"
+                                    class="w-full px-4 py-3 rounded-lg border border-gray-200 bg-gray-50 focus:bg-white focus:ring-4 focus:ring-[#e6f6f4] focus:border-[#00A78E] outline-none transition-all placeholder:text-gray-300 font-medium"
+                                    placeholder="Identify areas for further optimization..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Integrity Check & Submission -->
+                    <div
+                        class="p-8 dribbble-card bg-gray-900 text-white flex flex-col md:flex-row items-center justify-between gap-8 rounded-xl shadow-2xl shadow-gray-200">
+                        <div>
+                            <h4 class="text-lg font-black tracking-tight">Data Integrity Check</h4>
+                            <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mt-1">Status: <span
+                                    id="integrity-status" class="text-rose-500">Incomplete Protocol</span></p>
+                        </div>
+                        <div class="flex items-center gap-6 w-full md:w-auto">
+                            <div class="h-2 w-48 bg-gray-800 rounded-full overflow-hidden shrink-0">
+                                <div id="integrity-bar" class="h-full bg-[#00A78E] transition-all duration-700"
+                                    style="width: 0%"></div>
+                            </div>
+                            <button type="submit" id="submit-btn" disabled
+                                class="w-full md:w-auto px-10 py-5 bg-[#00A78E] text-white font-black text-xs uppercase tracking-widest rounded-xl shadow-xl shadow-[#00A78E]/20 hover:bg-[#008f7a] disabled:bg-gray-800 disabled:text-gray-600 transition-all active:scale-95">
+                                Submit scores
                             </button>
                         </div>
                     </div>
                 </div>
-
-            </div>
+            </form>
         </div>
     </main>
 
     <script src="https://preline.co/assets/vendor/preline/dist/preline.js"></script>
+    <script src="../js/layout.js"></script>
     <script>
-        const API_URL = "https://scorer-api.vercel.app/api"; 
+        const API_URL = "https://scorer-api.vercel.app/api";
         const token = localStorage.getItem('token');
-        const user = JSON.parse(localStorage.getItem('user'));
+        if (!token) window.location.href = '../auth.html';
 
-        if (!token) window.location.href = 'auth.html';
-
-        // 1. Setup the 8 criteria sliders
-        const criteria = [
-            { id: 's_style', label: 'Slide/Style' },
-            { id: 's_content', label: 'Content' },
-            { id: 's_clarity', label: 'Clarity' },
-            { id: 's_timing', label: 'Timing' },
-            { id: 's_wow', label: 'Wow Factor' },
-            { id: 's_clear_res', label: 'Clear Response' },
-            { id: 's_acc_res', label: 'Accurate Response' },
-            { id: 's_con_res', label: 'Conciseness' }
-        ];
-
-        function initSliders() {
-            const container = document.getElementById('slider-container');
-            criteria.forEach(c => {
-                container.innerHTML += `
-                    <div>
-                        <div class="flex justify-between items-center mb-2">
-                            <label class="text-sm font-bold text-slate-800">${c.label}</label>
-                            <span id="val-${c.id}" class="text-xs font-bold py-1 px-2 bg-indigo-50 text-indigo-600 rounded">5.0</span>
-                        </div>
-                        <input type="range" id="${c.id}" min="0" max="10" step="0.5" value="5" 
-                            class="metric-slider w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-indigo-600"
-                            oninput="updateUI('${c.id}', this.value)">
-                    </div>
-                `;
-            });
-            calculateAvg();
+        async function init() {
+            try {
+                const res = await fetch(`${API_URL}/groups`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const groups = await res.json();
+                const sel = document.getElementById('group-id');
+                groups.forEach(g => sel.innerHTML += `<option value="${g.id}">${g.name}</option>`);
+            } catch (err) { console.error(err); }
         }
 
-        function updateUI(id, val) {
-            document.getElementById(`val-${id}`).innerText = parseFloat(val).toFixed(1);
-            calculateAvg();
-        }
-
-        function calculateAvg() {
-            let total = 0;
-            criteria.forEach(c => {
-                total += parseFloat(document.getElementById(c.id).value);
-            });
-            const avg = total / criteria.length;
-            document.getElementById('display-avg').innerText = avg.toFixed(2);
-            document.getElementById('progress-bar').style.width = (avg * 10) + '%';
-        }
-
-        // 2. Fetch Groups and Members
-        async function loadData() {
-            document.getElementById('eval-name').innerText = user.name;
-            document.getElementById('eval-date').innerText = new Date().toLocaleDateString();
+        async function fetchMembers(groupId) {
+            const sel = document.getElementById('member-id');
+            sel.innerHTML = '<option value="">Select Personnel...</option>';
+            if (!groupId) { sel.disabled = true; return; }
 
             try {
-                // Get Groups
-                const gRes = await fetch(`${API_URL}/groups`, {
+                const res = await fetch(`${API_URL}/groups/${groupId}/members`, {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
-                const groups = await gRes.json();
-                
-                const groupSelect = document.getElementById('group-select');
-                groupSelect.innerHTML = '<option value="">Select Group</option>';
-                groups.forEach(g => {
-                    groupSelect.innerHTML += `<option value="${g.id}">${g.name}</option>`;
-                });
+                const members = await res.json();
+                members.forEach(m => sel.innerHTML += `<option value="${m.id}">${m.name}</option>`);
+                sel.disabled = false;
+            } catch (err) { console.error(err); }
+        }
 
-                // Get All Users (Simple approach)
-                const uRes = await fetch(`${API_URL}/users`, {
-                    headers: { 'Authorization': `Bearer ${token}` }
-                });
-                const users = await uRes.json();
-                
-                const memberSelect = document.getElementById('member-select');
-                memberSelect.innerHTML = '<option value="">Select Member</option>';
-                users.forEach(u => {
-                    memberSelect.innerHTML += `<option value="${u.id}">${u.name}</option>`;
-                });
-            } catch (e) {
-                console.error("Failed to load data", e);
+        function updateVal(id, val) { document.getElementById(id).innerText = val; calculateIntegrity(); }
+
+        function checkProgress() {
+            const hasGroup = document.getElementById('group-id').value;
+            const hasMember = document.getElementById('member-id').value;
+            const stepMetrics = document.getElementById('step-metrics');
+            const badge2 = document.getElementById('step-two-badge');
+            const badge3 = document.getElementById('step-three-badge');
+
+            if (hasGroup && hasMember) {
+                stepMetrics.classList.remove('opacity-40', 'grayscale', 'pointer-events-none');
+                badge2.classList.replace('bg-gray-400', 'bg-[#00A78E]');
+                badge3.classList.replace('bg-gray-400', 'bg-[#00A78E]');
+            } else {
+                stepMetrics.classList.add('opacity-40', 'grayscale', 'pointer-events-none');
+                badge2.classList.replace('bg-[#00A78E]', 'bg-gray-400');
+                badge3.classList.replace('bg-[#00A78E]', 'bg-gray-400');
+            }
+            calculateIntegrity();
+        }
+
+        function calculateIntegrity() {
+            const fields = ['strengths', 'improvements'];
+            let score = 0;
+            fields.forEach(f => { if (document.getElementById(f).value.length > 5) score += 50; });
+
+            document.getElementById('integrity-bar').style.width = score + '%';
+            const status = document.getElementById('integrity-status');
+            const btn = document.getElementById('submit-btn');
+
+            if (score === 100 && document.getElementById('member-id').value) {
+                status.innerText = "Protocol Validated";
+                status.classList.replace('text-rose-500', 'text-[#00A78E]');
+                btn.disabled = false;
+            } else {
+                status.innerText = "Incomplete Protocol";
+                status.classList.replace('text-[#00A78E]', 'text-rose-500');
+                btn.disabled = true;
             }
         }
 
-        // 3. Submit to Vercel
-        async function submitEvaluation() {
-            const payload = {
-                member_id: document.getElementById('member-select').value,
-                group_id: document.getElementById('group-select').value,
-                strengths: document.getElementById('strengths').value,
-                improvements: document.getElementById('improvements').value
-            };
-
-            if(!payload.member_id || !payload.group_id) return alert("Please select a group and member");
-
-            // Add all 8 scores to payload
-            criteria.forEach(c => {
-                payload[c.id] = document.getElementById(c.id).value;
+        document.getElementById('eval-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const fields = [
+                'group-id', 'member-id', 'score_slide_style', 'score_content',
+                'score_leadership', 'score_timing', 'score_wow_factor',
+                'score_clear_response', 'score_accurate_response', 'score_conciseness',
+                'strengths', 'improvements'
+            ];
+            const payload = {};
+            fields.forEach(f => {
+                const el = document.getElementById(f);
+                payload[f.replace(/-/g, '_')] = el.value;
             });
 
             try {
-                const response = await fetch(`${API_URL}/evaluations`, {
+                const res = await fetch(`${API_URL}/evaluations`, {
                     method: 'POST',
-                    headers: { 
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}`
-                    },
+                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
                     body: JSON.stringify(payload)
                 });
-
-                if (response.ok) {
-                    alert("Evaluation submitted successfully!");
-                    window.location.href = 'dashboard.html';
-                } else {
-                    const err = await response.json();
-                    alert("Error: " + err.error);
+                if (res.ok) {
+                    alert("Evaluation Authorized and Logged.");
+                    window.location.reload();
                 }
-            } catch (e) {
-                alert("Submission failed. Check console.");
-            }
-        }
+            } catch (err) { alert("Submission Failed."); }
+        });
 
-        initSliders();
-        loadData();
+        init();
     </script>
 </body>
+
 </html>

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monday Live Rankings | Infection & Immunity</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .podium-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 12px;
+        }
+
+        .rank-gold {
+            background: #00A78E;
+            color: white;
+        }
+
+        .animate-rise {
+            animation: rise 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+            opacity: 0;
+            transform: translateY(40px);
+        }
+
+        @keyframes rise {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-[#0a0c10] text-white min-h-full font-sans overflow-x-hidden">
+
+    <div class="max-w-[1400px] mx-auto p-10 lg:p-20 relative z-10">
+
+        <header class="flex justify-between items-end mb-20">
+            <div>
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="w-12 h-12 rounded-lg flex items-center justify-center bg-[#00A78E]">
+                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+                        </svg>
+                    </div>
+                    <span class="text-2xl font-black tracking-tighter">I&I <span class="text-gray-600">Monday
+                            Live</span></span>
+                </div>
+                <h1 class="text-6xl font-black tracking-tighter">Cohort Baseline <br><span
+                        class="text-[#00A78E]">Rankings.</span></h1>
+            </div>
+            <div class="text-right">
+                <p class="text-[10px] font-black uppercase tracking-[0.4em] text-gray-500 mb-2">Presentation Cycle</p>
+                <div class="px-6 py-3 bg-white/5 border border-white/10 rounded-lg text-xl font-black text-[#00A78E]">
+                    WEEKLY-SYNC</div>
+            </div>
+        </header>
+
+        <!-- Podium Section (Groups) -->
+        <div id="podium" class="grid grid-cols-1 md:grid-cols-3 gap-10 mb-24 items-end">
+            <!-- Placeholder for top 3 groups based on lowest member score -->
+        </div>
+
+        <!-- The Rest (Groups) -->
+        <div class="mb-10">
+            <h3 class="text-[10px] font-black text-gray-500 uppercase tracking-widest mb-6">Cohort Rankings (Determined
+                by Lowest Member Baseline)</h3>
+            <div id="rest-of-list" class="space-y-4"></div>
+        </div>
+
+        <footer
+            class="mt-32 border-t border-white/5 pt-10 flex justify-between items-center text-gray-600 font-bold uppercase tracking-[0.2em] text-[10px]">
+            <div>© 2026 INFECTION & IMMUNITY GROUP</div>
+            <div class="flex gap-10">
+                <a href="performance.html" class="hover:text-[#00A78E] transition-colors">Exit Presentation</a>
+                <span class="text-[#00A78E]">NO ONE LEFT BEHIND</span>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        const API_URL = "https://scorer-api.vercel.app/api";
+        const token = localStorage.getItem('token');
+
+        async function loadLeaderboard() {
+            try {
+                const [userRes, groupRes] = await Promise.all([
+                    fetch(`${API_URL}/users`, { headers: { 'Authorization': `Bearer ${token}` } }),
+                    fetch(`${API_URL}/groups`, { headers: { 'Authorization': `Bearer ${token}` } })
+                ]);
+                const usersData = await userRes.json();
+                const users = Array.isArray(usersData) ? usersData : (usersData.users || usersData.data || []);
+
+                const groupsData = await groupRes.json();
+                const groups = Array.isArray(groupsData) ? groupsData : (groupsData.groups || groupsData.data || []);
+
+                const candidates = users.filter(u => (u.role || '').toUpperCase() !== 'ADMIN').map(u => ({
+                    ...u, totalScore: parseFloat(u.total_score || u.total_points || 0)
+                }));
+
+                const groupDataPromises = groups.map(async (g) => {
+                    try {
+                        const mRes = await fetch(`${API_URL}/groups/${g.id}/members`, {
+                            headers: { 'Authorization': `Bearer ${token}` }
+                        });
+                        const members = await mRes.json();
+                        const memberScores = members.map(m => {
+                            const match = candidates.find(c => c.id === m.id);
+                            return match ? match.totalScore : 0;
+                        });
+                        const minScore = memberScores.length > 0 ? Math.min(...memberScores) : 0;
+                        return { ...g, minScore, members };
+                    } catch (e) {
+                        return { ...g, minScore: 0, members: [] };
+                    }
+                });
+
+                const groupData = (await Promise.all(groupDataPromises))
+                    .sort((a, b) => (b.minScore || 0) - (a.minScore || 0));
+
+                renderPodium(groupData.slice(0, 3));
+                renderList(groupData.slice(3));
+
+            } catch (err) { console.error(err); }
+        }
+
+        function renderPodium(topGroups) {
+            const podium = document.getElementById('podium');
+            podium.innerHTML = '';
+
+            const order = [1, 0, 2];
+            order.forEach((idx, i) => {
+                const g = topGroups[idx];
+                if (!g) return;
+                const isFirst = idx === 0;
+                const gName = g.name || g.group_name || 'Cohort';
+
+                podium.innerHTML += `
+                    <div class="animate-rise" style="animation-delay: ${0.4 + (i * 0.2)}s">
+                        <div class="podium-card p-10 text-center mb-6 ${isFirst ? 'border-[#00A78E]/40 bg-[#00A78E]/5 border-2' : ''}">
+                            <h3 class="text-[10px] font-black text-gray-500 uppercase tracking-widest mb-4">Rank #${idx + 1}</h3>
+                            <h2 class="text-4xl font-black tracking-tighter mb-2">${gName}</h2>
+                            <p class="text-xs font-bold text-[#00A78E] uppercase tracking-widest mb-8">Baseline: ${g.minScore || 0}</p>
+                            <div class="text-6xl font-black ${isFirst ? 'text-white' : 'text-gray-400'}">${g.minScore || 0}</div>
+                        </div>
+                        <div class="bg-white/5 rounded-t-xl" style="height: ${isFirst ? '120px' : '60px'}"></div>
+                    </div>
+                `;
+            });
+        }
+
+        function renderList(others) {
+            const list = document.getElementById('rest-of-list');
+            others.forEach((g, idx) => {
+                const gName = g.name || g.group_name || 'Infection Cohort';
+                list.innerHTML += `
+                    <div class="podium-card p-6 flex items-center justify-between hover:border-[#00A78E]/30 transition-all group">
+                        <div class="flex items-center gap-8">
+                            <div class="w-12 h-12 rounded-lg bg-white/5 flex items-center justify-center font-black text-gray-500 group-hover:text-white">
+                                ${idx + 4}
+                            </div>
+                            <span class="text-2xl font-black tracking-tight">${gName}</span>
+                        </div>
+                        <div class="text-3xl font-black text-[#00A78E] opacity-50 group-hover:opacity-100">${g.minScore || 0}</div>
+                    </div>
+                `;
+            });
+        }
+
+        loadLeaderboard();
+    </script>
+</body>
+
+</html>

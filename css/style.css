@@ -1,0 +1,162 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+    /* Reference Design Palette (Teal-focused) */
+    --primary-teal: #00A78E;
+    --primary-teal-hover: #008f7a;
+    --primary-teal-light: #e6f6f4;
+
+    /* Backgrounds */
+    --bg-main: #f9fafb;
+    --bg-sidebar: #ffffff;
+    --bg-card: #ffffff;
+
+    /* Text */
+    --text-main: #111827;
+    --text-muted: #6b7280;
+    --text-light: #9ca3af;
+
+    /* Borders & Accents */
+    --border-subtle: #e5e7eb;
+    --border-main: #d1d5db;
+    --radius-main: 8px;
+    --radius-lg: 12px;
+
+    /* Status Colors */
+    --status-green: #00A78E;
+    --status-green-bg: #e6f6f4;
+    --status-orange: #f59e0b;
+    --status-orange-bg: #fef3c7;
+    --status-red: #ef4444;
+    --status-red-bg: #fee2e2;
+}
+
+body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Sidebar Styling */
+.sidebar-item {
+    transition: all 0.2s ease;
+    border-radius: var(--radius-main);
+}
+
+.sidebar-item-active {
+    background-color: var(--primary-teal-light);
+    color: var(--primary-teal) !important;
+}
+
+.sidebar-category {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    color: var(--text-light);
+    text-transform: uppercase;
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+    padding-left: 0.75rem;
+}
+
+/* Card Styling */
+.dribbble-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-main);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+}
+
+/* Table Styling */
+.dribbble-table thead th {
+    background-color: #ffffff;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.dribbble-table tbody tr {
+    transition: background-color 0.2s;
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.dribbble-table tbody tr:hover {
+    background-color: #fcfdfd;
+}
+
+/* Status Badges */
+.badge {
+    padding: 6px 14px;
+    border-radius: 9999px;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.badge-green {
+    background: var(--status-green-bg);
+    color: var(--status-green);
+}
+
+.badge-orange {
+    background: var(--status-orange-bg);
+    color: var(--status-orange);
+}
+
+.badge-red {
+    background: var(--status-red-bg);
+    color: var(--status-red);
+}
+
+/* Buttons */
+.btn-teal {
+    background-color: var(--primary-teal);
+    color: white;
+    border-radius: var(--radius-main);
+    padding: 10px 20px;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+
+.btn-teal:hover {
+    background-color: var(--primary-teal-hover);
+}
+
+.btn-outline {
+    border: 1px solid var(--border-main);
+    background: white;
+    color: var(--text-main);
+    border-radius: var(--radius-main);
+    padding: 10px 20px;
+    font-weight: 600;
+}
+
+/* Search Bar */
+.top-search-input {
+    background-color: #f3f4f6;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-main);
+    padding: 10px 16px 10px 44px;
+    width: 100%;
+}
+
+/* Animation */
+.animate-fade {
+    animation: fadeIn 0.4s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

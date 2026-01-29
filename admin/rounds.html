@@ -1,119 +1,153 @@
 <!DOCTYPE html>
 <html lang="en" class="h-full">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manage Rounds | I and I ScoreFlow</title>
+    <title>Rotations & Rounds | ScoreFlow</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://preline.co/assets/css/main.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-    <style>body { font-family: 'Inter', sans-serif; }</style>
+    <link rel="stylesheet" href="../css/style.css">
 </head>
-<body class="bg-slate-50 min-h-full">
 
-    <!-- Mobile Header -->
-    <div class="sticky top-0 inset-x-0 z-20 bg-white border-y px-4 py-2 lg:hidden">
-        <div class="flex justify-between items-center">
-            <a class="font-bold text-xl text-indigo-600" href="#">I and I</a>
-            <button type="button" class="p-2 border rounded-lg" data-hs-overlay="#hs-sidebar-footer">
-                <svg class="size-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="3" x2="21" y1="6" y2="6"/><line x1="3" x2="21" y1="12" y2="12"/><line x1="3" x2="21" y1="18" y2="18"/></svg>
-            </button>
-        </div>
-    </div>
+<body class="bg-[#f9fafb] min-h-full font-sans">
 
-    <!-- Sidebar -->
-    <div id="hs-sidebar-footer" class="hs-overlay [--auto-close:lg] lg:block lg:translate-x-0 lg:end-auto lg:bottom-0 w-64 hs-overlay-open:translate-x-0 -translate-x-full transition-all duration-300 transform h-full hidden fixed top-0 start-0 bottom-0 z-[60] bg-white border-e border-gray-200" role="dialog" tabindex="-1">
-        <div class="relative flex flex-col h-full max-h-full">
-            <header class="p-4"><a class="font-black text-2xl text-indigo-600" href="dashboard.html">I and I</a></header>
-            
-            <nav class="h-full overflow-y-auto p-3">
-                <ul class="space-y-1.5 text-sm">
-                    <li><a class="flex items-center gap-x-3 py-2 px-2.5 text-gray-700 rounded-lg hover:bg-gray-100" href="dashboard.html">Dashboard</a></li>
-                    <li><a class="flex items-center gap-x-3 py-2 px-2.5 text-gray-700 rounded-lg hover:bg-gray-100" href="users.html">Users</a></li>
-                    <li><a class="flex items-center gap-x-3 py-2 px-2.5 text-gray-700 rounded-lg hover:bg-gray-100" href="groups.html">Groups</a></li>
-                    <li><a class="flex items-center gap-x-3 py-2 px-2.5 bg-indigo-50 text-indigo-600 font-bold rounded-lg" href="rounds.html">Rounds</a></li>
-                    <li class="pt-4 border-t mt-4"><a class="flex items-center gap-x-3 py-2 px-2.5 text-gray-700 rounded-lg hover:bg-gray-100 font-semibold" href="score.html">Scoring Mode</a></li>
-                </ul>
-            </nav>
-
-            <footer class="mt-auto p-4 border-t border-gray-200">
-                <button onclick="logout()" class="text-xs text-red-600 font-bold p-2 hover:underline">Sign Out</button>
-            </footer>
-        </div>
-    </div>
+    <div id="top-header-pill"></div>
+    <div id="mobile-header-container"></div>
+    <div id="sidebar-container"></div>
 
     <!-- Main Content -->
     <main class="lg:ps-64">
-        <div class="p-4 sm:p-6 md:p-10 lg:p-12 max-w-[85rem] mx-auto">
-            
-            <header class="flex flex-col md:flex-row md:items-center justify-between gap-y-4 mb-8">
-                <div>
-                    <h1 class="text-3xl font-black text-slate-900">Rotations & Rounds</h1>
-                    <p class="text-slate-500">Define and activate 3-month scoring cycles.</p>
-                </div>
-                <button type="button" data-hs-overlay="#hs-new-round-modal" class="py-2 px-4 inline-flex items-center gap-x-2 text-sm font-bold rounded-xl bg-indigo-600 text-white hover:bg-indigo-700 transition shadow-lg shadow-indigo-100">
-                    <svg class="size-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 4.5v15m7.5-7.5h-15"/></svg>
-                    New Round
-                </button>
-            </header>
+        <div class="p-6 md:p-8 lg:p-10 max-w-[1600px] mx-auto animate-fade">
 
-            <!-- Rounds Table -->
-            <div class="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
-                <div class="overflow-x-auto">
-                    <table class="min-w-full divide-y divide-slate-200">
-                        <thead class="bg-slate-50">
-                            <tr>
-                                <th class="px-6 py-4 text-start text-xs font-bold text-slate-500 uppercase tracking-widest">Round Name</th>
-                                <th class="px-6 py-4 text-start text-xs font-bold text-slate-500 uppercase tracking-widest">Status</th>
-                                <th class="px-6 py-4 text-end text-xs font-bold text-slate-500 uppercase tracking-widest">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody id="round-list-body" class="divide-y divide-slate-200">
-                            <!-- Injected via JS -->
-                            <tr><td colspan="3" class="px-6 py-10 text-center text-slate-400">Fetching rounds...</td></tr>
-                        </tbody>
-                    </table>
+            <!-- Breadcrumbs & Actions -->
+            <div class="flex flex-col md:flex-row md:items-center justify-between mb-8">
+                <nav class="flex items-center gap-2 text-sm font-medium">
+                    <span class="text-gray-400">Operations</span>
+                    <span class="text-gray-400">/</span>
+                    <span class="text-[#00A78E]">Rounds</span>
+                </nav>
+                <div class="flex items-center gap-3 mt-4 md:mt-0">
+                    <button class="btn-outline flex items-center gap-2 text-sm">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                        </svg>
+                        Export Logs
+                    </button>
+                    <button data-hs-overlay="#hs-new-round-modal" class="btn-teal flex items-center gap-2 text-sm">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                            <path d="M12 4.5v15m7.5-7.5h-15" />
+                        </svg>
+                        Initialize Round
+                    </button>
                 </div>
             </div>
 
-            <div class="mt-6 p-4 bg-blue-50 border border-blue-100 rounded-xl flex gap-3">
-                <svg class="size-5 text-blue-600 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/></svg>
-                <p class="text-xs text-blue-800 leading-relaxed">
-                    <strong>Admin Note:</strong> Only one round can be "Active" at a time. Activating a new round will automatically archive the current stats and start a fresh data cycle for the Dashboard.
-                </p>
+            <!-- Cycle Info Card -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-10">
+                <div
+                    class="md:col-span-3 dribbble-card p-10 bg-[#00A78E] text-white flex flex-col justify-between h-[240px] relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 p-10 opacity-10 group-hover:scale-110 transition-transform">
+                        <svg class="w-64 h-64" fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm0 18c-4.4 0-8-3.6-8-8s3.6-8 8-8 8 3.6 8 8-3.6 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z" />
+                        </svg>
+                    </div>
+                    <div class="relative z-10">
+                        <p class="text-[10px] font-black uppercase tracking-[0.2em] text-[#e6f6f4] mb-2">Primary
+                            Rotation Protocol</p>
+                        <h2 class="text-4xl font-black tracking-tighter" id="active-round-display">SEM1-2026-ACTIVE</h2>
+                    </div>
+                    <div class="relative z-10 flex items-center gap-4">
+                        <div class="flex bg-white/10 backdrop-blur-md rounded-xl p-4 gap-8">
+                            <div>
+                                <p class="text-[9px] font-black uppercase text-white/60 mb-1">Status</p>
+                                <p class="text-xs font-black">OPERATIONAL</p>
+                            </div>
+                            <div class="w-px bg-white/10"></div>
+                            <div>
+                                <p class="text-[9px] font-black uppercase text-white/60 mb-1">Uptime</p>
+                                <p class="text-xs font-black">12 Days</p>
+                            </div>
+                        </div>
+                        <p class="text-[10px] font-bold text-white/70 italic max-w-[200px]">Only one protocol can be
+                            active at a time. Activating a new cycle archives current results.</p>
+                    </div>
+                </div>
+                <div class="dribbble-card p-8 flex flex-col justify-center items-center text-center">
+                    <div class="w-14 h-14 bg-[#e6f6f4] rounded-lg flex items-center justify-center text-[#00A78E] mb-6">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                            <path d="M12 8v4l3 3m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xs font-black uppercase tracking-widest text-gray-400 mb-2">Next Cycle</h3>
+                    <p class="text-lg font-black text-gray-900">18.04.2026</p>
+                </div>
+            </div>
+
+            <!-- Rounds Table -->
+            <div class="dribbble-card overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="dribbble-table min-w-full">
+                        <thead>
+                            <tr>
+                                <th class="text-left">Cycle Designation</th>
+                                <th class="text-left">Operational Status</th>
+                                <th class="text-right">Action Control</th>
+                            </tr>
+                        </thead>
+                        <tbody id="round-list-body">
+                            <tr>
+                                <td colspan="3"
+                                    class="px-8 py-20 text-center text-gray-400 font-bold italic animate-pulse">
+                                    Synchronizing temporal rotation database...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </main>
 
     <!-- Modal: New Round -->
-    <div id="hs-new-round-modal" class="hs-overlay hidden size-full fixed top-0 start-0 z-[80] overflow-x-hidden overflow-y-auto">
-        <div class="hs-overlay-open:mt-7 hs-overlay-open:opacity-100 hs-overlay-open:duration-500 mt-0 opacity-0 ease-out transition-all sm:max-w-lg sm:w-full m-3 sm:mx-auto">
-            <div class="flex flex-col bg-white border shadow-sm rounded-2xl pointer-events-auto overflow-hidden">
-                <div class="p-4 border-b bg-slate-50 flex justify-between items-center">
-                    <h3 class="font-bold text-slate-800">Create New Rotation</h3>
-                    <button type="button" class="text-slate-400 hover:text-slate-600" data-hs-overlay="#hs-new-round-modal">✕</button>
-                </div>
-                <form id="new-round-form" class="p-6 space-y-4">
+    <div id="hs-new-round-modal"
+        class="hs-overlay hidden size-full fixed top-0 start-0 z-[80] overflow-x-hidden overflow-y-auto">
+        <div
+            class="hs-overlay-open:mt-7 hs-overlay-open:opacity-100 hs-overlay-open:duration-500 mt-0 opacity-0 ease-out transition-all sm:max-w-lg sm:w-full m-3 sm:mx-auto">
+            <div class="bg-white rounded-[32px] border border-gray-100 shadow-2xl pointer-events-auto overflow-hidden">
+                <div class="p-8 border-b border-gray-50 flex justify-between items-center">
                     <div>
-                        <label class="block text-xs font-black text-slate-400 uppercase tracking-widest mb-2">Round Name</label>
-                        <input type="text" id="round-name-input" required class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-4 focus:ring-indigo-50 outline-none" placeholder="e.g. Q1 2024 (Jan - Mar)">
+                        <h3 class="font-black text-xl text-gray-900 tracking-tight">Initialize Cycle</h3>
+                        <p class="text-[10px] font-black text-[#00A78E] uppercase tracking-widest mt-1">Time-Bound
+                            Protocol Management</p>
                     </div>
-                    <button type="submit" class="w-full py-3 bg-indigo-600 text-white font-bold rounded-xl shadow-lg hover:bg-indigo-700 transition">Create Round</button>
+                    <button type="button"
+                        class="w-10 h-10 flex items-center justify-center rounded-xl bg-gray-50 text-gray-400"
+                        data-hs-overlay="#hs-new-round-modal">✕</button>
+                </div>
+                <form id="new-round-form" class="p-8 space-y-6">
+                    <div class="space-y-1.5">
+                        <label class="block text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Cycle
+                            Name</label>
+                        <input type="text" id="round-name-input" required
+                            class="w-full px-6 py-4 rounded-2xl border border-gray-100 bg-gray-50 focus:bg-white focus:ring-4 focus:ring-[#e6f6f4] focus:border-[#00A78E] outline-none transition-all placeholder:text-gray-300 font-medium"
+                            placeholder="SEM2-2026">
+                    </div>
+                    <button type="submit"
+                        class="w-full py-5 bg-[#00A78E] text-white font-black text-xs uppercase tracking-widest rounded-2xl shadow-xl shadow-[#00A78E]/20 hover:bg-[#008f7a] transition">Establish
+                        Protocol</button>
                 </form>
             </div>
         </div>
     </div>
 
     <script src="https://preline.co/assets/vendor/preline/dist/preline.js"></script>
+    <script src="../js/layout.js"></script>
     <script>
-        const API_URL = "https://scorer-api.vercel.app/api"; 
+        const API_URL = "https://scorer-api.vercel.app/api";
         const token = localStorage.getItem('token');
         const user = JSON.parse(localStorage.getItem('user'));
 
-        if (!token || user.role !== 'ADMIN') {
-            alert("Access Denied: Admins Only");
-            window.location.href = 'dashboard.html';
-        }
+        if (!token || user.role !== 'ADMIN') window.location.href = '../auth.html';
 
         async function fetchRounds() {
             try {
@@ -122,9 +156,7 @@
                 });
                 const rounds = await res.json();
                 renderRounds(rounds);
-            } catch (err) {
-                console.error(err);
-            }
+            } catch (err) { console.error(err); }
         }
 
         function renderRounds(rounds) {
@@ -132,20 +164,29 @@
             tbody.innerHTML = '';
 
             rounds.forEach(r => {
+                if (r.is_active) document.getElementById('active-round-display').innerText = r.name;
+
+                const statusBadge = r.is_active
+                    ? '<span class="badge badge-green flex items-center justify-center gap-2 max-w-fit"><span class="w-1.5 h-1.5 rounded-full bg-[#00A78E] animate-pulse"></span> ACTIVE CYCLE</span>'
+                    : '<span class="badge badge-red flex items-center justify-center gap-2 max-w-fit">ARCHIVED</span>';
+
                 tbody.innerHTML += `
-                    <tr class="${r.is_active ? 'bg-indigo-50/30' : ''} hover:bg-slate-50 transition">
-                        <td class="px-6 py-4">
-                            <span class="text-sm font-bold text-slate-800">${r.name}</span>
+                    <tr>
+                        <td class="px-8 py-6">
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 rounded-xl bg-gray-50 flex items-center justify-center">
+                                    <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/></svg>
+                                </div>
+                                <span class="text-sm font-black text-gray-900 uppercase tracking-tight">${r.name}</span>
+                            </div>
                         </td>
-                        <td class="px-6 py-4">
-                            ${r.is_active 
-                                ? '<span class="inline-flex items-center gap-1.5 py-1 px-3 rounded-full text-xs font-bold bg-green-100 text-green-700"><span class="size-1.5 rounded-full bg-green-700 animate-pulse"></span> Active</span>' 
-                                : '<span class="inline-flex items-center py-1 px-3 rounded-full text-xs font-bold bg-slate-100 text-slate-500 uppercase tracking-tighter">Archived</span>'}
+                        <td class="px-8 py-6">
+                            ${statusBadge}
                         </td>
-                        <td class="px-6 py-4 text-end">
-                            ${!r.is_active 
-                                ? `<button onclick="activateRound(${r.id})" class="text-xs font-black text-indigo-600 hover:text-indigo-800 uppercase tracking-widest">Set as Active</button>` 
-                                : '<span class="text-[10px] font-black text-slate-300 uppercase italic">Current</span>'}
+                        <td class="px-8 py-6 text-right">
+                            ${!r.is_active
+                        ? `<button onclick="activateRound(${r.id})" class="h-10 px-4 bg-[#f3f4f6] text-gray-700 hover:bg-[#00A78E] hover:text-white rounded-xl text-[10px] font-black uppercase tracking-widest transition-all">Initialize</button>`
+                        : '<span class="text-[10px] font-black text-[#00A78E] uppercase tracking-widest">Protocol Active</span>'}
                         </td>
                     </tr>
                 `;
@@ -155,44 +196,33 @@
         document.getElementById('new-round-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             const name = document.getElementById('round-name-input').value;
-
             try {
                 const res = await fetch(`${API_URL}/rounds`, {
                     method: 'POST',
-                    headers: { 
-                        'Content-Type': 'application/json', 
-                        'Authorization': `Bearer ${token}` 
-                    },
+                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
                     body: JSON.stringify({ name })
                 });
-
                 if (res.ok) {
                     HSOverlay.close('#hs-new-round-modal');
                     document.getElementById('new-round-form').reset();
                     fetchRounds();
                 }
-            } catch (err) { alert("Failed to create round."); }
+            } catch (err) { alert("Error."); }
         });
 
         async function activateRound(id) {
-            if (!confirm("Are you sure? This will shift the entire dashboard to this rotation.")) return;
-
+            if (!confirm("Confirm cycle transition?")) return;
             try {
                 const res = await fetch(`${API_URL}/rounds/${id}/activate`, {
                     method: 'PATCH',
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
-
                 if (res.ok) fetchRounds();
-            } catch (err) { alert("Failed to activate."); }
-        }
-
-        function logout() {
-            localStorage.clear();
-            window.location.href = 'login.html';
+            } catch (err) { alert("Error."); }
         }
 
         fetchRounds();
     </script>
 </body>
+
 </html>

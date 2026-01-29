@@ -1,180 +1,281 @@
 <!DOCTYPE html>
 <html lang="en" class="h-full">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard | I and I ScoreFlow</title>
+    <title>I&I Dashboard | Monday Sync</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://preline.co/assets/css/main.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-    <style>body { font-family: 'Inter', sans-serif; }</style>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 </head>
-<body class="bg-slate-50 min-h-full">
 
-    <!-- Mobile Header -->
-    <div class="sticky top-0 inset-x-0 z-20 bg-white border-y px-4 py-2 lg:hidden">
-        <div class="flex justify-between items-center">
-            <a class="font-bold text-xl text-indigo-600" href="#">I and I</a>
-            <button type="button" class="p-2 border rounded-lg" data-hs-overlay="#hs-sidebar-footer">
-                <svg class="size-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="3" x2="21" y1="6" y2="6"/><line x1="3" x2="21" y1="12" y2="12"/><line x1="3" x2="21" y1="18" y2="18"/></svg>
-            </button>
-        </div>
-    </div>
+<body class="bg-[#f9fafb] min-h-full font-sans">
 
-    <!-- Sidebar -->
-    <div id="hs-sidebar-footer" class="hs-overlay [--auto-close:lg] lg:block lg:translate-x-0 lg:end-auto lg:bottom-0 w-64 hs-overlay-open:translate-x-0 -translate-x-full transition-all duration-300 transform h-full hidden fixed top-0 start-0 bottom-0 z-[60] bg-white border-e border-gray-200" role="dialog" tabindex="-1">
-        <div class="relative flex flex-col h-full max-h-full">
-            <header class="p-4"><a class="font-black text-2xl text-indigo-600" href="dashboard.html">I and I</a></header>
-            
-            <nav class="h-full overflow-y-auto p-3">
-                <ul class="space-y-1.5">
-                    <li>
-                        <a class="flex items-center gap-x-3 py-2 px-2.5 bg-indigo-50 text-indigo-600 rounded-lg font-bold" href="dashboard.html">
-                            <svg class="size-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-                            Dashboard
-                        </a>
-                    </li>
-                    <li>
-                        <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-700 rounded-lg hover:bg-gray-100" href="users.html">
-                            <svg class="size-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
-                            Users
-                        </a>
-                    </li>
-                    <li>
-                        <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-700 rounded-lg hover:bg-gray-100" href="groups.html">
-                            <svg class="size-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
-                            Groups
-                        </a>
-                    </li>
-                    <li>
-                        <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-700 rounded-lg hover:bg-gray-100" href="rounds.html">
-                            <svg class="size-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/></svg>
-                            Rounds
-                        </a>
-                    </li>
-                    <li class="pt-4 border-t mt-4">
-                        <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-700 rounded-lg hover:bg-gray-100 font-semibold" href="score.html">
-                            <svg class="size-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4Z"/></svg>
-                            Scoring Mode
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-
-            <footer class="mt-auto p-4 border-t border-gray-200">
-                <div class="hs-dropdown relative w-full inline-flex">
-                    <button id="hs-dropdown-footer" type="button" class="w-full inline-flex items-center gap-x-2 p-2 text-sm text-gray-800 rounded-md hover:bg-gray-100 outline-none">
-                        <div class="size-8 rounded-full bg-indigo-600 text-white flex items-center justify-center font-bold text-xs" id="user-initials">..</div>
-                        <span class="truncate font-semibold" id="sidebar-username">Admin</span>
-                        <svg class="size-3.5 ms-auto" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
-                    </button>
-                    <div class="hs-dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 hidden z-10 bg-white shadow-md rounded-lg p-2 mt-2 border border-gray-200 w-full" aria-labelledby="hs-dropdown-footer">
-                        <button onclick="logout()" class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-red-600 hover:bg-gray-100 w-full text-left font-bold">
-                            Sign Out
-                        </button>
-                    </div>
-                </div>
-            </footer>
-        </div>
-    </div>
+    <div id="top-header-pill"></div>
+    <div id="mobile-header-container"></div>
+    <div id="sidebar-container"></div>
 
     <!-- Main Content -->
     <main class="lg:ps-64">
-        <div class="p-4 sm:p-6 md:p-10 lg:p-12 max-w-[85rem] mx-auto">
-            
-            <header class="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-4">
-                <div>
-                    <h1 class="text-3xl font-black text-slate-900">Dashboard</h1>
-                    <p class="text-slate-500">Welcome back, <span id="welcome-name">...</span>.</p>
-                </div>
-                <div class="bg-indigo-600 text-white px-4 py-2 flex items-center gap-3 shadow-lg shadow-indigo-100">
-                    <span class="text-xs font-black uppercase tracking-widest" id="active-round-display">Loading Round...</span>
-                </div>
-            </header>
+        <div class="p-6 md:p-8 lg:p-10 max-w-[1600px] mx-auto animate-fade">
 
-            <!-- Stats Grid -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
-                <div class="bg-white p-6  shadow-sm border border-slate-200">
-                    <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Total Groups</p>
-                    <p id="total-groups" class="text-4xl font-black text-slate-900 mt-2">0</p>
+            <!-- Breadcrumbs & Actions -->
+            <div class="flex flex-col md:flex-row md:items-center justify-between mb-8">
+                <nav class="flex items-center gap-2 text-sm font-medium">
+                    <span class="text-gray-400">Main</span>
+                    <span class="text-gray-400">/</span>
+                    <span class="text-[#00A78E]">I&I Presentation Mastery</span>
+                </nav>
+                <div class="flex items-center gap-3 mt-4 md:mt-0">
+                    <button class="btn-outline flex items-center gap-2 text-sm">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                        </svg>
+                        Export CSV
+                    </button>
+                    <button onclick="window.location.href='rounds.html'"
+                        class="btn-teal flex items-center gap-2 text-sm">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                            <path d="M12 4.5v15m7.5-7.5h-15" />
+                        </svg>
+                        New Cycle
+                    </button>
                 </div>
-                <div class="bg-white p-6  shadow-sm border border-slate-200">
-                    <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Rotation Average</p>
-                    <p id="global-avg" class="text-4xl font-black text-indigo-600 mt-2">0.00</p>
+            </div>
+
+            <!-- Stats Rows (Dribbble Style) -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-10">
+                <!-- Large Summary Card -->
+                <div class="lg:col-span-7 dribbble-card p-8 flex flex-col justify-between h-[280px]">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">Performance
+                                Summary</p>
+                            <h1 class="text-4xl font-black text-gray-900 tracking-tight">I&I Monday Presentation</h1>
+                            <p class="text-gray-400 font-medium mt-1">Weekly evaluation portal. Group scores are
+                                calculated based on
+                                Monday totals and the member baseline.</p>
+                        </div>
+                        <button class="text-gray-300 hover:text-gray-500"><svg class="w-4 h-4" fill="currentColor"
+                                viewBox="0 0 24 24">
+                                <path
+                                    d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
+                            </svg></button>
+                    </div>
+
+                    <div class="flex flex-wrap gap-x-12 gap-y-6 mt-4">
+                        <div>
+                            <p class="text-3xl font-black mb-2 text-gray-900" id="stat-main-avg">0.00</p>
+                            <div class="flex items-center gap-2">
+                                <span class="w-1.5 h-1.5 rounded-full bg-[#00A78E]"></span>
+                                <span class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Cumulative
+                                    Totals</span>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="text-3xl font-black mb-2 text-gray-900" id="stat-total-groups">0</p>
+                            <div class="flex items-center gap-2">
+                                <span class="w-1.5 h-1.5 rounded-full bg-orange-400"></span>
+                                <span class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Group
+                                    Baseline</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-between items-end border-t border-gray-100 pt-6">
+                        <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Last Update: <span
+                                id="last-sync-time">Syncing...</span></p>
+                    </div>
                 </div>
-                <div class="bg-white p-6  shadow-sm border border-slate-200 flex flex-col justify-center">
-                    <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">Quick Actions</p>
-                    <div class="flex gap-2">
-                        <a href="score.html" class="flex-1 text-center py-2 bg-slate-900 text-white text-xs font-bold  hover:bg-slate-800 transition">Scoring</a>
-                        <a href="rounds.html" class="flex-1 text-center py-2 bg-indigo-50 text-indigo-600 text-xs font-bold  hover:bg-indigo-100 transition">Manage Rounds</a>
+
+                <!-- Single Value Cards -->
+                <div class="lg:col-span-5 grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div class="dribbble-card p-8 flex flex-col justify-between h-[280px] lg:h-full">
+                        <div class="flex justify-between items-start">
+                            <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest">Total Members</p>
+                            <button class="text-gray-300 hover:text-gray-500"><svg class="w-4 h-4" fill="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path
+                                        d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
+                                </svg></button>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-6xl font-black tracking-tighter" id="stat-total-users">...</h3>
+                        </div>
+                    </div>
+                    <!-- Hidden on small grid, shown on desktop -->
+                    <div class="dribbble-card p-8 flex flex-col justify-between hidden sm:flex">
+                        <div class="flex justify-between items-start">
+                            <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest">Evaluations</p>
+                            <button class="text-gray-300 hover:text-gray-500"><svg class="w-4 h-4" fill="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path
+                                        d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
+                                </svg></button>
+                        </div>
+                        <div>
+                            <h3 class="text-6xl font-black tracking-tighter" id="stat-eval-count">0</h3>
+                            <p class="text-xs font-bold text-gray-400 mt-2">Monday Sessions</p>
+                        </div>
+                        <div class="h-10">
+                            <div id="mini-sparkline"></div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Visual Chart Area -->
-            <div class="bg-white p-6 sm:p-8  border border-slate-200 shadow-sm">
-                <div class="flex justify-between items-center mb-8">
-                    <h3 class="font-bold text-lg text-slate-800">Rotation Performance</h3>
-                    <span class="text-xs font-bold text-slate-400 uppercase">Current 3-Month Cycle</span>
+            <div class="grid lg:grid-cols-3 gap-8 mb-10">
+                <!-- Trend Chart -->
+                <div class="lg:col-span-2 dribbble-card p-8">
+                    <div class="flex items-center justify-between mb-10">
+                        <div>
+                            <h2 class="text-3xl font-black text-gray-900 tracking-tight">I&I Monday Command</h2>
+                            <p class="text-[10px] font-black text-[#00A78E] uppercase tracking-[0.2em] mt-1">Live
+                                Presentation Cycle</p>
+                            <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest mt-1">
+                                Cross-rotation longitudinal data</p>
+                        </div>
+                        <div class="flex bg-gray-50 p-1 rounded-xl">
+                            <button
+                                class="bg-white text-[#00A78E] shadow-sm px-4 py-1.5 rounded-lg text-[10px] font-black">CHART</button>
+                            <button class="text-gray-400 px-4 py-1.5 rounded-lg text-[10px] font-black">TABLE</button>
+                        </div>
+                    </div>
+                    <div id="main-chart" class="min-h-[350px]"></div>
                 </div>
-                <div id="dashboard-chart" class="h-64 flex items-end gap-3 md:gap-6">
-                    <!-- Visual Placeholders -->
-                    <div class="bg-indigo-100 w-full rounded-t-xl transition-all hover:bg-indigo-500" style="height: 40%"></div>
-                    <div class="bg-indigo-200 w-full rounded-t-xl transition-all hover:bg-indigo-500" style="height: 70%"></div>
-                    <div class="bg-indigo-600 w-full rounded-t-xl" style="height: 90%"></div>
-                    <div class="bg-indigo-300 w-full rounded-t-xl transition-all hover:bg-indigo-500" style="height: 60%"></div>
-                    <div class="bg-indigo-400 w-full rounded-t-xl transition-all hover:bg-indigo-500" style="height: 80%"></div>
-                    <div class="bg-indigo-100 w-full rounded-t-xl transition-all hover:bg-indigo-500" style="height: 30%"></div>
-                    <div class="bg-indigo-500 w-full rounded-t-xl transition-all hover:bg-indigo-500" style="height: 55%"></div>
+
+                <!-- Leaderboard -->
+                <div class="dribbble-card p-8">
+                    <h3 class="text-xl font-black tracking-tight text-gray-900 mb-8">Top Personnel</h3>
+                    <div class="space-y-6" id="top-users-list">
+                        <!-- Skeletons -->
+                        <div class="flex items-center gap-4 animate-pulse">
+                            <div class="w-12 h-12 bg-gray-100 rounded-2xl"></div>
+                            <div class="grow">
+                                <div class="w-24 h-4 bg-gray-100 rounded-full mb-2"></div>
+                                <div class="w-16 h-2 bg-gray-50 rounded-full"></div>
+                            </div>
+                            <div class="w-8 h-4 bg-gray-50 rounded-lg"></div>
+                        </div>
+                    </div>
+                    <button onclick="window.location.href='performance.html'"
+                        class="w-full mt-10 py-4 bg-gray-50 text-gray-500 font-black text-[10px] uppercase tracking-widest rounded-2xl hover:bg-[#e6f6f4] hover:text-[#00A78E] transition-all">View
+                        All Rankings</button>
                 </div>
             </div>
+
         </div>
     </main>
 
     <script src="https://preline.co/assets/vendor/preline/dist/preline.js"></script>
+    <script src="../js/layout.js"></script>
     <script>
-        const API_URL = "https://scorer-api.vercel.app/api"; 
+        const API_URL = "https://scorer-api.vercel.app/api";
         const token = localStorage.getItem('token');
-        const user = JSON.parse(localStorage.getItem('user'));
+        if (!token) window.location.href = '../auth.html';
 
-        // 1. Auth Guard
-        if (!token) window.location.href = 'login.html';
-
-        // 2. Fetch Dashboard Data
-        async function fetchStats() {
-            // Update UI with User Info
-            if (user) {
-                document.getElementById('sidebar-username').innerText = user.name;
-                document.getElementById('welcome-name').innerText = user.name;
-                document.getElementById('user-initials').innerText = user.name.charAt(0).toUpperCase();
-            }
-
+        async function fetchDashboard() {
             try {
-                const response = await fetch(`${API_URL}/dashboard/stats`, {
+                // Fetch basic stats
+                const statRes = await fetch(`${API_URL}/dashboard/stats`, {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
+                const stats = await statRes.json();
 
-                if (response.status === 401 || response.status === 403) logout();
+                document.getElementById('stat-total-groups').innerText = stats.totalGroups;
+                document.getElementById('stat-main-avg').innerText = stats.globalAverage;
+                document.getElementById('last-sync-time').innerText = new Date().toLocaleTimeString();
 
-                const data = await response.json();
+                // Fetch all users for counts
+                const userRes = await fetch(`${API_URL}/users`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const allUsers = await userRes.json();
+                document.getElementById('stat-total-users').innerText = allUsers.length;
 
-                // Update Stats
-                document.getElementById('total-groups').innerText = data.totalGroups;
-                document.getElementById('global-avg').innerText = data.globalAverage;
-                document.getElementById('active-round-display').innerText = data.currentRoundName;
+                document.getElementById('stat-total-users').innerText = allUsers.length;
+                document.getElementById('stat-eval-count').innerText = stats.totalEvaluations;
 
-            } catch (err) {
-                console.error("Dashboard fetch failed:", err);
-            }
+                renderLeaderboard(allUsers.slice(0, 5));
+                initMainChart(stats.trendData);
+                initSparkline(stats.sparklineData);
+            } catch (err) { console.error(err); }
         }
 
-        function logout() {
-            localStorage.clear();
-            window.location.href = 'login.html';
+        function renderLeaderboard(users) {
+            const list = document.getElementById('top-users-list');
+            list.innerHTML = '';
+            users.forEach((u, i) => {
+                const uName = u.name || u.full_name || 'Personnel';
+                const uRole = u.role || 'MEMBER';
+                const score = u.total_score || u.totalScore || 0;
+
+                list.innerHTML += `
+                    <a href="profile.html?id=${u.id}" class="flex items-center justify-between group p-2 hover:bg-gray-50 rounded-xl transition-all">
+                         <div class="flex items-center gap-4">
+                            <img src="https://ui-avatars.com/api/?name=${encodeURIComponent(uName)}&background=f3f4f6&color=00A78E&bold=true" class="w-10 h-10 rounded-xl shadow-sm group-hover:scale-110 transition-transform" alt="">
+                            <div>
+                                <p class="text-sm font-black text-gray-900 group-hover:text-[#00A78E]">${uName}</p>
+                                <p class="text-[10px] font-bold text-gray-400 uppercase tracking-tighter">${uRole}</p>
+                            </div>
+                         </div>
+                         <div class="flex flex-col items-end">
+                            <div class="text-[#00A78E] font-black text-sm">${score}</div>
+                            <div class="text-[8px] font-bold text-gray-300 uppercase">Total Pts</div>
+                         </div>
+                    </a>
+                `;
+            });
         }
 
-        // Initialize
-        fetchStats();
+        function initMainChart(data) {
+            const options = {
+                series: [{
+                    name: 'Avg Score',
+                    data: data || [0, 0, 0, 0, 0, 0, 0]
+                }],
+                chart: {
+                    type: 'area',
+                    height: 350,
+                    toolbar: { show: false },
+                    fontFamily: 'Plus Jakarta Sans',
+                    animations: { enabled: true, easing: 'easeinout', speed: 800 }
+                },
+                fill: {
+                    type: 'gradient',
+                    gradient: { shadeIntensity: 1, opacityFrom: 0.45, opacityTo: 0.05, stops: [20, 100] }
+                },
+                colors: ['#00A78E'],
+                dataLabels: { enabled: false },
+                stroke: { curve: 'smooth', width: 4 },
+                xaxis: {
+                    categories: ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'],
+                    axisBorder: { show: false },
+                    axisTicks: { show: false },
+                    labels: { style: { colors: '#9ca3af', fontWeight: 700, fontSize: '10px' } }
+                },
+                yaxis: {
+                    labels: { style: { colors: '#9ca3af', fontWeight: 700, fontSize: '10px' } }
+                },
+                grid: { borderColor: '#f3f4f6', strokeDashArray: 4 }
+            };
+            new ApexCharts(document.getElementById('main-chart'), options).render();
+        }
+
+        function initSparkline(data) {
+            const options = {
+                series: [{ data: data || [0] }],
+                chart: { type: 'line', height: 40, sparkline: { enabled: true } },
+                stroke: { curve: 'smooth', width: 3 },
+                colors: ['#00A78E'],
+                tooltip: { enabled: false }
+            };
+            new ApexCharts(document.getElementById('mini-sparkline'), options).render();
+        }
+
+        fetchDashboard();
     </script>
 </body>
+
 </html>
