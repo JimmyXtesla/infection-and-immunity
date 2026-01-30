@@ -27,18 +27,7 @@
                     <span class="text-[#00A78E]">Users</span>
                 </nav>
                 <div class="flex items-center gap-3 mt-4 md:mt-0">
-                    <div class="flex -space-x-2 mr-4">
-                        <img src="https://i.pravatar.cc/100?u=1" class="w-8 h-8 rounded-full border-2 border-white"
-                            alt="">
-                        <img src="https://i.pravatar.cc/100?u=2" class="w-8 h-8 rounded-full border-2 border-white"
-                            alt="">
-                        <img src="https://i.pravatar.cc/100?u=3" class="w-8 h-8 rounded-full border-2 border-white"
-                            alt="">
-                        <div
-                            class="w-8 h-8 rounded-full border-2 border-white bg-gray-100 flex items-center justify-center text-[10px] font-bold text-gray-500 bg-[#e6f6f4] text-[#00A78E]">
-                            +8</div>
-                    </div>
-                    <button class="btn-outline flex items-center gap-2 text-sm">
+                    <button class="btn-outline flex items-center gap-2 text-sm hidden md:flex">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                             <path
                                 d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
@@ -108,12 +97,6 @@
                     </div>
                     <div class="flex items-center justify-between">
                         <p class="text-5xl font-black" id="stat-admins-count">...</p>
-                        <div class="flex -space-x-3">
-                            <img src="https://i.pravatar.cc/100?u=a1"
-                                class="w-10 h-10 rounded-full border-4 border-white" alt="">
-                            <img src="https://i.pravatar.cc/100?u=a2"
-                                class="w-10 h-10 rounded-full border-4 border-white" alt="">
-                        </div>
                     </div>
                 </div>
             </div>
@@ -359,7 +342,9 @@
                         <td class="px-8 py-5" onclick="event.stopPropagation()"><input type="checkbox" class="w-4 h-4 rounded-md border-gray-200 text-[#00A78E] focus:ring-[#00A78E]"></td>
                         <td class="px-8 py-5">
                             <div class="flex items-center gap-4">
-                                <img src="https://ui-avatars.com/api/?name=${encodeURIComponent(uName)}&background=f3f4f6&color=111827&bold=true" class="w-10 h-10 rounded-full" alt="">
+                                <div class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 font-black text-sm">
+                                    ${uName.charAt(0).toUpperCase()}
+                                </div>
                                 <div>
                                     <div class="text-sm font-black text-gray-900 group-hover:text-[#00A78E] transition-colors">${uName}</div>
                                     <div class="text-[10px] font-bold text-gray-400 mt-0.5">Joined ${dateStr} at ${timeStr}</div>

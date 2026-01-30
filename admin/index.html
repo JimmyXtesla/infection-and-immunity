@@ -214,7 +214,9 @@
                 list.innerHTML += `
                     <a href="profile.html?id=${u.id}" class="flex items-center justify-between group p-2 hover:bg-gray-50 rounded-xl transition-all">
                          <div class="flex items-center gap-4">
-                            <img src="https://ui-avatars.com/api/?name=${encodeURIComponent(uName)}&background=f3f4f6&color=00A78E&bold=true" class="w-10 h-10 rounded-xl shadow-sm group-hover:scale-110 transition-transform" alt="">
+                            <div class="w-10 h-10 rounded-xl bg-gray-100 flex items-center justify-center text-gray-600 font-black text-sm shadow-sm group-hover:scale-110 transition-transform">
+                                ${uName.charAt(0).toUpperCase()}
+                            </div>
                             <div>
                                 <p class="text-sm font-black text-gray-900 group-hover:text-[#00A78E]">${uName}</p>
                                 <p class="text-[10px] font-bold text-gray-400 uppercase tracking-tighter">${uRole}</p>

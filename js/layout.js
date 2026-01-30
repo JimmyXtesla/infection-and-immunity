@@ -9,7 +9,7 @@ const Layout = {
         const role = localStorage.getItem('userRole') || 'leader';
         return {
             name: 'ScoreFlow',
-            logoColor: '#00A78E',
+            logoColor: '#ffffffff',
             bg: '#ffffff'
         };
     },
@@ -49,7 +49,7 @@ const Layout = {
         ];
 
         const sidebarHTML = `
-            <div id="hs-sidebar-footer" class="hs-overlay [--auto-close:lg] lg:block lg:translate-x-0 lg:end-auto lg:bottom-0 w-64 hs-overlay-open:translate-x-0 -translate-x-full transition-all duration-300 transform h-full hidden fixed top-0 start-0 bottom-0 z-[60] bg-white border-e border-gray-100">
+            <div id="hs-sidebar-footer" class="hs-overlay hs-overlay-open:translate-x-0 -translate-x-full fixed top-0 start-0 transition-all duration-300 transform h-full w-64 z-[60] bg-white border-e border-gray-100 lg:block lg:translate-x-0 lg:end-auto lg:bottom-0">
                 <div class="relative flex flex-col h-full">
                     <header class="p-6 mb-2">
                         <a class="flex items-center gap-3" href="/">
@@ -122,7 +122,9 @@ const Layout = {
                     </div>
                     <div class="h-8 w-px bg-gray-100"></div>
                     <div class="flex items-center gap-3 pl-2">
-                        <img src="https://ui-avatars.com/api/?name=${encodeURIComponent(user.name)}&background=00A78E&color=fff" class="w-10 h-10 rounded-full border-2 border-white shadow-sm" alt="">
+                        <div class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 font-black text-sm border-2 border-white shadow-sm">
+                            ${user.name.charAt(0).toUpperCase()}
+                        </div>
                         <div class="hidden xl:block">
                             <p class="text-xs font-bold text-gray-900">${user.name}</p>
                             <p class="text-[10px] font-medium text-gray-400">${user.email}</p>

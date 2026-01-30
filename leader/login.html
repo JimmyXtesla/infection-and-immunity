@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Command Access | ScoreFlow Admin</title>
+    <title>Leader Portal | Infection & Immunity</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="../css/style.css">
 </head>
@@ -13,7 +13,7 @@
 
     <div class="max-w-md w-full">
         <div class="text-center mb-8">
-            <h1 class="text-3xl font-black text-gray-900 tracking-tight">Admin Portal</h1>
+            <h1 class="text-3xl font-black text-gray-900 tracking-tight">Leader Portal</h1>
             <p class="text-sm font-medium text-gray-500 mt-2">Sign in to continue</p>
         </div>
 
@@ -27,14 +27,13 @@
             </div>
 
             <form id="auth-form" class="space-y-6">
-                <!-- Register Fields -->
                 <div id="register-fields" class="hidden space-y-6">
                     <div class="space-y-1.5">
                         <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-widest ml-1">Full
                             Name</label>
                         <input type="text" id="name"
                             class="w-full px-5 py-3 rounded-lg border border-gray-200 bg-gray-50 focus:bg-white focus:ring-2 focus:ring-gray-900 focus:border-gray-900 outline-none transition-all placeholder:text-gray-300 font-medium"
-                            placeholder="John Doe">
+                            placeholder="Dr. J. Smith">
                     </div>
                 </div>
 
@@ -43,7 +42,7 @@
                         class="block text-[10px] font-bold text-gray-500 uppercase tracking-widest ml-1">Email</label>
                     <input type="email" id="email" required
                         class="w-full px-5 py-3 rounded-lg border border-gray-200 bg-gray-50 focus:bg-white focus:ring-2 focus:ring-gray-900 focus:border-gray-900 outline-none transition-all placeholder:text-gray-300 font-medium"
-                        placeholder="admin@scoreflow.io">
+                        placeholder="name@research.edu">
                 </div>
 
                 <div class="space-y-1.5">
@@ -68,7 +67,8 @@
             </form>
         </div>
 
-        <p class="text-center mt-8 text-[10px] font-bold text-gray-400 uppercase tracking-widest">ScoreFlow Admin</p>
+        <p class="text-center mt-8 text-[10px] font-bold text-gray-400 uppercase tracking-widest">Infection & Immunity
+        </p>
     </div>
 
     <script>
@@ -110,8 +110,8 @@
             const name = document.getElementById('name').value;
 
             const endpoint = currentMode === 'login' ? '/auth/login' : '/auth/register';
-            // Force role to ADMIN for registration on this page
-            const payload = currentMode === 'login' ? { email, password } : { name, email, password, role: 'ADMIN' };
+            // Force role to LEADER for registration on this page
+            const payload = currentMode === 'login' ? { email, password } : { name, email, password, role: 'LEADER' };
 
             try {
                 const res = await fetch(`${API_URL}${endpoint}`, {
@@ -123,22 +123,29 @@
                 const data = await res.json();
                 if (res.ok) {
                     if (currentMode === 'register') {
-                        alert("Admin Account Created. Please Login.");
+                        alert("Leader Account Created. Please Login.");
                         setMode('login');
                         return;
                     }
+
                     localStorage.setItem('token', data.token);
                     localStorage.setItem('user', JSON.stringify(data.user));
                     localStorage.setItem('userRole', data.user.role.toLowerCase());
 
-                    if (data.user.role === 'ADMIN') {
+                    if (data.user.role === 'LEADER') {
+                        window.location.href = 'index.html';
+                    } else if (data.user.role === 'ADMIN') {
+                        // Admins can probably access leader views too, but let's warn or redirect
                         window.location.href = 'index.html';
                     } else {
-                        alert("Access Denied. Admin credentials required.");
-                        localStorage.clear();
+                        // Regular members don't have a portal yet or share leader portal?
+                        // Assuming members use this too for now, or maybe only leaders.
+                        // The prompt asked specifically for Leader Login.
+                        if (data.user.role === 'MEMBER') alert("Welcome Member. Redirecting...");
+                        window.location.href = 'index.html';
                     }
                 } else {
-                    alert(data.error || "Login Failed");
+                    alert(data.error || "Access Denied");
                 }
             } catch (err) {
                 alert("Connection Error");

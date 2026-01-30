@@ -17,32 +17,18 @@
             <div class="flex items-center justify-center md:justify-start gap-4 mb-8">
                 <div
                     class="w-16 h-16 rounded-[1.5rem] flex items-center justify-center text-white font-black bg-[#00A78E] shadow-2xl shadow-[#00A78E]/20">
-                    <svg class="w-10 h-10" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
-                    </svg>
+
                 </div>
                 <div>
-                    <h1 class="text-4xl font-black text-gray-900 tracking-tighter">ScoreFlow</h1>
-                    <p class="text-[10px] font-black text-[#00A78E] uppercase tracking-[0.2em] mt-1">Personnel
-                        Management System</p>
+                    <p class="text-[10px] font-black text-[#00A78E] uppercase tracking-[0.2em] mt-1">Infection and
+                        Immunity</p>
                 </div>
             </div>
             <h2 class="text-5xl font-black text-gray-900 tracking-tighter leading-tight mb-6">
                 Performance <br><span class="text-[#00A78E]">Visualization.</span>
             </h2>
-            <p class="text-gray-400 font-medium text-lg max-w-sm mb-10 leading-relaxed">
-                Connect your presentation cohorts and track performance trends with our state-of-the-art
-                evaluation metrics.
-            </p>
+
             <div class="flex items-center gap-6 justify-center md:justify-start">
-                <div class="flex -space-x-3">
-                    <img src="https://i.pravatar.cc/100?u=1"
-                        class="w-10 h-10 rounded-full border-4 border-white shadow-sm" alt="">
-                    <img src="https://i.pravatar.cc/100?u=2"
-                        class="w-10 h-10 rounded-full border-4 border-white shadow-sm" alt="">
-                    <img src="https://i.pravatar.cc/100?u=3"
-                        class="w-10 h-10 rounded-full border-4 border-white shadow-sm" alt="">
-                </div>
                 <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest" id="lp-member-count">
                     CONNECTING TO DATABASE...</p>
             </div>
@@ -58,7 +44,7 @@
 
             <div class="space-y-4">
                 <button onclick="auth('leader')"
-                    class="group w-full p-8 rounded-[2rem] border border-gray-100 hover:border-[#00A78E] hover:bg-[#e6f6f4] transition-all duration-500 flex items-center justify-between text-left">
+                    class="group w-full p-8  border border-gray-100 hover:border-[#00A78E] hover:bg-[#e6f6f4] transition-all duration-500 flex items-center justify-between text-left">
                     <div class="flex items-center gap-6">
                         <div
                             class="w-14 h-14 rounded-2xl bg-gray-50 group-hover:bg-[#00A78E] group-hover:text-white flex items-center justify-center text-gray-400 transition-all duration-500">
@@ -80,7 +66,7 @@
                 </button>
 
                 <button onclick="auth('admin')"
-                    class="group w-full p-8 rounded-[2rem] border border-gray-100 hover:border-[#ef4444] hover:bg-rose-50 transition-all duration-500 flex items-center justify-between text-left">
+                    class="group w-full p-8  border border-gray-100 hover:border-[#ef4444] hover:bg-rose-50 transition-all duration-500 flex items-center justify-between text-left">
                     <div class="flex items-center gap-6">
                         <div
                             class="w-14 h-14 rounded-2xl bg-gray-50 group-hover:bg-rose-500 group-hover:text-white flex items-center justify-center text-gray-400 transition-all duration-500">
@@ -116,17 +102,7 @@
         // Fetch Stats for Landing Page
         async function fetchLandingStats() {
             try {
-                const res = await fetch("https://scorer-api.vercel.app/api/users"); // Public endpoint or require generic token?
-                // The API requires a token usually. But for a landing page, we might not have one.
-                // However, I can check if I have a token in local storage or use a public stats endpoint if available.
-                // Looking at server.js, /api/users requires authenticateToken.
-                // /api/dashboard/stats also requires token.
-                // If no token, I can't fetch. 
-                // But the user didn't ask to implement public endpoints.
-                // I will try to use the token if available, otherwise show "Authorized Access Only" or generic text.
-                // Actually, I should probably leave it as static if I can't fetch it without login.
-                // BUT the user said "remove any hardcoded value".
-                // I will add a check.
+                const res = await fetch("https://scorer-api.vercel.app/api/users");
 
                 const token = localStorage.getItem('token');
                 if (token) {
@@ -135,9 +111,6 @@
                     });
                     if (res.ok) {
                         const data = await res.json();
-                        // The dashboard stats returns totalGroups, globalAverage.
-                        // It does NOT return total users count.
-                        // /api/users returns the list.
                         const uRes = await fetch("https://scorer-api.vercel.app/api/users", {
                             headers: { 'Authorization': `Bearer ${token}` }
                         });
