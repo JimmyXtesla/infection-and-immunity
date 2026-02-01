@@ -11,9 +11,20 @@
 
 <body class="bg-[#f9fafb] min-h-full font-sans">
 
-    <div id="top-header-pill"></div>
-    <div id="mobile-header-container"></div>
-    <div id="sidebar-container"></div>
+    <!-- Sidebar -->
+    <div id="hs-sidebar-footer" class="hs-overlay [--auto-close:lg] lg:block lg:translate-x-0 lg:end-auto lg:bottom-0 w-64 hs-overlay-open:translate-x-0 -translate-x-full transition-all duration-300 transform h-full hidden fixed top-0 start-0 bottom-0 z-[60] bg-white border-e border-gray-200" role="dialog" tabindex="-1">
+        <div class="relative flex flex-col h-full max-h-full">
+            <header class="p-4"><a class="font-black text-2xl text-indigo-600" href="/"I</a></header>
+            
+            <nav class="h-full overflow-y-auto p-3">
+                <ul class="space-y-1.5 text-sm">
+                    <li><a class="flex items-center gap-x-3 py-2 px-2.5 text-gray-700 rounded-lg hover:bg-gray-100" href="dashboard.html">Dashboard</a></li>
+                    <li><a class="flex items-center gap-x-3 py-2 px-2.5 bg-indigo-50 text-indigo-600 font-bold rounded-lg" href="users.html">Users</a></li>
+                    <li><a class="flex items-center gap-x-3 py-2 px-2.5 text-gray-700 rounded-lg hover:bg-gray-100" href="groups.html">Groups</a></li>
+                    <li><a class="flex items-center gap-x-3 py-2 px-2.5 text-gray-700 rounded-lg hover:bg-gray-100" href="rounds.html">Rounds</a></li>
+                    <li class="pt-4 border-t mt-4"><a class="flex items-center gap-x-3 py-2 px-2.5 text-gray-700 rounded-lg hover:bg-gray-100 font-semibold" href="score.html">Scoring Mode</a></li>
+                </ul>
+            </nav>
 
     <!-- Main Content -->
     <main class="lg:ps-64">
